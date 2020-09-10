@@ -25,20 +25,12 @@ public class CitizenStatus {
         private int sadness;
         private int anger;
 
-//        Emotions (int happiness, int love, int fear, int sadness, int anger) {
-//            this.happiness = happiness;
-//            this.love = love;
-//            this.fear = fear;
-//            this.sadness = sadness;
-//            this.anger = anger;
-//        }
-
-        private void generateEmotions () {
-            this.happiness = (int)(Math.random()*100);
-            this.love = (int)(Math.random()*100);
-            this.fear = (int)(Math.random()*100);
-            this.sadness = (int)(Math.random()*100);
-            this.anger = (int)(Math.random()*100);
+        Emotions (int happiness, int love, int fear, int sadness, int anger) {
+            this.happiness = happiness;
+            this.love = love;
+            this.fear = fear;
+            this.sadness = sadness;
+            this.anger = anger;
         }
     }
 
@@ -54,12 +46,5 @@ public class CitizenStatus {
             this.thirst = thirst;
             this.toilet = toilet;
         }
-    }
-
-
-
-    public int setRandomStats (){
-
-        return 10;
     }
 }
