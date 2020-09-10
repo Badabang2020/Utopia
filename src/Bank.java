@@ -28,7 +28,7 @@ public class Bank {
         return account.getBalance();
     }
 
-    public void takeMoney(ssn) {
+    public void takeMoney(String ssn) {
 
     }
 
