@@ -5,24 +5,24 @@ public class Citizen {
     private String lastName;
     private String socialSecurityNumber;
     private char gender;
-    private Date birthDate;
+    private int age;
     private Address address;
     private HealthInsurance healthInsurance;
     private Boolean isMarried;
-    private HealthStatus healthStatus;
+    private CitizenStatus citizenStatus;
 
     Citizen(String firstName, String lastName, String socialSecurityNumber,
-            char gender, Date birthDate, Address address, HealthInsurance healthInsurance,
-            Boolean isMarried, HealthStatus healthStatus) {
+            char gender, int age, Address address, HealthInsurance healthInsurance,
+            Boolean isMarried, CitizenStatus citizenStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.socialSecurityNumber = socialSecurityNumber;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.age = age;
         this.address = address;
         this.healthInsurance = healthInsurance;
         this.isMarried = isMarried;
-        this.healthStatus = healthStatus;
+        this.citizenStatus = citizenStatus;
     }
 
     public String getFirstName() {
@@ -57,12 +57,12 @@ public class Citizen {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public int getAge() {
+        return age;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Address getAddress() {
@@ -89,12 +89,12 @@ public class Citizen {
         isMarried = married;
     }
 
-    public HealthStatus getHealthStatus() {
-        return healthStatus;
+    public CitizenStatus getCitizenStatus() {
+        return citizenStatus;
     }
 
-    public void setHealthStatus(HealthStatus healthStatus) {
-        this.healthStatus = healthStatus;
+    public void setCitizenStatus(CitizenStatus citizenStatus) {
+        this.citizenStatus = citizenStatus;
     }
 
     public String toString() {
