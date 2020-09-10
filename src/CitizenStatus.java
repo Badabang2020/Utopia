@@ -3,6 +3,9 @@ public class CitizenStatus {
     private final int MAXCITIZENSTATUSUP = 100;
     private final int MAXCITIZENSTATUSDOWN = 100;
     private final int MINCITIZENSTATUSDOWN = 0;
+    MainStatus mainStatus;
+    Emotions emotions;
+    Needs needs;
 
     public class MainStatus {
         private int wallet = 0;
@@ -16,6 +19,38 @@ public class CitizenStatus {
 //            this.event = "free";
 //            this.eventTime = 0;
 //        }
+
+        public int getWallet() {
+            return wallet;
+        }
+
+        public void setWallet(int wallet) {
+            this.wallet = wallet;
+        }
+
+        public int getHealthbar() {
+            return healthbar;
+        }
+
+        public void setHealthbar(int healthbar) {
+            this.healthbar = healthbar;
+        }
+
+        public String getEvent() {
+            return event;
+        }
+
+        public void setEvent(String event) {
+            this.event = event;
+        }
+
+        public int getEventTime() {
+            return eventTime;
+        }
+
+        public void setEventTime(int eventTime) {
+            this.eventTime = eventTime;
+        }
     }
 
     public class Emotions {
@@ -32,6 +67,46 @@ public class CitizenStatus {
             this.sadness = sadness;
             this.anger = anger;
         }
+
+        public int getHappiness() {
+            return happiness;
+        }
+
+        public void setHappiness(int happiness) {
+            this.happiness = happiness;
+        }
+
+        public int getLove() {
+            return love;
+        }
+
+        public void setLove(int love) {
+            this.love = love;
+        }
+
+        public int getFear() {
+            return fear;
+        }
+
+        public void setFear(int fear) {
+            this.fear = fear;
+        }
+
+        public int getSadness() {
+            return sadness;
+        }
+
+        public void setSadness(int sadness) {
+            this.sadness = sadness;
+        }
+
+        public int getAnger() {
+            return anger;
+        }
+
+        public void setAnger(int anger) {
+            this.anger = anger;
+        }
     }
 
     public class Needs {
@@ -46,5 +121,61 @@ public class CitizenStatus {
             this.thirst = thirst;
             this.toilet = toilet;
         }
+
+        public int getSleep() {
+            return sleep;
+        }
+
+        public void setSleep(int sleep) {
+            this.sleep = sleep;
+        }
+
+        public int getHunger() {
+            return hunger;
+        }
+
+        public void setHunger(int hunger) {
+            this.hunger = hunger;
+        }
+
+        public int getThirst() {
+            return thirst;
+        }
+
+        public void setThirst(int thirst) {
+            this.thirst = thirst;
+        }
+
+        public int getToilet() {
+            return toilet;
+        }
+
+        public void setToilet(int toilet) {
+            this.toilet = toilet;
+        }
+    }
+
+    public MainStatus getMainStatus() {
+        return mainStatus;
+    }
+
+    public void setMainStatus(MainStatus mainStatus) {
+        this.mainStatus = mainStatus;
+    }
+
+    public Emotions getEmotions() {
+        return emotions;
+    }
+
+    public void setEmotions(Emotions emotions) {
+        this.emotions = emotions;
+    }
+
+    public Needs getNeeds() {
+        return needs;
+    }
+
+    public void setNeeds(Needs needs) {
+        this.needs = needs;
     }
 }
