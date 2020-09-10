@@ -100,4 +100,7 @@ public class Citizen {
     public String toString() {
         return getLastName() + " "+ getFirstName() + "\nHealth Insurance: " + healthInsurance.getInsuranceName();
     }
+    public void doEvent(Event event){
+        event.happens(this);
+    }
 }
