@@ -1,24 +1,19 @@
+import java.util.Random;
+
 public class CitizenStatus {
-    private final int MINCITIZENSTATUSUP = 0;
-    private final int MAXCITIZENSTATUSUP = 100;
-    private final int MAXCITIZENSTATUSDOWN = 100;
-    private final int MINCITIZENSTATUSDOWN = 0;
-    MainStatus mainStatus;
-    Emotions emotions;
-    Needs needs;
+    Random rdm = new Random();
+    private final int MINCITIZENSTATUS = 0;
+    private final int MAXCITIZENSTATUS = 100;
+
+    MainStatus mainStatus = new MainStatus();
+    Emotions emotions = new Emotions();
+    Needs needs = new Needs();
 
     public class MainStatus {
         private int wallet = 0;
         private int healthbar = 100;
         private String event = "free";
         private int eventTime = 0;
-
-//        MainStatus (int wallet, int healthbar){
-//            this.wallet = wallet;
-//            this.healthbar = healthbar;
-//            this.event = "free";
-//            this.eventTime = 0;
-//        }
 
         public int getWallet() {
             return wallet;
@@ -58,19 +53,11 @@ public class CitizenStatus {
     }
 
     public class Emotions {
-        private int happiness;
-        private int love;
-        private int fear;
-        private int sadness;
-        private int anger;
-
-        Emotions (int happiness, int love, int fear, int sadness, int anger) {
-            this.happiness = happiness;
-            this.love = love;
-            this.fear = fear;
-            this.sadness = sadness;
-            this.anger = anger;
-        }
+        private int happiness = rdm.nextInt(100) + 1;
+        private int love = rdm.nextInt(100) + 1;
+        private int fear = rdm.nextInt(100) + 1;
+        private int sadness = rdm.nextInt(100) + 1;
+        private int anger = rdm.nextInt(100) + 1;
 
         public int getHappiness() {
             return happiness;
@@ -118,17 +105,10 @@ public class CitizenStatus {
     }
 
     public class Needs {
-        private int sleep;
-        private int thirst;
-        private int hunger;
-        private int toilet;
-
-        Needs(int sleep, int thirst, int hunger, int toilet){
-            this.sleep = sleep;
-            this.thirst = thirst;
-            this.hunger = hunger;
-            this.toilet = toilet;
-        }
+        private int sleep = rdm.nextInt(70) + 31;
+        private int thirst = rdm.nextInt(70) + 31;
+        private int hunger = rdm.nextInt(70) + 31;
+        private int toilet = rdm.nextInt(70) + 31;
 
         public int getSleep() {
             return sleep;
