@@ -1,8 +1,7 @@
 public class CitizenStatus {
-    private final int MINCITIZENSTATUSUP = 0;
-    private final int MAXCITIZENSTATUSUP = 100;
-    private final int MAXCITIZENSTATUSDOWN = 100;
-    private final int MINCITIZENSTATUSDOWN = 0;
+    private final int MINCITIZENSTATUS = 0;
+    private final int MAXCITIZENSTATUS = 100;
+
     MainStatus mainStatus;
     Emotions emotions;
     Needs needs;
@@ -12,13 +11,6 @@ public class CitizenStatus {
         private int healthbar = 100;
         private String event = "free";
         private int eventTime = 0;
-
-//        MainStatus (int wallet, int healthbar){
-//            this.wallet = wallet;
-//            this.healthbar = healthbar;
-//            this.event = "free";
-//            this.eventTime = 0;
-//        }
 
         public int getWallet() {
             return wallet;
