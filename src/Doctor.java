@@ -1,9 +1,9 @@
 public class Doctor implements Event{
 
-    protected String praxisName;
+    protected String praxisName = "Doctor Best";
 
     private void healthCheck(Citizen citizen) {
-        citizen.getCitizenStatus().getMainStatus().setEvent("has a health check...");
+        citizen.getCitizenStatus().getMainStatus().setEvent("has a health check at" + praxisName + "'s Praxis...");
         if (citizen.getCitizenStatus().getMainStatus().getHealthbar() < 30) {
             treatment(citizen);
         }
