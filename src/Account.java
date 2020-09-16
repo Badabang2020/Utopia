@@ -9,16 +9,17 @@ public abstract class Account {
         return balance;
     }
     public int takeMoney(int value) {
-        if (balance < value) {
+        if (balance > value) {
             balance -= value;
             return value;
         }
         else {
+            value = balance;
             balance = 0;
-            return balance;
+            return value;
         }
     }
-    public void deployMoney(int value) {
-        balance += balance;
+    public void depositMoney(int value) {
+        balance += value;
     }
 }
