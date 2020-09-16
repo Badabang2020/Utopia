@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
 
 public class Bank implements Event {
 
@@ -62,12 +64,8 @@ public class Bank implements Event {
 
     @Override
     public void tick() {
-        Date date = UtopiaMain.myController.getUtopiaTime();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
         time++;
-        if (hour == 0 || time / 24 == 1) {
+        if (time / 24 == 1) {
             time = 0;
             Set<String> keys = bankAccounts.keySet();
             for (String key : keys) {
