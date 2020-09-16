@@ -30,7 +30,7 @@ public class Restaurant implements Event {
         int citzenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         for (MenuItem m: menuItems) {
             if (100 - citizenHunger > m.hunger && citzenMoney > m.cost) {
-                citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + "and gained " + m.hunger + "hunger.");
+                citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + " and gained " + m.hunger + " hunger.");
 
                 citizen.getCitizenStatus().getNeeds().setHunger(citizenHunger + m.hunger);
                 citizen.getCitizenStatus().getMainStatus().setWallet(citzenMoney - m.cost);
