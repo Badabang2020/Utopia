@@ -1,10 +1,13 @@
+import java.util.Random;
+
 public class CitizenStatus {
+    Random rdm = new Random();
     private final int MINCITIZENSTATUS = 0;
     private final int MAXCITIZENSTATUS = 100;
 
-    MainStatus mainStatus;
-    Emotions emotions;
-    Needs needs;
+    MainStatus mainStatus = new MainStatus();
+    Emotions emotions = new Emotions();
+    Needs needs = new Needs();
 
     public class MainStatus {
         private int wallet = 0;
@@ -45,24 +48,16 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getWallet() + " " + getHealthbar() + " " + getEvent() + " " + getEventTime();
+            return "Wallet: " + getWallet() + " Health: " + getHealthbar() + " Event: " + getEvent() + " Eventtime: " + getEventTime();
         }
     }
 
     public class Emotions {
-        private int happiness;
-        private int love;
-        private int fear;
-        private int sadness;
-        private int anger;
-
-        Emotions (int happiness, int love, int fear, int sadness, int anger) {
-            this.happiness = happiness;
-            this.love = love;
-            this.fear = fear;
-            this.sadness = sadness;
-            this.anger = anger;
-        }
+        private int happiness = rdm.nextInt(100) + 1;
+        private int love = rdm.nextInt(100) + 1;
+        private int fear = rdm.nextInt(100) + 1;
+        private int sadness = rdm.nextInt(100) + 1;
+        private int anger = rdm.nextInt(100) + 1;
 
         public int getHappiness() {
             return happiness;
@@ -105,22 +100,15 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getHappiness() + " " + getLove() + " " + getFear() + " " + getSadness() + " " + getAnger();
+            return "Happiness: " + getHappiness() + " Love: " + getLove() + " Fear: " + getFear() + " Sadness: " + getSadness() + " Anger: " + getAnger();
         }
     }
 
     public class Needs {
-        private int sleep;
-        private int thirst;
-        private int hunger;
-        private int toilet;
-
-        Needs(int sleep, int thirst, int hunger, int toilet){
-            this.sleep = sleep;
-            this.thirst = thirst;
-            this.hunger = hunger;
-            this.toilet = toilet;
-        }
+        private int sleep = rdm.nextInt(70) + 31;
+        private int thirst = rdm.nextInt(70) + 31;
+        private int hunger = rdm.nextInt(70) + 31;
+        private int toilet = rdm.nextInt(70) + 31;
 
         public int getSleep() {
             return sleep;
@@ -155,7 +143,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getSleep() + " " + getThirst() + " " + getHunger() + " " + getToilet();
+            return "Sleep: " + getSleep() + " Thirst: " + getThirst() + " Hunger: " + getHunger() + " Toilet: " + getToilet();
         }
     }
 
