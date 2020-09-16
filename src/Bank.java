@@ -1,9 +1,11 @@
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 
 public class Bank implements Event {
 
-
+    static int time = 0;
     HashMap<String, Account> bankAccounts = new HashMap<String, Account>();
 
     public void registerBankAccount(String ssn, int age) {
@@ -63,6 +65,17 @@ public class Bank implements Event {
 
     @Override
     public void tick() {
-        
+        time++;
+        if (time / 24 == 1) {
+            time = 0;
+            Set<String> keys = bankAccounts.keySet();
+            for (String key : keys) {
+                Account account = bankAccounts.get(keys);
+                account.calculateFees();
+                ///// Bonus money for each Utopian!! /////
+                /////    remove if 'work' exists     /////
+                account.depositMoney(100);
+            }
+        }
     }
 }
