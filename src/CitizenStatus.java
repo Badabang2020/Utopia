@@ -51,6 +51,10 @@ public class CitizenStatus {
         public void setEventTime(int eventTime) {
             this.eventTime = eventTime;
         }
+
+        public String toString(){
+            return getWallet() + " " + getHealthbar() + " " + getEvent() + " " + getEventTime();
+        }
     }
 
     public class Emotions {
@@ -107,18 +111,22 @@ public class CitizenStatus {
         public void setAnger(int anger) {
             this.anger = anger;
         }
+
+        public String toString(){
+            return getHappiness() + " " + getLove() + " " + getFear() + " " + getSadness() + " " + getAnger();
+        }
     }
 
     public class Needs {
         private int sleep;
-        private int hunger;
         private int thirst;
+        private int hunger;
         private int toilet;
 
-        Needs(int sleep, int hunger, int thirst, int toilet){
+        Needs(int sleep, int thirst, int hunger, int toilet){
             this.sleep = sleep;
-            this.hunger = hunger;
             this.thirst = thirst;
+            this.hunger = hunger;
             this.toilet = toilet;
         }
 
@@ -130,14 +138,6 @@ public class CitizenStatus {
             this.sleep = sleep;
         }
 
-        public int getHunger() {
-            return hunger;
-        }
-
-        public void setHunger(int hunger) {
-            this.hunger = hunger;
-        }
-
         public int getThirst() {
             return thirst;
         }
@@ -146,12 +146,24 @@ public class CitizenStatus {
             this.thirst = thirst;
         }
 
+        public int getHunger() {
+            return hunger;
+        }
+
+        public void setHunger(int hunger) {
+            this.hunger = hunger;
+        }
+
         public int getToilet() {
             return toilet;
         }
 
         public void setToilet(int toilet) {
             this.toilet = toilet;
+        }
+
+        public String toString(){
+            return getSleep() + " " + getThirst() + " " + getHunger() + " " + getToilet();
         }
     }
 
