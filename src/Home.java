@@ -1,4 +1,14 @@
-public class Home {
+public class Home implements Event{
+    @Override
+    public void happens(Citizen citizen) {
+        goToToilet(citizen);
+        goToSleep(citizen);
+    }
+
+    @Override
+    public void tick() {
+
+    }
 
     public void goToSleep(Citizen citizen){
         int checkSleep = citizen.getCitizenStatus().getNeeds().getSleep();

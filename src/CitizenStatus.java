@@ -48,7 +48,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getWallet() + " " + getHealthbar() + " " + getEvent() + " " + getEventTime();
+            return "Wallet: " + getWallet() + " Health: " + getHealthbar() + " Event: " + getEvent() + " Eventtime: " + getEventTime();
         }
     }
 
@@ -100,7 +100,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getHappiness() + " " + getLove() + " " + getFear() + " " + getSadness() + " " + getAnger();
+            return "Happiness: " + getHappiness() + " Love: " + getLove() + " Fear: " + getFear() + " Sadness: " + getSadness() + " Anger: " + getAnger();
         }
     }
 
@@ -143,7 +143,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getSleep() + " " + getThirst() + " " + getHunger() + " " + getToilet();
+            return "Sleep: " + getSleep() + " Thirst: " + getThirst() + " Hunger: " + getHunger() + " Toilet: " + getToilet();
         }
     }
 

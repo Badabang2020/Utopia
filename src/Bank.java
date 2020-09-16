@@ -46,19 +46,19 @@ public class Bank implements Event {
         if (wallet < 20) {
             int money = takeMoney(citizen.getSocialSecurityNumber());
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet + money);
-            citizen.getCitizenStatus().getMainStatus().setEvent("takes " + money + "UT$ from" +
-                    ((citizen.getGender() == 'm')? "his":"her") + "bank account.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("takes " + money + "UT$ from " +
+                    ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
         }
         else if (wallet > 100) {
             int money = wallet - 100;
             depositMoney(citizen.getSocialSecurityNumber(), money);
-            citizen.getCitizenStatus().getMainStatus().setEvent("puts " + money + "UT$ on" +
-                    ((citizen.getGender() == 'm')? "his":"her") + "bank account.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("puts " + money + "UT$ on " +
+                    ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
         }
         else {
             citizen.getCitizenStatus().getMainStatus().setEvent("has " +
                     checkAccount(citizen.getSocialSecurityNumber()) + "UT$ on " +
-                    ((citizen.getGender() == 'm')? "his":"her") + "bank account.");
+                    ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
         }
     }
 
