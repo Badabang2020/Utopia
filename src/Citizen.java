@@ -98,7 +98,10 @@ public class Citizen {
     }
 
     public String toString() {
-        return getLastName() + " "+ getFirstName() + "\nHealth Insurance: " + healthInsurance.getInsuranceName();
+        return getFirstName() + " " + getLastName() + getAge() + "\n" +
+                citizenStatus.getMainStatus().toString() + "\n" + 
+                citizenStatus.getNeeds().toString() + "\n" +
+                citizenStatus.getEmotions().toString();
     }
     public void doEvent(Event event){
         event.happens(this);
