@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Restaurant implements Event {
     ArrayList<MenuItem> menuItems;
 
+    //Adds the menues to an arraylist, sorted from big to small
     Restaurant() {
         menuItems = new ArrayList<MenuItem>();
         menuItems.add(new MenuItem("Large Menu", 10, 50, 30, 10));
@@ -24,13 +25,15 @@ public class Restaurant implements Event {
             this.hunger = hunger;
         }
     }
+
+    //check if he is hungry and got money -> gives him the first possible menu
     @Override
     public void happens(Citizen citizen) {
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
         int citzenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         for (MenuItem m: menuItems) {
             if (100 - citizenHunger > m.hunger && citzenMoney > m.cost) {
-                citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + "and gained " + m.hunger + "hunger.");
+                citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + " and gained " + m.hunger + " hunger.");
 
                 citizen.getCitizenStatus().getNeeds().setHunger(citizenHunger + m.hunger);
                 citizen.getCitizenStatus().getMainStatus().setWallet(citzenMoney - m.cost);
@@ -41,5 +44,11 @@ public class Restaurant implements Event {
     @Override
     public void tick() {
 
+    }
+
+    @Override
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Food, Category.Toilet};
+        return category;
     }
 }

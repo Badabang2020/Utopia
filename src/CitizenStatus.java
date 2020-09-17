@@ -5,6 +5,7 @@ public class CitizenStatus {
     private final int MINCITIZENSTATUS = 0;
     private final int MAXCITIZENSTATUS = 100;
 
+    // creating obj of our classes Mainstatus, Emotions and Needs
     MainStatus mainStatus = new MainStatus();
     Emotions emotions = new Emotions();
     Needs needs = new Needs();
@@ -48,11 +49,12 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getWallet() + " " + getHealthbar() + " " + getEvent() + " " + getEventTime();
+            return "Wallet: " + getWallet() + " Health: " + getHealthbar();
         }
     }
 
     public class Emotions {
+        // setting random numbers for Emotions when creating new citizen
         private int happiness = rdm.nextInt(100) + 1;
         private int love = rdm.nextInt(100) + 1;
         private int fear = rdm.nextInt(100) + 1;
@@ -100,11 +102,12 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getHappiness() + " " + getLove() + " " + getFear() + " " + getSadness() + " " + getAnger();
+            return "Happiness: " + getHappiness() + " Love: " + getLove() + " Fear: " + getFear() + " Sadness: " + getSadness() + " Anger: " + getAnger();
         }
     }
 
     public class Needs {
+        // setting random numbers for Needs when creating new citizen
         private int sleep = rdm.nextInt(70) + 31;
         private int thirst = rdm.nextInt(70) + 31;
         private int hunger = rdm.nextInt(70) + 31;
@@ -143,7 +146,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return getSleep() + " " + getThirst() + " " + getHunger() + " " + getToilet();
+            return "Sleep: " + getSleep() + " Thirst: " + getThirst() + " Hunger: " + getHunger() + " Toilet: " + getToilet();
         }
     }
 
