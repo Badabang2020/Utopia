@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Restaurant implements Event {
     ArrayList<MenuItem> menuItems;
 
+    //Adds the menues to an arraylist, sorted from big to small
     Restaurant() {
         menuItems = new ArrayList<MenuItem>();
         menuItems.add(new MenuItem("Large Menu", 10, 50, 30, 10));
@@ -24,6 +25,8 @@ public class Restaurant implements Event {
             this.hunger = hunger;
         }
     }
+
+    //check if he is hungry and got money -> gives him the first possible menu
     @Override
     public void happens(Citizen citizen) {
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
