@@ -73,7 +73,7 @@ public class Bank implements Event {
             time = 0;
             Set<String> keys = bankAccounts.keySet();
             for (String key : keys) {
-                Account account = bankAccounts.get(keys);
+                Account account = bankAccounts.get(key);
                 account.calculateFees();
                 ///// Bonus money for each Utopian!! /////
                 /////    remove if 'work' exists     /////
