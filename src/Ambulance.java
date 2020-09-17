@@ -4,11 +4,9 @@ public class Ambulance implements Event{
         int health = citizen.getCitizenStatus().getMainStatus().getHealthbar();
 
         if (health < 10) {
-            health = health + 20;
-            citizen.getCitizenStatus().getMainStatus().setHealthbar(health);
-            citizen.getCitizenStatus().getMainStatus().setEvent("20 HP added");
+            citizen.doEvent(GlobalStacker.registeredActivities.getregisteredActivities());
         }
-    };
+    }
     public void tick(){
 
     }
