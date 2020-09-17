@@ -32,14 +32,14 @@ public class Themepark implements Event {
         rollercoaster.tick();
     }
     @Override
-    public Category getCategory(){
+    public Category[] getCategory(){
         return Category.Fun;
     };
 
     private class Rollercoaster implements Event {
         ArrayList queue = new ArrayList();
         @Override
-        public Category getCategory(){
+        public Category[] getCategory(){
             return Category.Fun;
         };
 
