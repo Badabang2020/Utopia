@@ -100,5 +100,10 @@ public class Themepark implements Event {
         public void tick() {
 
         }
+
+        @Override
+        public Category getCategory() {
+            return Category.Food;
+        }
     }
 }

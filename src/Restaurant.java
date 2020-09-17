@@ -45,4 +45,10 @@ public class Restaurant implements Event {
     public void tick() {
 
     }
+
+    @Override
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Food, Category.Toilet};
+        return category;
+    }
 }

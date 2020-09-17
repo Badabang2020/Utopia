@@ -30,4 +30,9 @@ public class Doctor implements Event{
     @Override
     public void tick() {
     }
-}
+
+    @Override
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Health};
+        return category;
+    }}
