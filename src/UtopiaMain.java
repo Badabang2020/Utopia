@@ -58,76 +58,25 @@ public class UtopiaMain {
         System.out.println("------------------------------------");
         System.out.println("");
 
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
 
-        themepark.tick();
+        for (int i = 0; i < 99; i++) {
+            System.out.println((citizen));
+            System.out.println("");
+            System.out.println((citizen1));
+            System.out.println("");
+            System.out.println((citizen2));
+            System.out.println("");
+            System.out.println((citizen3));
 
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
+            themepark.tick();
 
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
+            System.out.println("");
+            System.out.println("------------------------------------");
+            System.out.println("");
+        }
 
-        themepark.tick();
 
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
 
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
-
-        themepark.tick();
-
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
-
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
-
-        themepark.tick();
-
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
-
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
-
-        themepark.tick();
-
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
-
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
-
-        themepark.tick();
-
-        System.out.println("");
-        System.out.println("------------------------------------");
-        System.out.println("");
-
-        System.out.println(eventtrack(citizen));
-        System.out.println(eventtrack(citizen1));
-        System.out.println(eventtrack(citizen2));
-        System.out.println(eventtrack(citizen3));
 
 
     }
