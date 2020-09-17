@@ -64,6 +64,7 @@ public class Bank implements Event {
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
             int money = wallet - 100;
             depositMoney(citizen.getSocialSecurityNumber(), money); //
+            citizen.getCitizenStatus().getMainStatus().setWallet(100);
             citizen.getCitizenStatus().getMainStatus().setEvent(msg + "puts " + money + "UT$ on " +
                     ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
         }
