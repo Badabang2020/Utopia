@@ -4,17 +4,25 @@ import java.util.Set;
 
 public class Bank implements Event {
 
+    private long bankTresor = 1000000;
+    private int startCredit;
     static int time = 0; // Event time for ticks of the day
-    HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank accounts List <SocialSecurityNumber, new Account>
+    private HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank accounts List <SocialSecurityNumber, new Account>
 
     public boolean registerBankAccount(String ssn, int age) { //register a new Bank Account
         if (!bankAccounts.containsKey(ssn)) {
             if (age < 18) {
-                bankAccounts.put(ssn, new ChildAccount()); // create a child account for the citizen
+                startCredit = 500;
+                bankAccounts.put(ssn, new ChildAccount(startCredit)); // create a child account for the citizen
+                bankTresor -= startCredit;
             } else if (age < 65) {
-                bankAccounts.put(ssn, new AdultAccount()); // create a adult account for the citizen
+                startCredit = 1000;
+                bankAccounts.put(ssn, new AdultAccount(startCredit)); // create a adult account for the citizen
+                bankTresor -= startCredit;
             } else {
-                bankAccounts.put(ssn, new SeniorAccount()); // create a senior account for the citizen
+                startCredit = 1500;
+                bankAccounts.put(ssn, new SeniorAccount(startCredit)); // create a senior account for the citizen
+                bankTresor -= startCredit;
             }
             return true;
         }
