@@ -10,8 +10,14 @@ public class Home implements Event{
 
     }
 
+    @Override
+         public Category[] getCategory() {
+            Category[] category = new Category[] {Category.Sleep, Category.Toilet};
+            return category;
+         }
+
     public void goToSleep(Citizen citizen){
-        // creating variable to store sleep from user
+        // creating variable to store sleep value from citizen
         int checkSleep = citizen.getCitizenStatus().getNeeds().getSleep();
         // if sleep is under 15, citizen should sleep 7 hours - gaining full recovery
         if(checkSleep < 15){
@@ -31,6 +37,7 @@ public class Home implements Event{
     }
 
     public void goToToilet(Citizen citizen){
+        // creating variable to store toilet value from citizen
         int checkToilet = citizen.getCitizenStatus().getNeeds().getToilet();
 
         if(checkToilet < 15) {
