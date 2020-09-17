@@ -33,14 +33,14 @@ public class Themepark implements Event {
     }
     @Override
     public Category[] getCategory(){
-        return Category.Fun;
+        return new Category[] {Category.Fun};
     };
 
     private class Rollercoaster implements Event {
         ArrayList queue = new ArrayList();
         @Override
         public Category[] getCategory(){
-            return Category.Fun;
+            return null;
         };
 
         @Override
@@ -87,8 +87,8 @@ public class Themepark implements Event {
 
     private class Icecream implements Event{
         @Override
-        public Category getCategory(){
-            return Category.Fun;
+        public Category[] getCategory(){
+            return null;
         };
         @Override
         public void happens(Citizen citizen) {
@@ -101,9 +101,6 @@ public class Themepark implements Event {
 
         }
 
-        @Override
-        public Category getCategory() {
-            return Category.Food;
-        }
+
     }
 }
