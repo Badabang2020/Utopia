@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-
+hallo Matthias
 public class Themepark implements Event {
     private ArrayList<Citizen> guests = new ArrayList<Citizen>();
     private Rollercoaster rollercoaster = new Rollercoaster();
