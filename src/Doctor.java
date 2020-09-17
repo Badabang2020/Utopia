@@ -32,7 +32,7 @@ public class Doctor implements Event{
     }
 
     @Override
-    public Category getCategory() {
-        return Category.Health;
-    }
-}
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Health};
+        return category;
+    }}

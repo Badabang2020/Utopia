@@ -47,7 +47,8 @@ public class Restaurant implements Event {
     }
 
     @Override
-    public Category getCategory() {
-        return Category.Food;
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Food, Category.Toilet};
+        return category;
     }
 }
