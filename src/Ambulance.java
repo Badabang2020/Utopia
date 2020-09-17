@@ -15,7 +15,7 @@ public class Ambulance implements Event{
 
     @Override
     public Category[] getCategory() {
-        return new Category[] {Category.Health,};
+        return new Category[] {Category.Health};
     }
 
     ;
