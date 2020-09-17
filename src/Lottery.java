@@ -44,5 +44,4 @@ public class Lottery implements Event{
     public Category[] getCategory() {
         return new Category[] {Category.Money, Category.Fun};
     }
-
 }
