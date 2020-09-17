@@ -68,8 +68,22 @@ public class Cinema implements Event {
         // picks Moive
         for (Movie movie : movieList) {
             if (citizenMoney > movie.cost) {
+                // picks Star Wars
+                if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0) {
+                    // generate text
+                    text = "watched " + movie.name + " and gained " + movie.happiness + " happiness.";
+                    String text2 = pickSnack(citizen);
+
+                    // set event text
+                    citizen.getCitizenStatus().getMainStatus().setEvent(text + text2);
+
+                    // change status of citizen
+                    citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
+                    citizen.getCitizenStatus().getEmotions().setHappiness(citizenHappiness + movie.happiness);
+                    break;
+                }
                 // picks Titanic
-                if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0) {
+                else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0) {
                     // generate text
                     text = "watched " + movie.name + " and gained " + movie.love + " love, but sadness was decreased by " + movie.sadness + ".";
                     String text2 = pickSnack(citizen);
@@ -81,20 +95,7 @@ public class Cinema implements Event {
                     citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
                     citizen.getCitizenStatus().getEmotions().setLove(citizenLove + movie.love);
                     citizen.getCitizenStatus().getEmotions().setSadness(citizenSadness + movie.sadness);
-
-                }
-                // picks Star Wars
-                else if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0) {
-                    // generate text
-                    text = "watched " + movie.name + " and gained " + movie.happiness + " happiness.";
-                    String text2 = pickSnack(citizen);
-
-                    // set event text
-                    citizen.getCitizenStatus().getMainStatus().setEvent(text + text2);
-
-                    // change status of citizen
-                    citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
-                    citizen.getCitizenStatus().getEmotions().setHappiness(citizenHappiness + movie.happiness);
+                    break;
                 }
             }
         }
