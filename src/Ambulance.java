@@ -10,5 +10,12 @@ public class Ambulance implements Event{
     };
     public void tick(){
 
-    };
+    }
+
+    @Override
+    public Category[] getCategory() {
+        return new Category[] {Category.Health,};
+    }
+
+    ;
 }
