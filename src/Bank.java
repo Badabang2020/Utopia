@@ -81,4 +81,10 @@ public class Bank implements Event {
             }
         }
     }
+
+    @Override
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Money};
+        return category;
+    }
 }
