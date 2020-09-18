@@ -25,24 +25,8 @@ public class Tester {
             UtopiaMain.myController.registerActivity(doctor);
             UtopiaMain.myController.registerActivity(bank);
             UtopiaMain.myController.registerActivity(home);
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("!!!!!!! " + i + " !!!!!!", "XXXXXX", "" + rdm.nextInt(100), 'm', 30, new Address(), new GKK(), false, new CitizenStatus()));
-            }
-        }
-
-
-
-
-        Event[] events = new Event[] {restaurant, doctor, bank, home};
-
-        ArrayList<Event> toiletEvents = new ArrayList<>();
-
-        for (Event e : events) {
-            Category[] cats = e.getCategory();
-            for (Category c : cats) {
-                if (c == Category.Money) {
-                    toiletEvents.add(e);
-                }
             }
         }
 
@@ -52,6 +36,7 @@ public class Tester {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             citizen.doEvent(bank);
             System.out.println(citizen);
+            citizen.getCitizenStatus().getMainStatus().setWallet(0);
         }
 
 
