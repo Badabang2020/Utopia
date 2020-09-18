@@ -19,18 +19,18 @@ public class Themepark implements Event {
         rollercoaster.tick();
         Citizen current;
         for (int i = 0; i < guests.size(); ) {
-            current = guests.get(0);
+            current = guests.get(i);
             if (current.getCitizenStatus().getMainStatus().getWallet() <= 10) {
                 current.getCitizenStatus().getMainStatus().setEventTime(1);
                 current.getCitizenStatus().getMainStatus().setEvent("leaves the Themepark");
-                guests.remove(0);
+                guests.remove(i);
 
             } else if (current.getCitizenStatus().getEmotions().getFear() > 80) {
                 current.doEvent(icecream);
                 i++;
             } else {
                 current.doEvent(rollercoaster);
-                guests.remove(0);
+                guests.remove(i);
             }
         }
     }

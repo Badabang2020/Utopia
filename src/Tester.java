@@ -7,10 +7,11 @@ public class Tester {
     Event restaurant = new Restaurant();
     Event doctor = new Doctor();
     Event bank = new Bank();
-
     Event themepark = new Themepark();
     Event lottery = new Lottery();
     Event home = new Home();
+    Event ambulance = new Ambulance();
+    Event cinema = new Cinema();
 
 
     Random rand = new Random();
@@ -33,6 +34,8 @@ public class Tester {
             UtopiaMain.myController.registerActivity(doctor);
             UtopiaMain.myController.registerActivity(home);
             UtopiaMain.myController.registerActivity(lottery);
+            UtopiaMain.myController.registerActivity(ambulance);
+            UtopiaMain.myController.registerActivity(cinema);
             for (int i = 0; i < 100; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }
