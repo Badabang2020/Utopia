@@ -192,9 +192,11 @@ public class Cinema implements Event {
             // check if the values don't go over 100
             if (emotionsMovie[index] + emotionsCitizen[index] <= 100 && money >= movie.cost) {
                 // check if no other values go to 0 or lower
-                if (emotionsCitizen[0] + movie.happiness > 0 && emotionsCitizen[1] + movie.love > 0 &&
-                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[3] + movie.sadness > 0 &&
-                        emotionsCitizen[4] + movie.anger > 0) {
+                if (emotionsCitizen[0] + movie.happiness > 0 && emotionsCitizen[0] + movie.happiness <= 100 &&
+                        emotionsCitizen[1] + movie.love > 0 && emotionsCitizen[0] + movie.love <= 100 &&
+                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[0] + movie.fear <= 100 &&
+                        emotionsCitizen[3] + movie.sadness > 0 && emotionsCitizen[0] + movie.sadness <= 100 &&
+                        emotionsCitizen[4] + movie.anger > 0 && emotionsCitizen[0] + movie.anger <= 100) {
                     return movie;
                 }
             }
