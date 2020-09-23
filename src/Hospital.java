@@ -5,6 +5,7 @@ public class Hospital implements Event {
     public void happens(Citizen citizen) {
         citizen.getCitizenStatus().getMainStatus().setEventTime(-1);
         this.patient = citizen;
+        System.out.println("!test");
     }
 
     @Override
