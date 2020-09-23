@@ -1,7 +1,7 @@
 public class SeniorAccount extends Account{
     //set startbalance and fees
-    public SeniorAccount() {
-        balance = 1500;
+    public SeniorAccount(int credit) {
+        balance = credit;
         fee = 8;
     }
 }
