@@ -27,13 +27,15 @@ public class Restaurant implements Event {
     @Override
     public void happens(Citizen citizen) {
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
-        int citzenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
+        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         for (MenuItem m: menuItems) {
-            if (100 - citizenHunger > m.hunger && citzenMoney > m.cost) {
+            if (100 - citizenHunger > m.hunger && citizenMoney > m.cost) {
                 citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + "and gained " + m.hunger + "hunger.");
 
-                citizen.getCitizenStatus().getNeeds().setHunger(citizenHunger + m.hunger);
-                citizen.getCitizenStatus().getMainStatus().setWallet(citzenMoney - m.cost);
+                citizenHunger = citizenHunger + m.hunger;
+                citizenMoney = citizenMoney - m.cost;
+                citizen.getCitizenStatus().getNeeds().setHunger(citizenHunger);
+                citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney);
             }
         }
     }
