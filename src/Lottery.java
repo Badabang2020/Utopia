@@ -26,7 +26,7 @@ public class Lottery implements Event{
                 money = money + (costs * multiplier);
                 citizen.getCitizenStatus().getMainStatus().setEvent(costs * multiplier + " UT$ Won!");
             } else {
-                citizen.getCitizenStatus().getMainStatus().setEvent("Lost!!");
+                citizen.getCitizenStatus().getMainStatus().setEvent("Lost!");
             }
             citizen.getCitizenStatus().getMainStatus().setWallet(money);
         } else {
@@ -44,5 +44,4 @@ public class Lottery implements Event{
     public Category[] getCategory() {
         return new Category[] {Category.Money, Category.Fun};
     }
-
 }
