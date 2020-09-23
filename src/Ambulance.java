@@ -2,9 +2,9 @@ public class Ambulance implements Event{
 
     public void happens(Citizen citizen){
         int health = citizen.getCitizenStatus().getMainStatus().getHealthbar();
-
+        Hospital hospital = GlobalStacker.registeredActivities.
         if (health < 10) {
-            citizen.doEvent(GlobalStacker.registeredActivities.getregisteredActivities());
+            citizen.doEvent(hospital);
         }
     }
     public void tick(){
