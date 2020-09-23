@@ -62,7 +62,7 @@ public class Tester {
 
         }
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
-            GlobalStacker.registeredActivities.get(8).tick();
+            GlobalStacker.registeredActivities.get(i).tick();
         }
 
 
