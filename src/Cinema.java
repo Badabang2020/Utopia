@@ -7,8 +7,8 @@ public class Cinema implements Event {
     // To-Do -> generate Text automatically
     Cinema() {
         movieList = new ArrayList<>();
-        movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2, "watched Titanic and gained 30 love, but sadness was decreased by 30.")));
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2, "watched Star Wars and gained 20 happiness.")));
+        movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2)));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2)));
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
@@ -24,10 +24,10 @@ public class Cinema implements Event {
         public int fear;
         public int sadness;
         public int anger;
-        public int duration; // in hour
+        public int duration; // in hours
         public String eventText;
 
-        Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration, String eventText) {
+        Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration) {
             this.name = name;
             this.cost = cost;
             this.happiness = happiness;
@@ -36,7 +36,7 @@ public class Cinema implements Event {
             this.sadness = sadness;
             this.anger = anger;
             this.duration = duration;
-            this.eventText = eventText;
+            this.eventText = generateEventText(this);
         }
     }
 
@@ -61,18 +61,38 @@ public class Cinema implements Event {
         ArrayList<String> gains = new ArrayList<>();     // when emotion is positive
         ArrayList<String> decreases = new ArrayList<>(); // when emotion is negative
 
-        if ((movie.happiness > 0)) gains.add(Integer.toString(movie.happiness)); else if (movie.happiness < 0) decreases.add(Integer.toString(movie.happiness));
-        if ((movie.love > 0)) gains.add(Integer.toString(movie.love)); else if (movie.love < 0) decreases.add(Integer.toString(movie.love));
-        if ((movie.fear > 0)) gains.add(Integer.toString(movie.fear)); else if (movie.fear < 0) decreases.add(Integer.toString(movie.fear));
-        if ((movie.sadness > 0)) gains.add(Integer.toString(movie.sadness)); else if (movie.sadness < 0) decreases.add(Integer.toString(movie.sadness));
-        if ((movie.anger > 0)) gains.add(Integer.toString(movie.anger)); else if (movie.anger < 0) decreases.add(Integer.toString(movie.anger));
+        if ((movie.happiness > 0)) gains.add(movie.happiness + " happiness"); else if (movie.happiness < 0) decreases.add(movie.happiness + " happiness");
+        if ((movie.love > 0)) gains.add(movie.love + " love"); else if (movie.love < 0) decreases.add(movie.love + " love");
+        if ((movie.fear > 0)) gains.add(movie.fear + " fear"); else if (movie.fear < 0) decreases.add(movie.fear + " fear");
+        if ((movie.sadness > 0)) gains.add(movie.sadness + " sadness"); else if (movie.sadness < 0) decreases.add(movie.sadness + " sadness");
+        if ((movie.anger > 0)) gains.add(movie.anger + "anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
 
-        String text = "watched" + movie.name;
+        String text = "watched " + movie.name;
 
-        // use for loop
+        // adds the gains to the text
+        for (int i = 0; i < gains.size(); i++) {
+            if (i != 0) {
+                text += ", " + gains.get(i);
+            }
+            // adds gains after watched movie and the text only by the first emotion
+            else {
+                text += " and gains " + gains.get(i);
+            }
+        }
+
+        // adds the decreases to the text
+        for (int i = 0; i < gains.size(); i++) {
+            if (i != 0) {
+                text += ", " + gains.get(i);
+            }
+            // adds decreases after watched movie/gains and the text only by the first emotion
+            else {
+                text +=" but decreases " + gains.get(i);
+            }
+        }
 
 
-        return "";
+        return text + ".";
     }
 
 
@@ -143,7 +163,9 @@ public class Cinema implements Event {
                 citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - snack.cost);
                 citizen.getCitizenStatus().getNeeds().setToilet(citizen.getCitizenStatus().getNeeds().getToilet() - snack.toilet);
 
-                return " And ate " + snack.name + " thus gaining " + snack.hunger + " hunger.";
+                // he or she
+                String gender = (citizen.getGender() == 'm') ? "he" : "she";
+                return " In addition " + gender + " ate " + snack.name + " thus gaining " + snack.hunger + " hunger.";
             }
         }
         // nothing was bought
