@@ -118,6 +118,85 @@ public class Cinema implements Event {
         }
     }
 
+    private Movie getBestMovie(Citizen citizen) {
+        int[] emotionsCitizen = new int[5]; // [happiness, love, fear, sadness, anger]
+        int money = citizen.getCitizenStatus().getMainStatus().getWallet();             // money
+        emotionsCitizen[0] = citizen.getCitizenStatus().getEmotions().getHappiness();   // happiness
+        emotionsCitizen[1] = citizen.getCitizenStatus().getEmotions().getLove();        // love
+        emotionsCitizen[2] = citizen.getCitizenStatus().getEmotions().getFear();        // fear
+        emotionsCitizen[3] = citizen.getCitizenStatus().getEmotions().getSadness();     // sadness
+        emotionsCitizen[4] = citizen.getCitizenStatus().getEmotions().getAnger();       // anger
+
+        // find the lowest emotion value = highest priority
+        int index = 0, lowestValue = 101;
+        for (int i = 0; i < emotionsCitizen.length; i++) {
+            // found lowest number and what emotion
+            if (lowestValue > emotionsCitizen[i]) {
+                lowestValue = emotionsCitizen[i];
+                index = i;
+            }
+        }
+
+        // clone movieList
+        ArrayList<Movie> clonedMovieList = new ArrayList<>();
+//        for (Movie movie : movieList) { clonedMovieList.add(movie); }
+        clonedMovieList.addAll(movieList);
+
+        // sort movies descending from the emotion what has priority
+        ArrayList<Movie> sortedMovies = new ArrayList<>();
+        int[] emotionsMovie = new int[5]; // [happiness, love, fear, sadness, anger]
+        // iterate over clonedMovieList until there is no more movies in it
+        while (clonedMovieList.size() > 0) {
+            int indexMovie = 0;
+            int highestNumber = 0;
+            // find highest number
+            for (int i = 0; i < clonedMovieList.size(); i++) {
+                // initialise movie
+                Movie movie = clonedMovieList.get(i);
+                // sets emotion
+                emotionsMovie[0] = movie.happiness;
+                emotionsMovie[1] = movie.love;
+                emotionsMovie[2] = movie.fear;
+                emotionsMovie[3] = movie.sadness;
+                emotionsMovie[4] = movie.anger;
+
+                // found highest emotion number and there index
+                if (highestNumber < emotionsMovie[index]) {
+                    highestNumber = emotionsMovie[index];
+                    indexMovie = 0;
+                }
+            }
+
+            // puts the movie into sortedMovies and deletes it from cloneMovieList
+            sortedMovies.add(clonedMovieList.get(indexMovie));
+            clonedMovieList.remove(indexMovie);
+        }
+
+        // find the best movie for the specific emotion value
+        for (int i = 0; i < sortedMovies.size(); i++) {
+            // initialise movie
+            Movie movie = sortedMovies.get(i);
+            // sets emotion
+            emotionsMovie[0] = movie.happiness;
+            emotionsMovie[1] = movie.love;
+            emotionsMovie[2] = movie.fear;
+            emotionsMovie[3] = movie.sadness;
+            emotionsMovie[4] = movie.anger;
+
+            // check if the values don't go over 100
+            if (emotionsMovie[index] + emotionsCitizen[index] <= 100) {
+                // check if no other values go to 0 or lower
+                if (emotionsMovie[0] + movie.happiness > 0 && emotionsMovie[1] + movie.love > 0 &&
+                        emotionsMovie[2] + movie.fear > 0 && emotionsMovie[3] + movie.sadness > 0 &&
+                        emotionsMovie[4] + movie.anger > 0) {
+                    return movie;
+                }
+            }
+        }
+
+    return null;
+    }
+
     private void changeStatusOfCitizen(Citizen citizen, Movie movie) {
         // initialize variables of citizen status
         int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
