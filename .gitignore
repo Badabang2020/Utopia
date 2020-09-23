@@ -1,5 +1,10 @@
 
 .idea/
-
 Utopia.iml
 out/
+<<<<<<< HEAD
+=======
+Utopia-team.iml
+src/TestMain.java
+
+>>>>>>> cc283490fd1bee78614b19442e5e7093dc0508ac

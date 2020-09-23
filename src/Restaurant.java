@@ -25,11 +25,14 @@ public class Restaurant implements Event {
             this.hunger = hunger;
         }
     }
+
+    //check if he is hungry and got money -> gives him the first possible menu
     @Override
     public void happens(Citizen citizen) {
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
         int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         for (MenuItem m: menuItems) {
+
             if (100 - citizenHunger > m.hunger && citizenMoney > m.cost) {
                 citizen.getCitizenStatus().getMainStatus().setEvent("ate " + m.name + "and gained " + m.hunger + "hunger.");
 
@@ -44,5 +47,11 @@ public class Restaurant implements Event {
     @Override
     public void tick() {
 
+    }
+
+    @Override
+    public Category[] getCategory() {
+        Category[] category = new Category[] {Category.Food, Category.Toilet};
+        return category;
     }
 }
