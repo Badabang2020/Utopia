@@ -4,9 +4,8 @@ public class Ambulance implements Event{
         int health = citizen.getCitizenStatus().getMainStatus().getHealthbar();
 
         if (health < 10) {
-            health = health + 20;
+            health = health + 25;
             citizen.getCitizenStatus().getMainStatus().setHealthbar(health);
-            citizen.getCitizenStatus().getMainStatus().setEvent("20 HP added");
         }
     };
     public void tick(){
@@ -15,7 +14,7 @@ public class Ambulance implements Event{
 
     @Override
     public Category[] getCategory() {
-        return new Category[] {Category.Health,};
+        return new Category[] {Category.Health};
     }
 
     ;
