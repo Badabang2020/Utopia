@@ -56,7 +56,24 @@ public class Cinema implements Event {
         }
     }
 
+    // "watched Titanic and gained 30 love, but sadness was decreased by 30." | help Text
+    public String generateEventText(Movie movie) {
+        ArrayList<String> gains = new ArrayList<>();     // when emotion is positive
+        ArrayList<String> decreases = new ArrayList<>(); // when emotion is negative
 
+        if ((movie.happiness > 0)) gains.add(Integer.toString(movie.happiness)); else if (movie.happiness < 0) decreases.add(Integer.toString(movie.happiness));
+        if ((movie.love > 0)) gains.add(Integer.toString(movie.love)); else if (movie.love < 0) decreases.add(Integer.toString(movie.love));
+        if ((movie.fear > 0)) gains.add(Integer.toString(movie.fear)); else if (movie.fear < 0) decreases.add(Integer.toString(movie.fear));
+        if ((movie.sadness > 0)) gains.add(Integer.toString(movie.sadness)); else if (movie.sadness < 0) decreases.add(Integer.toString(movie.sadness));
+        if ((movie.anger > 0)) gains.add(Integer.toString(movie.anger)); else if (movie.anger < 0) decreases.add(Integer.toString(movie.anger));
+
+        String text = "watched" + movie.name;
+
+        // use for loop
+
+
+        return "";
+    }
 
 
     @Override
