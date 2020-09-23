@@ -94,28 +94,34 @@ public class Cinema implements Event {
 
     @Override
     public void happens(Citizen citizen) {
-        // initialize variables of citizen status
-        int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
-        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
-        int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
-        int citizenLove = citizen.getCitizenStatus().getEmotions().getLove();
-        int citizenFear = citizen.getCitizenStatus().getEmotions().getFear();
-        int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
-        int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
-
-        // picks Movie | currently bias towards Star Wars
-        for (Movie movie : movieList) {
-            // picks Star Wars
-            if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0 && citizenMoney > movie.cost) {
-                changeStatusOfCitizen(citizen, movie);
-                break;
-            }
-            // picks Titanic
-            else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0 && citizenMoney > movie.cost) {
-                changeStatusOfCitizen(citizen, movie);
-                break;
-            }
+        Movie bestMovie = getBestMovie(citizen);
+        if (bestMovie != null) {
+            changeStatusOfCitizen(citizen, bestMovie);
         }
+
+//        // initialize variables of citizen status
+//        int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
+//        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
+//        int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
+//        int citizenLove = citizen.getCitizenStatus().getEmotions().getLove();
+//        int citizenFear = citizen.getCitizenStatus().getEmotions().getFear();
+//        int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
+//        int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
+//
+//        // picks Movie | currently bias towards Star Wars
+//        for (Movie movie : movieList) {
+//            // picks Star Wars
+//            if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0 && citizenMoney > movie.cost) {
+//                changeStatusOfCitizen(citizen, movie);
+//                break;
+//            }
+//            // picks Titanic
+//            else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0 && citizenMoney > movie.cost) {
+//                changeStatusOfCitizen(citizen, movie);
+//                break;
+//            }
+//        }
+
     }
 
     private Movie getBestMovie(Citizen citizen) {
@@ -184,11 +190,11 @@ public class Cinema implements Event {
             emotionsMovie[4] = movie.anger;
 
             // check if the values don't go over 100
-            if (emotionsMovie[index] + emotionsCitizen[index] <= 100) {
+            if (emotionsMovie[index] + emotionsCitizen[index] <= 100 && money >= movie.cost) {
                 // check if no other values go to 0 or lower
-                if (emotionsMovie[0] + movie.happiness > 0 && emotionsMovie[1] + movie.love > 0 &&
-                        emotionsMovie[2] + movie.fear > 0 && emotionsMovie[3] + movie.sadness > 0 &&
-                        emotionsMovie[4] + movie.anger > 0) {
+                if (emotionsCitizen[0] + movie.happiness > 0 && emotionsCitizen[1] + movie.love > 0 &&
+                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[3] + movie.sadness > 0 &&
+                        emotionsCitizen[4] + movie.anger > 0) {
                     return movie;
                 }
             }
