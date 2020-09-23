@@ -4,17 +4,25 @@ import java.util.Set;
 
 public class Bank implements Event {
 
+    private long bankTresor = 1000000;
+    private int startCredit;
     static int time = 0; // Event time for ticks of the day
-    HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank accounts List <SocialSecurityNumber, new Account>
+    private HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank accounts List <SocialSecurityNumber, new Account>
 
     public boolean registerBankAccount(String ssn, int age) { //register a new Bank Account
         if (!bankAccounts.containsKey(ssn)) {
             if (age < 18) {
-                bankAccounts.put(ssn, new ChildAccount()); // create a child account for the citizen
+                startCredit = 500;
+                bankAccounts.put(ssn, new ChildAccount(startCredit)); // create a child account for the citizen
+                bankTresor -= startCredit;
             } else if (age < 65) {
-                bankAccounts.put(ssn, new AdultAccount()); // create a adult account for the citizen
+                startCredit = 1000;
+                bankAccounts.put(ssn, new AdultAccount(startCredit)); // create a adult account for the citizen
+                bankTresor -= startCredit;
             } else {
-                bankAccounts.put(ssn, new SeniorAccount()); // create a senior account for the citizen
+                startCredit = 1500;
+                bankAccounts.put(ssn, new SeniorAccount(startCredit)); // create a senior account for the citizen
+                bankTresor -= startCredit;
             }
             return true;
         }
@@ -38,8 +46,8 @@ public class Bank implements Event {
         ////////// citizen takes a rdm value of money /////////////
         int value = rdm.nextInt(100) + 50; // min 50 UT$
         Account account = bankAccounts.get(ssn);
-        account.takeMoney(value); // citizen takes their money
-        return value;
+        int output = account.takeMoney(value); // citizen takes their money
+        return output;
     }
 
     @Override
@@ -50,12 +58,18 @@ public class Bank implements Event {
         if (wallet < 20) { // if wallet int is smaller than 20, citizen takes money(random value between 50 and 149)
             int money = takeMoney(citizen.getSocialSecurityNumber());
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet + money); // put the money in the wallet
-            citizen.getCitizenStatus().getMainStatus().setEvent(msg + "takes " + money + "UT$ from " +
-                    ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
+            if (money != 0) {
+                citizen.getCitizenStatus().getMainStatus().setEvent(msg + "takes " + money + "UT$ from " +
+                        ((citizen.getGender() == 'm') ? "his" : "her") + " bank account.");
+            }
+            else {
+                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank Account.");
+            }
         }
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
             int money = wallet - 100;
             depositMoney(citizen.getSocialSecurityNumber(), money); //
+            citizen.getCitizenStatus().getMainStatus().setWallet(100);
             citizen.getCitizenStatus().getMainStatus().setEvent(msg + "puts " + money + "UT$ on " +
                     ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
         }
@@ -73,7 +87,7 @@ public class Bank implements Event {
             time = 0;
             Set<String> keys = bankAccounts.keySet();
             for (String key : keys) {
-                Account account = bankAccounts.get(keys);
+                Account account = bankAccounts.get(key);
                 account.calculateFees();
                 ///// Bonus money for each Utopian!! /////
                 /////    remove if 'work' exists     /////
