@@ -4,7 +4,6 @@ public class Cinema implements Event {
     ArrayList<Movie> movieList;
     ArrayList<Snack> snackList;
 
-    // To-Do -> generate Text automatically
     Cinema() {
         movieList = new ArrayList<>();
         movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2)));
@@ -25,7 +24,6 @@ public class Cinema implements Event {
         public int sadness;
         public int anger;
         public int duration; // in hours
-        public String eventText;
 
         Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration) {
             this.name = name;
@@ -36,7 +34,6 @@ public class Cinema implements Event {
             this.sadness = sadness;
             this.anger = anger;
             this.duration = duration;
-            this.eventText = generateEventText(this);
         }
     }
 
@@ -57,17 +54,17 @@ public class Cinema implements Event {
     }
 
     // "watched Titanic and gained 30 love, but sadness was decreased by 30." | help Text
-    public String generateEventText(Movie movie) {
+    public String generateEventText(Movie movie, Citizen citizen) {
         ArrayList<String> gains = new ArrayList<>();     // when emotion is positive
         ArrayList<String> decreases = new ArrayList<>(); // when emotion is negative
 
-        if ((movie.happiness > 0)) gains.add(movie.happiness + " happiness"); else if (movie.happiness < 0) decreases.add(movie.happiness + " happiness");
-        if ((movie.love > 0)) gains.add(movie.love + " love"); else if (movie.love < 0) decreases.add(movie.love + " love");
-        if ((movie.fear > 0)) gains.add(movie.fear + " fear"); else if (movie.fear < 0) decreases.add(movie.fear + " fear");
-        if ((movie.sadness > 0)) gains.add(movie.sadness + " sadness"); else if (movie.sadness < 0) decreases.add(movie.sadness + " sadness");
-        if ((movie.anger > 0)) gains.add(movie.anger + "anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
+        if (movie.happiness > 0) gains.add(movie.happiness + " happiness"); else if (movie.happiness < 0) decreases.add(movie.happiness + " happiness");
+        if (movie.love > 0) gains.add(movie.love + " love"); else if (movie.love < 0) decreases.add(movie.love + " love");
+        if (movie.fear > 0) gains.add(movie.fear + " fear"); else if (movie.fear < 0) decreases.add(movie.fear + " fear");
+        if (movie.sadness > 0) gains.add(movie.sadness + " sadness"); else if (movie.sadness < 0) decreases.add(movie.sadness + " sadness");
+        if (movie.anger > 0) gains.add(movie.anger + "anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
 
-        String text = "watched " + movie.name;
+        String text = citizen.getFirstName() + " watched " + movie.name;
 
         // adds the gains to the text
         for (int i = 0; i < gains.size(); i++) {
@@ -81,16 +78,15 @@ public class Cinema implements Event {
         }
 
         // adds the decreases to the text
-        for (int i = 0; i < gains.size(); i++) {
+        for (int i = 0; i < decreases.size(); i++) {
             if (i != 0) {
-                text += ", " + gains.get(i);
+                text += ", " + decreases.get(i);
             }
             // adds decreases after watched movie/gains and the text only by the first emotion
             else {
-                text +=" but decreases " + gains.get(i);
+                text +=" but decreases " + decreases.get(i);
             }
         }
-
 
         return text + ".";
     }
@@ -136,7 +132,7 @@ public class Cinema implements Event {
         citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
 
         // generate text + chooses a snack
-        text = movie.eventText + pickSnack(citizen);
+        text = generateEventText(movie, citizen) + pickSnack(citizen);
 
         // set event text + duration
         citizen.getCitizenStatus().getMainStatus().setEvent(text);
@@ -165,6 +161,7 @@ public class Cinema implements Event {
 
                 // he or she
                 String gender = (citizen.getGender() == 'm') ? "he" : "she";
+
                 return " In addition " + gender + " ate " + snack.name + " thus gaining " + snack.hunger + " hunger.";
             }
         }
