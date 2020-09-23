@@ -6,8 +6,11 @@ public class Cinema implements Event {
 
     Cinema() {
         movieList = new ArrayList<>();
-        movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2)));
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2)));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2))); // gives happiness
+        movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 2))); // gives love
+        movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,2));       // gives fear
+        movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,2));      // gives sadness
+        movieList.add(new Movie("Rambo",10,10,0,0,0,20,2));            // gives anger
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
@@ -98,30 +101,6 @@ public class Cinema implements Event {
         if (bestMovie != null) {
             changeStatusOfCitizen(citizen, bestMovie);
         }
-
-//        // initialize variables of citizen status
-//        int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
-//        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
-//        int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
-//        int citizenLove = citizen.getCitizenStatus().getEmotions().getLove();
-//        int citizenFear = citizen.getCitizenStatus().getEmotions().getFear();
-//        int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
-//        int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
-//
-//        // picks Movie | currently bias towards Star Wars
-//        for (Movie movie : movieList) {
-//            // picks Star Wars
-//            if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0 && citizenMoney > movie.cost) {
-//                changeStatusOfCitizen(citizen, movie);
-//                break;
-//            }
-//            // picks Titanic
-//            else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0 && citizenMoney > movie.cost) {
-//                changeStatusOfCitizen(citizen, movie);
-//                break;
-//            }
-//        }
-
     }
 
     private Movie getBestMovie(Citizen citizen) {
@@ -148,13 +127,14 @@ public class Cinema implements Event {
 //        for (Movie movie : movieList) { clonedMovieList.add(movie); }
         clonedMovieList.addAll(movieList);
 
+        // To-Do -> sorting doesn't work
         // sort movies descending from the emotion what has priority
         ArrayList<Movie> sortedMovies = new ArrayList<>();
         int[] emotionsMovie = new int[5]; // [happiness, love, fear, sadness, anger]
         // iterate over clonedMovieList until there is no more movies in it
         while (clonedMovieList.size() > 0) {
             int indexMovie = 0;
-            int highestNumber = 0;
+            int highestNumber = -1;
             // find highest number
             for (int i = 0; i < clonedMovieList.size(); i++) {
                 // initialise movie
@@ -169,7 +149,7 @@ public class Cinema implements Event {
                 // found highest emotion number and there index
                 if (highestNumber < emotionsMovie[index]) {
                     highestNumber = emotionsMovie[index];
-                    indexMovie = 0;
+                    indexMovie = i;
                 }
             }
 
