@@ -1,17 +1,24 @@
-import java.text.ParseException;
+import java.util.ArrayList;
 
 public class UtopiaMain {
-    static RecordSection utopiaCitizenRecords;
-    static GKK employeeCare;
-    static SVA companyCare;
-    public static void main(String[] args) throws ParseException {
-        utopiaCitizenRecords = new RecordSection();
-        employeeCare = new GKK();
-        companyCare = new SVA();
 
-        System.out.println(utopiaCitizenRecords.registerCitizen(new Citizen("Max", "Mustermann", "08/15", 'm', 24, new Address(), employeeCare, false, new CitizenStatus())));
-        System.out.println(utopiaCitizenRecords.registerCitizen(new Citizen("Mira", "Musterfrau", "47/11", 'w', 14, new Address(), companyCare, false, new CitizenStatus())));
-        System.out.println(utopiaCitizenRecords.registerCitizen(new Citizen("Moritz", "Mustermann", "08/15", 'm', 65, new Address(), employeeCare, false, new CitizenStatus())));
-        System.out.println(utopiaCitizenRecords.getCitizen("08/15"));
+    public static Controller myController = new Controller();
+
+
+
+
+        public static void main(String[] args) {
+            System.out.println("Controller is alive since "+myController.getStartedAT().toString());
+
+
+
+            // this is an endless loop. It will run so long as the controller returns true. It will return false on the next tick() after we call GlobalStacker.stopUtopia()
+            boolean endlessloop = true;
+
+            while (endlessloop) {
+                endlessloop = myController.cycle();
+            }// end of endless loop
+
+        } // end of psvm
     }
-}
+

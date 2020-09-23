@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Restaurant implements Event {
     ArrayList<MenuItem> menuItems;
 
+    //Adds the menues to an arraylist, sorted from big to small
     Restaurant() {
         menuItems = new ArrayList<MenuItem>();
         menuItems.add(new MenuItem("Large Menu", 10, 50, 30, 10));

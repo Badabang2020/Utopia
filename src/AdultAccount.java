@@ -1,7 +1,7 @@
 public class AdultAccount extends Account {
-
-    public AdultAccount() {
-        balance = 1000;
+    //set startbalance and fees
+    public AdultAccount(int credit) {
+        balance = credit;
         fee = 10;
     }
 }
