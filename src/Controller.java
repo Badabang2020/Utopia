@@ -98,18 +98,37 @@ public class Controller {
             Integer randmomIndex = GlobalStacker.generateRandomInteger(0, GlobalStacker.registeredActivities.size() - 1);
             return GlobalStacker.registeredActivities.get(GlobalStacker.generateRandomInteger(0,GlobalStacker.registeredActivities.size()-1));
         }
+
         return null; // if the size of ArrayList activities is zero
 
     }
 
 
+    public Event getBestOfferForCitizen(Citizen citizen){
 
-//    private Date addSecondsToJavaUtilDate(Date date, int seconds) { // used to add seconds to a date. => utopiaTime
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(date);
-//        calendar.add(Calendar.SECOND, seconds);
-//        return calendar.getTime();
-//    }
+        Category[] myCategListe = Category.values();
+        for (Category myEnumElement :myCategListe ) {
+            System.out.println(myEnumElement.toString());
+        }
+        System.out.println("EnumListe:"+myCategListe.toString());
+
+        // we build now a "table" of Arraylist<MyClass>
+
+        class MyClass {
+          Category category;
+          Double citizenhas;
+          Double citizenHasMax;
+          Double citizenneeds;
+        }
+
+        MyClass myclass = new MyClass();
+
+
+        return  null;
+    }
+
+
+
 
 
 }

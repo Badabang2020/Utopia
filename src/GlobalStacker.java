@@ -7,7 +7,7 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     private GlobalStacker(){}; // can not be instanced
 
     // change the following value to make utopia time run faster or slower. 3600 = 1 sec on earth is 1 hour on Utopia
-    final public static int  oneSecondOnEarthEqualsThisManySecondsOnUtopia = 3600;
+    final public static int  oneSecondOnEarthEqualsThisManySecondsOnUtopia = 900;
 
     //stop the world and exit the program. Change this value to false to stop Utopia
     public static boolean utopiaIsRunning=true;
