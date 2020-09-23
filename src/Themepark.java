@@ -88,6 +88,10 @@ public class Themepark implements Event {
                 Citizen guest = (Citizen) queue.get(i);
                 guest.getCitizenStatus().getMainStatus().setEvent(msg + "waits for Rollercoaster");
                 guest.getCitizenStatus().getEmotions().setFear(guest.getCitizenStatus().emotions.getFear() + 1);
+                guest.getCitizenStatus().getEmotions().setHappiness(guest.getCitizenStatus().getEmotions().getHappiness()+10);
+                if(guest.getCitizenStatus().getEmotions().getHappiness()>100){
+                    guest.getCitizenStatus().getEmotions().setHappiness(100);
+                }
             }
 
             while (onRide.size() > 0) {
