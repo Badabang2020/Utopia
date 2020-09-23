@@ -6,8 +6,8 @@ public class Cinema implements Event {
 
     Cinema() {
         movieList = new ArrayList<>();
-        movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0)));
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0)));
+        movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2, "watched Titanic and gained 30 love, but sadness was decreased by 30.")));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2, "watched Star Wars and gained 20 happiness.")));
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
@@ -23,8 +23,10 @@ public class Cinema implements Event {
         public int fear;
         public int sadness;
         public int anger;
+        public int duration; // in hour
+        public String eventText;
 
-        Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger) {
+        Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration, String eventText) {
             this.name = name;
             this.cost = cost;
             this.happiness = happiness;
@@ -32,6 +34,8 @@ public class Cinema implements Event {
             this.fear = fear;
             this.sadness = sadness;
             this.anger = anger;
+            this.duration = duration;
+            this.eventText = eventText;
         }
     }
 
@@ -62,43 +66,47 @@ public class Cinema implements Event {
         int citizenFear = citizen.getCitizenStatus().getEmotions().getFear();
         int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
         int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
-        String text = "";
 
-        boolean ticket = false;
         // picks Moive
         for (Movie movie : movieList) {
             if (citizenMoney > movie.cost) {
                 // picks Star Wars
                 if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0) {
-                    // generate text
-                    text = "watched " + movie.name + " and gained " + movie.happiness + " happiness.";
-                    String text2 = pickSnack(citizen);
-
-                    // set event text
-                    citizen.getCitizenStatus().getMainStatus().setEvent(text + text2);
-
-                    // change status of citizen
-                    citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
-                    citizen.getCitizenStatus().getEmotions().setHappiness(citizenHappiness + movie.happiness);
+                    changeStatusOfCitizen(citizen, movie);
                     break;
                 }
                 // picks Titanic
                 else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0) {
-                    // generate text
-                    text = "watched " + movie.name + " and gained " + movie.love + " love, but sadness was decreased by " + movie.sadness + ".";
-                    String text2 = pickSnack(citizen);
-
-                    // set event text
-                    citizen.getCitizenStatus().getMainStatus().setEvent(text + text2);
-
-                    // change status of citizen
-                    citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
-                    citizen.getCitizenStatus().getEmotions().setLove(citizenLove + movie.love);
-                    citizen.getCitizenStatus().getEmotions().setSadness(citizenSadness + movie.sadness);
+                    changeStatusOfCitizen(citizen, movie);
                     break;
                 }
             }
         }
+    }
+
+    private void changeStatusOfCitizen(Citizen citizen, Movie movie) {
+        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
+        int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
+        int citizenLove = citizen.getCitizenStatus().getEmotions().getLove();
+        int citizenFear = citizen.getCitizenStatus().getEmotions().getFear();
+        int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
+        int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
+        String text = "";
+
+        // generate text
+        text = movie.eventText + pickSnack(citizen);
+
+        // set event text + duration
+        citizen.getCitizenStatus().getMainStatus().setEvent(text);
+        citizen.getCitizenStatus().getMainStatus().setEventTime(movie.duration);
+
+        // change status of citizen
+        citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
+        citizen.getCitizenStatus().getEmotions().setHappiness(citizenHappiness + movie.happiness);
+        citizen.getCitizenStatus().getEmotions().setLove(citizenLove + movie.love);
+        citizen.getCitizenStatus().getEmotions().setFear(citizenFear + movie.fear);
+        citizen.getCitizenStatus().getEmotions().setSadness(citizenSadness + movie.sadness);
+        citizen.getCitizenStatus().getEmotions().setAnger(citizenAnger + movie.anger);
     }
 
     private String pickSnack(Citizen citizen) {
@@ -108,6 +116,7 @@ public class Cinema implements Event {
         // he buys Snack
         for (Snack snack : snackList) {
             if (100 - citizenHunger >= snack.hunger && citizenMoney >= snack.cost) {
+                // change status of citizen
                 citizen.getCitizenStatus().getMainStatus().setHealthbar(citizen.getCitizenStatus().getMainStatus().getHealthbar() + snack.health);
                 citizen.getCitizenStatus().getNeeds().setHunger(citizenHunger + snack.hunger);
                 citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - snack.cost);
