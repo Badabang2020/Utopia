@@ -46,8 +46,8 @@ public class Bank implements Event {
         ////////// citizen takes a rdm value of money /////////////
         int value = rdm.nextInt(100) + 50; // min 50 UT$
         Account account = bankAccounts.get(ssn);
-        account.takeMoney(value); // citizen takes their money
-        return value;
+        int output = account.takeMoney(value); // citizen takes their money
+        return output;
     }
 
     @Override
@@ -58,8 +58,13 @@ public class Bank implements Event {
         if (wallet < 20) { // if wallet int is smaller than 20, citizen takes money(random value between 50 and 149)
             int money = takeMoney(citizen.getSocialSecurityNumber());
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet + money); // put the money in the wallet
-            citizen.getCitizenStatus().getMainStatus().setEvent(msg + "takes " + money + "UT$ from " +
-                    ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
+            if (money != 0) {
+                citizen.getCitizenStatus().getMainStatus().setEvent(msg + "takes " + money + "UT$ from " +
+                        ((citizen.getGender() == 'm') ? "his" : "her") + " bank account.");
+            }
+            else {
+                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank Account.");
+            }
         }
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
             int money = wallet - 100;

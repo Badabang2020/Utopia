@@ -34,7 +34,7 @@ public class Controller {
 
     // ----------------------------------|  T h e   T I C K |---------------------------------------\\
     public void tick() {
-        if (this.lastUpdateAtSecond==25) GlobalStacker.stopUtopia();
+        if (this.lastUpdateAtSecond==5) GlobalStacker.stopUtopia();
 
         // let's tick every citizen - must be implementet in citizen
 //        for (Citizen citizen: GlobalStacker.registredCitizens) {
