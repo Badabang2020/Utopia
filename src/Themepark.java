@@ -20,7 +20,7 @@ public class Themepark implements Event {
         Citizen current;
         for (int i = 0; i < guests.size(); ) {
             current = guests.get(i);
-            if (current.getCitizenStatus().getMainStatus().getWallet() <= 10) {
+            if (current.getCitizenStatus().getMainStatus().getWallet() <= 10||current.getCitizenStatus().getMainStatus().getEventTime()<-6) {
                 current.getCitizenStatus().getMainStatus().setEventTime(1);
                 current.getCitizenStatus().getMainStatus().setEvent("leaves the Themepark");
                 guests.remove(i);
