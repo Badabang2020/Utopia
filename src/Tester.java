@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Tester {
@@ -35,7 +34,7 @@ public class Tester {
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
             for (int i = 0; i < 5; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
+                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new HealthInsurancePolicies(), false, new CitizenStatus()));
             }
         }
 
