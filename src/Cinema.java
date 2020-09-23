@@ -4,6 +4,7 @@ public class Cinema implements Event {
     ArrayList<Movie> movieList;
     ArrayList<Snack> snackList;
 
+    // To-Do -> generate Text automatically
     Cinema() {
         movieList = new ArrayList<>();
         movieList.add((new Movie("Titanic", 10, 0, 30, 0,-30, 0, 2, "watched Titanic and gained 30 love, but sadness was decreased by 30.")));
@@ -45,6 +46,7 @@ public class Cinema implements Event {
         public int hunger;
         public int cost;
         public int toilet;
+
         Snack (String name, int health, int hunger, int cost, int toilet) {
             this.name = name;
             this.cost = cost;
@@ -59,6 +61,7 @@ public class Cinema implements Event {
 
     @Override
     public void happens(Citizen citizen) {
+        // initialize variables of citizen status
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
         int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
@@ -67,24 +70,23 @@ public class Cinema implements Event {
         int citizenSadness = citizen.getCitizenStatus().getEmotions().getSadness();
         int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
 
-        // picks Moive
+        // picks Movie | currently bias towards Star Wars
         for (Movie movie : movieList) {
-            if (citizenMoney > movie.cost) {
-                // picks Star Wars
-                if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0) {
-                    changeStatusOfCitizen(citizen, movie);
-                    break;
-                }
-                // picks Titanic
-                else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0) {
-                    changeStatusOfCitizen(citizen, movie);
-                    break;
-                }
+            // picks Star Wars
+            if (citizenHappiness <= 100 - movie.happiness && movie.happiness != 0 && citizenMoney > movie.cost) {
+                changeStatusOfCitizen(citizen, movie);
+                break;
+            }
+            // picks Titanic
+            else if (citizenLove < 100 - movie.love && citizenSadness > 40 && movie.love != 0 && citizenMoney > movie.cost) {
+                changeStatusOfCitizen(citizen, movie);
+                break;
             }
         }
     }
 
     private void changeStatusOfCitizen(Citizen citizen, Movie movie) {
+        // initialize variables of citizen status
         int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet();
         int citizenHappiness = citizen.getCitizenStatus().getEmotions().getHappiness();
         int citizenLove = citizen.getCitizenStatus().getEmotions().getLove();
@@ -93,7 +95,10 @@ public class Cinema implements Event {
         int citizenAnger = citizen.getCitizenStatus().getEmotions().getAnger();
         String text = "";
 
-        // generate text
+        // buys the ticket
+        citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
+
+        // generate text + chooses a snack
         text = movie.eventText + pickSnack(citizen);
 
         // set event text + duration
@@ -101,7 +106,6 @@ public class Cinema implements Event {
         citizen.getCitizenStatus().getMainStatus().setEventTime(movie.duration);
 
         // change status of citizen
-        citizen.getCitizenStatus().getMainStatus().setWallet(citizenMoney - movie.cost);
         citizen.getCitizenStatus().getEmotions().setHappiness(citizenHappiness + movie.happiness);
         citizen.getCitizenStatus().getEmotions().setLove(citizenLove + movie.love);
         citizen.getCitizenStatus().getEmotions().setFear(citizenFear + movie.fear);
@@ -110,7 +114,7 @@ public class Cinema implements Event {
     }
 
     private String pickSnack(Citizen citizen) {
-        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet(); // update money
+        int citizenMoney = citizen.getCitizenStatus().getMainStatus().getWallet(); // updates money
         int citizenHunger = citizen.getCitizenStatus().getNeeds().getHunger();
 
         // he buys Snack
@@ -125,7 +129,7 @@ public class Cinema implements Event {
                 return " And ate " + snack.name + " thus gaining " + snack.hunger + " hunger.";
             }
         }
-
+        // nothing was bought
         return "";
     }
 
