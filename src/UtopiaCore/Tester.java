@@ -41,6 +41,13 @@ public class Tester {
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:src/Tester.java
+            UtopiaMain.myController.registerActivity(hospital);
+=======
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
+>>>>>>> a72cceeadf393038fae1a58c06d6dbe73cf8d68c
             for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
@@ -56,7 +63,15 @@ public class Tester {
                     citizen.doEvent(ambulance);
                 }
                 //else{
+<<<<<<< HEAD
                  //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
+=======
+<<<<<<< HEAD:src/Tester.java
+                 //   citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
+=======
+                 //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
+>>>>>>> a72cceeadf393038fae1a58c06d6dbe73cf8d68c
                 //}
             }
             else{
@@ -67,7 +82,15 @@ public class Tester {
 
         }
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
+<<<<<<< HEAD
             GlobalStacker.registeredActivities.get(8).tick();
+=======
+<<<<<<< HEAD:src/Tester.java
+            GlobalStacker.registeredActivities.get(i).tick();
+=======
+            GlobalStacker.registeredActivities.get(8).tick();
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
+>>>>>>> a72cceeadf393038fae1a58c06d6dbe73cf8d68c
         }
 
 
