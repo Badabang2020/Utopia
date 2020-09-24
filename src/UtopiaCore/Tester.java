@@ -30,6 +30,7 @@ public class Tester {
 
         Random rdm = new Random();
 
+
         if (GlobalStacker.registredCitizens.size() == 0 && GlobalStacker.registeredActivities.size() == 0) {
             UtopiaMain.myController.registerActivity(bank);
             UtopiaMain.myController.registerActivity(themepark);
