@@ -3,24 +3,16 @@ import java.util.ArrayList;
 public abstract class HealthInsurancePolicies {
 
     // creating template with variables we need fo each policiy (bronze-silver-gold)
-    private String policyNumber;  // e.g. B-00000001 - B for Bronze and serial number
-    private int premium;
-    private int retention;
-    private ArrayList<String> benefits;
+    protected String policyNumber;  // e.g. B-00000001 - B for Bronze and serial number
+    public int premium;
+    public int retention;
+    public ArrayList<String> benefits;
 
     HealthInsurancePolicies(int premium, int retention){
         this.premium = premium;
         this.retention = retention;
         benefits = new ArrayList<String>(); // Empty Benefits for Abstract Base Class
     }
-
-    public int demandPremiumMonthly (){
-        return 0;
-    };
-
-    public int payForMember() {
-        return 0;
-    };
 
     ArrayList<String> getBenefits() {
         return benefits;
@@ -53,4 +45,6 @@ public abstract class HealthInsurancePolicies {
     public void setRetention(int retention) {
         this.retention = retention;
     }
+
+
 }

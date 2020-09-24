@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-public class HealthInsurancePolicyGold extends HealthInsurancePolicies{
+public class HealthInsuranceGKKPolicyGold extends HealthInsurancePolicies{
 
     private static int counterGold = 0;
 
-    HealthInsurancePolicyGold(){
-        super(15,0);
+    HealthInsuranceGKKPolicyGold(){
+        super(25,0);
         ArrayList<String> goldBenefits = new ArrayList<String>();
         goldBenefits.add("doctor");
         goldBenefits.add("ambulance");
         setBenefits(goldBenefits);
         counterGold++;
-        setPolicyNumber(String.format("G" + "%07d", counterGold));
+        policyNumber = String.format("G- " + "%07d", counterGold);
     }
     @Override
     public String getPolicyNumber() {

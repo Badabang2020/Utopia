@@ -1,22 +1,23 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class HealthInsurancePolicyBronze extends HealthInsurancePolicies {
+public class HealthInsuranceGKKPolicyBronze extends HealthInsurancePolicies {
 
     // counting all new HealthInsurancePolicyBronze
     private static int counterBronze = 0;
 
-    // generate policyNumber
-    private String policyNumber;
-
     // initializing parameters
-    HealthInsurancePolicyBronze(){
-        super(5,15);
+    HealthInsuranceGKKPolicyBronze(){
+        super(5,5);
         ArrayList<String> bronzeBenefits = new ArrayList<String>();
         bronzeBenefits.add("doctor");
         setBenefits(bronzeBenefits);
         counterBronze++;
-        setPolicyNumber(String.format("B" + "%07d", counterBronze));
+        policyNumber = String.format("B- " + "%07d", counterBronze);
+    }
+
+    @Override
+    public void setPolicyNumber(String policyNumber) {
+        this.policyNumber = policyNumber;
     }
 
     @Override
@@ -33,4 +34,5 @@ public class HealthInsurancePolicyBronze extends HealthInsurancePolicies {
     public int getRetention() {
         return super.getRetention();
     }
+
 }

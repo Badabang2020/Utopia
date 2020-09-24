@@ -12,16 +12,22 @@ public class Doctor implements Event{
 
     private void treatment (Citizen citizen) {
         int wallet = citizen.getCitizenStatus().getMainStatus().getWallet();
-        String checkPolicyGold = citizen.getHealthInsurancePolicies().getPolicyNumber();
+        String checkPolicy = citizen.getHealthInsurancePolicies().getPolicyNumber();
+        int retentionOfCitizen = citizen.getHealthInsurancePolicies().getRetention();
 
         /////////////////// new from Rapha
-        if (checkPolicyGold.charAt(0) == 'G') {
+        if (checkPolicy.charAt(0) == 'G') {
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
             citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
-            ///////////////////
-        } else if (wallet < chargeDoctor) {
+        } else if (wallet < retentionOfCitizen) {
             citizen.getCitizenStatus().getMainStatus().setEvent("don't have enough money.");
+        } else if (wallet > retentionOfCitizen && checkPolicy.charAt(0) != 'G'){
+            wallet -= retentionOfCitizen;
+            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
+            citizen.getCitizenStatus().getMainStatus().setWallet(wallet);
+            citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
         } else {
             wallet -= chargeDoctor;
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
@@ -29,6 +35,7 @@ public class Doctor implements Event{
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
             citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
         }
+        ///////////////////
     }
 
     public int getChargeDoctor() {

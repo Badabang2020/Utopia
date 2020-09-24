@@ -3,14 +3,15 @@ import java.util.Random;
 public class Tester {
 
     static Integer runTheTestOnEveryThisNumberOfTicks = 1; // Change this value to set tick sequence that will run the following method
-    Event restaurant = new Restaurant();
+
     Event doctor = new Doctor();
     Event bank = new Bank();
-    Event themepark = new Themepark();
-    Event lottery = new Lottery();
-    Event home = new Home();
-    Event ambulance = new Ambulance();
-    Event cinema = new Cinema();
+//    Event themepark = new Themepark();
+//    Event lottery = new Lottery();
+//    Event home = new Home();
+//    Event ambulance = new Ambulance();
+//    Event cinema = new Cinema();
+    Event healthInsuranceGKK = new HealthInsuranceGKK();
 
     Random rand = new Random();
 
@@ -26,15 +27,16 @@ public class Tester {
 
         if (GlobalStacker.registredCitizens.size() == 0 && GlobalStacker.registeredActivities.size() == 0) {
             UtopiaMain.myController.registerActivity(bank);
-            UtopiaMain.myController.registerActivity(themepark);
-            UtopiaMain.myController.registerActivity(restaurant);
             UtopiaMain.myController.registerActivity(doctor);
-            UtopiaMain.myController.registerActivity(home);
-            UtopiaMain.myController.registerActivity(lottery);
-            UtopiaMain.myController.registerActivity(ambulance);
-            UtopiaMain.myController.registerActivity(cinema);
+            UtopiaMain.myController.registerActivity(healthInsuranceGKK);
+//            UtopiaMain.myController.registerActivity(themepark);
+//            UtopiaMain.myController.registerActivity(restaurant);
+//            UtopiaMain.myController.registerActivity(home);
+//            UtopiaMain.myController.registerActivity(lottery);
+//            UtopiaMain.myController.registerActivity(ambulance);
+//            UtopiaMain.myController.registerActivity(cinema);
             for (int i = 0; i < 5; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new HealthInsurancePolicies(), false, new CitizenStatus()));
+                UtopiaMain.myController.registerCitizen(new Citizen("" + i, "" + i + "!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), null, false, new CitizenStatus()));
             }
         }
 
@@ -45,8 +47,10 @@ public class Tester {
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
+                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30 && citizen.getCitizenStatus().getMainStatus().getIncome()>500 && citizen.getCitizenStatus().getMainStatus().getHealthbar()<30){
+                    citizen.doEvent(healthInsuranceGKK);
                     citizen.doEvent(bank);
+                    citizen.doEvent(doctor);
                 }
                 else{
                     citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));

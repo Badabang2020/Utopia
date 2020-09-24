@@ -75,7 +75,7 @@ public class Citizen {
         return healthInsurancePolicies;
     }
 
-    public void setHealthInsurance(HealthInsurancePolicies healthInsurancePolicies) {
+    public void setHealthInsurancePolicies (HealthInsurancePolicies healthInsurancePolicies) {
         this.healthInsurancePolicies = healthInsurancePolicies;
     }
 
