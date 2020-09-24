@@ -33,10 +33,10 @@ public class Fightclub implements Event{
             //fight goes on as long as both fighters have more than 15 health;
             while(health1 > 15 && health2 > 15){
                 if (rand.nextInt(2)==1){
-                    health1--;
+                    health1 -= rand.nextInt(18);
                 }
                 else{
-                    health2--;
+                    health2 -= rand.nextInt(18);
                 }
             }
             anger1-=50;
@@ -48,10 +48,11 @@ public class Fightclub implements Event{
             if(anger2 < 0){
                 anger2 = 0;
             }
-            if (health1==health2){
-                fighter1.getCitizenStatus().getMainStatus().setEvent("Draw in Fightclub");
-                fighter2.getCitizenStatus().getMainStatus().setEvent("Draw in Fightclub");
-            }
+            //draw should not be possible
+//            if (health1==health2){
+//                fighter1.getCitizenStatus().getMainStatus().setEvent("Draw in Fightclub");
+//                fighter2.getCitizenStatus().getMainStatus().setEvent("Draw in Fightclub");
+//            }
             if(health1>health2){
                 fighter1.getCitizenStatus().getMainStatus().setEvent("won a Fight.");
                 fighter2.getCitizenStatus().getMainStatus().setEvent("lost a Fight.");
