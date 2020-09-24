@@ -1,3 +1,5 @@
+package HealthInsurance;
+
 import java.util.ArrayList;
 
 public class GKK implements HealthInsurance {
@@ -5,8 +7,8 @@ public class GKK implements HealthInsurance {
     ArrayList<String> benefits; // ToDo s.a.
     String name;
 
-    GKK() {
-        name = "GKK";
+    public GKK() {
+        name = "Policies.GKK";
         benefits = new ArrayList<String>();
         premium = 100.0;
     }

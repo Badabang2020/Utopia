@@ -1,10 +1,16 @@
+package Facilities;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
 import java.util.ArrayList;
 
 public class Cinema implements Event {
     ArrayList<Movie> movieList;
     ArrayList<Snack> snackList;
 
-    Cinema() {
+    public Cinema() {
         movieList = new ArrayList<>();
         movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2))); // gives happiness
         movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 2))); // gives love
