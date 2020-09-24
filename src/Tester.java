@@ -12,12 +12,13 @@ public class Tester {
 
     // this will be executed before first tick
     public void beforeFirstTick(){
+        System.out.println(" Starting beforeFirstTick() method in Tester : -------------------------------");
 
         // Here you can speed up and slow down Utopia. See adjustments and variable names for more info.
         // If you delete this , the default values in GlobalStacker will be used.
         GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia = 3600; // One second on earth = 3600 seconds ( 1 Hour ) on Utopia.
-        GlobalStacker.doATickEverySoManyMilliseconds = 250; // If you want 5 ticks in one second put here 200.
-        GlobalStacker.stopUtopiaAfterSoManyMilliseconds = 10000; // this are 5 seconds.
+        GlobalStacker.doATickEverySoManyMilliseconds = 1000; // If you want 5 ticks in one second put here 200.
+        GlobalStacker.stopUtopiaAfterSoManyMilliseconds = 5000; // this are 5 seconds.
         System.out.printf("| Tester is setting a custom Utopia time: 1sec = %s Utopia seconds. | Frequency of ticks: every %s milliseconds | Utopia will run for %s milliseconds.\r\n",  GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia,GlobalStacker.doATickEverySoManyMilliseconds, GlobalStacker.stopUtopiaAfterSoManyMilliseconds  );
         // ---------------------------------------------------------------------------------------------
 
@@ -32,6 +33,8 @@ public class Tester {
         Event cinema = new Cinema();
 
 
+        // please register every Event object here.
+        // you can retriev your object later like this : "UtopiaMain.myController.getMyEvent("bank")".
         UtopiaMain.myController.registerActivity(bank);
         UtopiaMain.myController.registerActivity(themepark);
         UtopiaMain.myController.registerActivity(restaurant);
@@ -51,49 +54,59 @@ public class Tester {
     }
 
 
-    // use for init of Events and Citizens ---- F I R S T   T I C K  -----
+    //-------------------------------------------- F I R S T   T I C K  -----
+    // this will be executed before the first tick
     public void firstTick(){
-        System.out.println("TESTER - > firstTick()");
-        // put your initialisation code here
-
-
-
-
-
+        System.out.println("TESTER - > FIRST TICK ------------------------------------------");
+        // if you need to run some code on the first tick, use this method. For initialisations, use "beforeFirstTick()"
 
     } // end of first Tick
 
 
 
+
     // will be executed repeatedly on each tick. ---- M I D D L E   T I C K  -----
-    // ! it will be executed also on the first tick, right after   this.firstTick()
+    // ! it will be executed also on the first tick, right after   "firstTick()" and before "lastTick()"
     public void middleTick(){
         System.out.println("TESTER - > MIDDLE TICK  -----------------------------------------");
         // put your "tick" code here
-        System.out.println("Utopia time is "+UtopiaMain.myController.getUtopiaTime());
 
-        Random rand = new Random();
-
-        System.out.println( "One random activity-> "+GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())).getClass().getSimpleName());
-
-        System.out.println("Bank is "+ UtopiaMain.myController.getMyEvent("bank"));
-
-
-        //delete what you want from this method, this code is an example.
-        // Referencing the controller like         Main.myController  will not work!
-
+        // I make variable myController with a reference ( not a new object ) to the existing UtopiaMain.myController object, for easier code reading ....
+        Controller myController = UtopiaMain.myController;
+        // but you can use also the original reference : "UtopiaMain.myController" like this:
         System.out.println("Utopia time is "+UtopiaMain.myController.getUtopiaTime());
 
 
+        System.out.println( "One random activity-> "+myController.getRandomActivity().getClass().getSimpleName()); // myController.getRandomActivity() will return an Event object , and .getClass().getSimpleName() return the class name of the object.
+        System.out.println("One random citizen -> "+ myController.getRandomCitizen().toString());
 
+        // use filter parameter like in the following statements, to retrieve your  Event type object:
+        System.out.println("Bank Event object is :"+ myController.getMyEvent("bank"));
+        System.out.println("themepark Event object is :"+ myController.getMyEvent("themepark"));
+        System.out.println("restaurant Event object is :"+ myController.getMyEvent("restaurant"));
+        System.out.println("doctor Event object is :"+ myController.getMyEvent("doctor"));
+        System.out.println("home Event object is :"+ myController.getMyEvent("home"));
+        System.out.println("lottery Event object is :"+ myController.getMyEvent("lottery"));
+
+        //an other example to retrieve and use your event:
+        System.out.println(" // Testing random citizen with chosen Event \\");
+        Event myRestaurant = myController.getMyEvent("restaurant");
+        Citizen myRandomCitizen = myController.getRandomCitizen();
+        System.out.println("My random citizen before cinema "+myRandomCitizen.getSocialSecurityNumber()+myRandomCitizen.toString());
+        myController.doActivity(myRandomCitizen, myRestaurant);
+        System.out.println("My random citizen after cinema "+myRandomCitizen.getSocialSecurityNumber()+myRandomCitizen.toString());
+        System.out.println("\\   ------------------------------------    //");
+
+
+        // some sample code from you ... , but it's old ....
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
                 if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
-                    citizen.doEvent( UtopiaMain.myController.getMyEvent("bank") );
+                    citizen.doEvent( myController.getMyEvent("bank") );
                 }
                 else{
-                    citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
+                    citizen.doEvent(myController.getRandomActivity());
                 }
             }
             else{
@@ -102,13 +115,6 @@ public class Tester {
             System.out.println(citizen);
             System.out.println("");
         }
-
-        System.out.println("------------------------------------------------------------------");
-
-
-
-
-
     } // end of middleTick
 
 
@@ -116,7 +122,7 @@ public class Tester {
     // can be useful to put some cleanup code  ---- L A S T   T I C K  -----
     // ! on the last tick , the middleTick() is called and after that will be executed lastTick()
     public void lastTick(){
-        System.out.println("TESTER - > LAST TICK");
+       System.out.println("TESTER - > LAST TICK -----------------------------------------------------");
     }
 
 

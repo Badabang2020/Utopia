@@ -1,16 +1,20 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-enum TickType {
-    UNDEFINED, FIRSTTICK, NORMALTICK, LASTTICK;
-}
 
 public class Controller {
-    private  Date startedAT; // used to store the date-time when utopia was started. Init in constructor ! :-))
 
-    private TickType currentTickType = TickType.UNDEFINED;
+    enum TickType { // is used only in this class.
+        UNDEFINED, FIRSTTICK, NORMALTICK, LASTTICK;
+    }
+
+
+    private  Date startedAT; // used to store the date-time when program  was started ( Date format ). Init in constructor ! :-))
+
+    private TickType currentTickType = TickType.UNDEFINED; // will start ticking undefined and change it as the ticks progresses...
 
     public Tester tester; // here can the developer test the code. Init in constructor ....
 
@@ -53,15 +57,14 @@ public class Controller {
         else if (currentTickType == TickType.NORMALTICK){ // after the init method, we run the normal tick
             this.tickAllActivities();
             tester.middleTick(); // run the middleTick method in tester
-            if (this.lastUpdateAtMilliSecond >= GlobalStacker.stopUtopiaAfterSoManyMilliseconds) GlobalStacker.stopUtopia(); // utopia will end on next tick()
+            if (this.lastUpdateAtMilliSecond >= GlobalStacker.stopUtopiaAfterSoManyMilliseconds) this.stopUtopia(); // utopia will end on next tick()
         }
         else if (currentTickType == TickType.LASTTICK){ // after the init method, we run the normal tick
             this.tickAllActivities();
             tester.middleTick(); // run the middleTick method in tester
-            GlobalStacker.utopiaIsRunning = false; // this will cause the cycle method of this class to return false to main() and end the program
             tester.lastTick();
+            GlobalStacker.utopiaIsRunning = false; // this will cause the cycle method of this class to return false to main() and end the program
         }
-
 
     } //  end of tick()
 
@@ -93,7 +96,7 @@ public class Controller {
     } // end of cycle()
 
     public void stopUtopia(){
-        System.out.println("STOP UTOPIA WAS CALLED !!!");
+        System.out.println("* * * Controller: STOP UTOPIA WAS CALLED. Utopia will end shortly. * * *");
         this.currentTickType= TickType.LASTTICK;
     } // end of stopUtopia
 
@@ -138,17 +141,17 @@ public class Controller {
     public Event getMyEvent(String filter){
         Event myReturnEvent = null ;
         for(Event s: GlobalStacker.registeredActivities){
-            if (s.getClass().getSimpleName().toLowerCase().startsWith(filter)) myReturnEvent =  s;
+            if (s.getClass().getSimpleName().toLowerCase().startsWith(filter))
+                myReturnEvent =  s;
         }
+        if (myReturnEvent==null) System.out.println("Error in Controller : public Event getMyEvent(String filter). Filter ist nicht ok.");
         return myReturnEvent;
     }
 
 
     // it can be used to tick all Events. It is used in controller tick.
     public void tickAllActivities(){
-        for (Event activity: GlobalStacker.registeredActivities){
-            activity.tick();
-        }
+        for (Event activity: GlobalStacker.registeredActivities) activity.tick();
     }
 
 
@@ -160,7 +163,7 @@ public class Controller {
         for (Category myEnumElement :myCategListe ) {
             System.out.println(myEnumElement.toString());
         }
-        System.out.println("EnumListe:"+myCategListe.toString());
+        System.out.println("EnumListe:"+ Arrays.toString(myCategListe));
 
         // we build now a "table" of Arraylist<MyClass>
 
