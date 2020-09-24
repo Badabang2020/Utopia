@@ -1,4 +1,5 @@
-import Bank.Account;
+package Bank;
+
 
 public class SeniorAccount extends Account {
     //set startbalance and fees

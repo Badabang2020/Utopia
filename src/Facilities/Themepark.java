@@ -1,3 +1,9 @@
+package Facilities;
+
+import Citizen.*;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,7 +18,7 @@ public class Themepark implements Event {
     @Override
     public void happens(Citizen citizen) {
         citizen.getCitizenStatus().getMainStatus().setEventTime(-1);
-        citizen.getCitizenStatus().getMainStatus().setEvent("goes to Themepark");
+        citizen.getCitizenStatus().getMainStatus().setEvent("goes to Facilities.Themepark");
         guests.add(citizen);
     }
 
@@ -24,7 +30,7 @@ public class Themepark implements Event {
             current = guests.get(i);
             if (current.getCitizenStatus().getMainStatus().getWallet() <= 10 || current.getCitizenStatus().getMainStatus().getEventTime() < -30) {
                 current.getCitizenStatus().getMainStatus().setEventTime(1);
-                current.getCitizenStatus().getMainStatus().setEvent("leaves the Themepark");
+                current.getCitizenStatus().getMainStatus().setEvent("leaves the Facilities.Themepark");
                 guests.remove(i);
 
             } else if (current.getCitizenStatus().getEmotions().getFear() > 80) {
@@ -82,7 +88,7 @@ public class Themepark implements Event {
                 }
                 while (guests.size() > 0) {
                     Citizen guest = (Citizen) guests.get(0);
-                    guest.getCitizenStatus().getMainStatus().setEvent(msg + "leaves the Themepark in Terror!");
+                    guest.getCitizenStatus().getMainStatus().setEvent(msg + "leaves the Facilities.Themepark in Terror!");
                     guest.getCitizenStatus().getEmotions().setFear(95);
                     guest.getCitizenStatus().getMainStatus().setEventTime(1);
                     guests.remove(0);
@@ -93,7 +99,7 @@ public class Themepark implements Event {
             for (int i = 0; i < queue.size(); i++) {
                 Citizen guest = (Citizen) queue.get(i);
                 guest.getCitizenStatus().getMainStatus().setEvent(msg + "waits for Rollercoaster");
-                guest.getCitizenStatus().getEmotions().setFear(guest.getCitizenStatus().emotions.getFear() + 1);
+                guest.getCitizenStatus().getEmotions().setFear(guest.getCitizenStatus().getEmotions().getFear() + 1);
 
             }
 
@@ -147,8 +153,8 @@ public class Themepark implements Event {
         @Override
         public void happens(Citizen citizen) {
             citizen.getCitizenStatus().getMainStatus().setEvent(msg + "Eats Icecream");
-            citizen.getCitizenStatus().emotions.setFear(citizen.getCitizenStatus().emotions.getFear() - 10);
-            citizen.getCitizenStatus().mainStatus.setWallet(citizen.getCitizenStatus().getMainStatus().getWallet() - 2);
+            citizen.getCitizenStatus().getEmotions().setFear(citizen.getCitizenStatus().getEmotions().getFear() - 10);
+            citizen.getCitizenStatus().getMainStatus().setWallet(citizen.getCitizenStatus().getMainStatus().getWallet() - 2);
         }
 
         @Override

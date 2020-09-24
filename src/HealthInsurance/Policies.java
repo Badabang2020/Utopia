@@ -1,4 +1,4 @@
-package Policies;
+package HealthInsurance;
 
 public class Policies {
     String socialSecurityNumber;

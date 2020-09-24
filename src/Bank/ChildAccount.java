@@ -1,4 +1,4 @@
-import Bank.Account;
+package Bank;
 
 public class ChildAccount extends Account {
     //set startbalance and fees

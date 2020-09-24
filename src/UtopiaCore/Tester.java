@@ -1,4 +1,10 @@
+package UtopiaCore;
+
 import Bank.Bank;
+import Facilities.*;
+import Health.*;
+import Citizen.*;
+import HealthInsurance.*;
 
 import java.util.Random;
 
@@ -50,7 +56,7 @@ public class Tester {
                     citizen.doEvent(ambulance);
                 }
                 //else{
-                 //   citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
+                 //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
                 //}
             }
             else{

@@ -1,4 +1,4 @@
-package Policies;
+package HealthInsurance;
 
 import java.util.ArrayList;
 
