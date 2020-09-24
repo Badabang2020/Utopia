@@ -1,3 +1,5 @@
+package HealthInsurance;
+
 import java.util.ArrayList;
 
 public class HealthInsuranceGKKPolicySilver extends HealthInsurancePolicies {

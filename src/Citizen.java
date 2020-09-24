@@ -1,3 +1,5 @@
+import HealthInsurance.HealthInsurancePolicies;
+
 public class Citizen {
     private String firstName;
     private String lastName;

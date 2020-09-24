@@ -1,3 +1,5 @@
+import HealthInsurance.HealthInsuranceGKK;
+
 import java.util.Random;
 
 public class Tester {

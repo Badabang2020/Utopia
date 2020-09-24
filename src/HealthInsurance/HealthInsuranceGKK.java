@@ -1,5 +1,9 @@
+package HealthInsurance;
+import Health.Doctor;
+import UtopiaCore.Event;
+import Citizen.Citizen;
+
 import java.util.HashMap;
-import java.util.Set;
 
 public class HealthInsuranceGKK implements Event, HealthInsurance{
 
@@ -82,8 +86,8 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
 
     @Override
         public void happens(Citizen citizen) {
-        boolean newGKKMember = registerHealthInscuranceGKKMember(citizen, citizen.getCitizenStatus().getMainStatus().getIncome()); // checks if the citizen is Member of HealthInsuranceGKK
-        String msg = (newGKKMember ? "Register new HealthInscuranceGKKMember with policy number " : "Citizen is already a Member of HealthInsuranceGKK"); //+ citizen.getHealthInsurancePolicies().getPolicyNumber()
+        boolean newGKKMember = registerHealthInscuranceGKKMember(citizen, citizen.getCitizenStatus().getMainStatus().getIncome()); // checks if the citizen is Member of HealthInsurance.HealthInsuranceGKK
+        String msg = (newGKKMember ? "Register new HealthInscuranceGKKMember with policy number " : "Citizen is already a Member of HealthInsurance.HealthInsuranceGKK"); //+ citizen.getHealthInsurancePolicies().getPolicyNumber()
         citizen.getCitizenStatus().getMainStatus().setEvent("Register new HealthInscuranceGKKMember with policy number " + healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber());//String for creating new Member
         payForMember(citizen);
 
@@ -96,7 +100,7 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
 //                time = 0;
 //                Set<String> keys = healthInsuranceGKKMembers.keySet();
 //                for (String key : keys) {
-//                    HealthInsurancePolicies healthInsurancePolicies = healthInsuranceGKKMembers.get(key);
+//                    HealthInsurance.HealthInsurancePolicies healthInsurancePolicies = healthInsuranceGKKMembers.get(key);
 //                    demandPremiumMonthly(citizen);
 //                }
 //            }
