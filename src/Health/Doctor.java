@@ -1,6 +1,12 @@
-public class Doctor implements Event{
+package Health;
 
-    protected String praxisName = "Doctor Best";
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
+public class Doctor implements Event {
+
+    protected String praxisName = "Health.Doctor Best";
 
     private void healthCheck(Citizen citizen) {
         citizen.getCitizenStatus().getMainStatus().setEvent("has a health check at" + praxisName + "'s Praxis...");

@@ -1,4 +1,11 @@
-import java.util.ArrayList;
+package UtopiaCore;
+
+import Bank.Bank;
+import Facilities.*;
+import Health.*;
+import Citizen.*;
+import HealthInsurance.*;
+
 import java.util.Random;
 
 public class Tester {
@@ -12,7 +19,6 @@ public class Tester {
     Event home = new Home();
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
-    Event hospital = new Hospital();
 
     Random rand = new Random();
 
@@ -35,7 +41,6 @@ public class Tester {
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
-            UtopiaMain.myController.registerActivity(hospital);
             for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
@@ -51,7 +56,7 @@ public class Tester {
                     citizen.doEvent(ambulance);
                 }
                 //else{
-                 //   citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
+                 //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
                 //}
             }
             else{
