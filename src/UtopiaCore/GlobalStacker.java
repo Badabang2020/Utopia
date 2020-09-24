@@ -10,7 +10,16 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     private GlobalStacker(){}; // can not be instanced
 
     // change the following value to make utopia time run faster or slower. 3600 = 1 sec on earth is 1 hour on Utopia
-    final public static int  oneSecondOnEarthEqualsThisManySecondsOnUtopia = 3600;
+    //you can modify this values in your tester
+
+
+    public static int  oneSecondOnEarthEqualsThisManySecondsOnUtopia = 3600;
+    public static int  doATickEverySoManyMilliseconds = 1000;
+    public static int  stopUtopiaAfterSoManyMilliseconds = 5000;
+
+
+
+
 
     //stop the world and exit the program. Change this value to false to stop Utopia
     public static boolean utopiaIsRunning=true;
@@ -23,10 +32,6 @@ public class GlobalStacker {  // this is a collection of methods and variables a
 
     // The registered citizens are stored in an ArrayList. The controller will access this directly
     public static ArrayList<Citizen> registredCitizens = new ArrayList<Citizen>();
-
-
-    // call this to Stop Utopia - current actions will complete first. Ex: citizen.onTick() events.
-    public static void stopUtopia() {System.out.println("Utopia Stopped via UtopiaCore.GlobalStacker.stopUtopia()");utopiaIsRunning=false;}
 
 
     // this utility is used in CitizenController
@@ -42,4 +47,4 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     }
 
 
-} // end of class UtopiaCore.GlobalStacker
+} // end of class GlobalStacker
