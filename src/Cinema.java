@@ -11,6 +11,8 @@ public class Cinema implements Event {
         movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,2));       // gives fear
         movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,2));      // gives sadness
         movieList.add(new Movie("Rambo",10,10,0,0,0,20,2));            // gives anger
+        movieList.add(new Movie("The Godfather",15,0,10,10,10,10,2));
+        movieList.add(new Movie("The Dark Knight",15,10,5,5,0,5,2));
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
