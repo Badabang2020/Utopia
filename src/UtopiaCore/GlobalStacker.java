@@ -1,7 +1,10 @@
+package UtopiaCore;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+
+import Citizen.*;
 
 public class GlobalStacker {  // this is a collection of methods and variables available globally
     private GlobalStacker(){}; // can not be instanced
@@ -23,7 +26,7 @@ public class GlobalStacker {  // this is a collection of methods and variables a
 
 
     // call this to Stop Utopia - current actions will complete first. Ex: citizen.onTick() events.
-    public static void stopUtopia() {System.out.println("Utopia Stopped via GlobalStacker.stopUtopia()");utopiaIsRunning=false;}
+    public static void stopUtopia() {System.out.println("Utopia Stopped via UtopiaCore.GlobalStacker.stopUtopia()");utopiaIsRunning=false;}
 
 
     // this utility is used in CitizenController
@@ -39,4 +42,4 @@ public class GlobalStacker {  // this is a collection of methods and variables a
     }
 
 
-} // end of class GlobalStacker
+} // end of class UtopiaCore.GlobalStacker

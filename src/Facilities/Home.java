@@ -1,4 +1,10 @@
-public class Home implements Event{
+package Facilities;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
+public class Home implements Event {
     @Override
     public void happens(Citizen citizen) {
         goToToilet(citizen);

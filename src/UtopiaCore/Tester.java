@@ -1,4 +1,11 @@
-import java.util.ArrayList;
+package UtopiaCore;
+
+import Bank.Bank;
+import Facilities.*;
+import Health.*;
+import Citizen.*;
+import HealthInsurance.*;
+
 import java.util.Random;
 
 public class Tester {
@@ -35,7 +42,10 @@ public class Tester {
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
+<<<<<<< HEAD:src/Tester.java
             UtopiaMain.myController.registerActivity(hospital);
+=======
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
             for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
@@ -51,7 +61,11 @@ public class Tester {
                     citizen.doEvent(ambulance);
                 }
                 //else{
+<<<<<<< HEAD:src/Tester.java
                  //   citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
+=======
+                 //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
                 //}
             }
             else{
@@ -62,7 +76,11 @@ public class Tester {
 
         }
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
+<<<<<<< HEAD:src/Tester.java
             GlobalStacker.registeredActivities.get(i).tick();
+=======
+            GlobalStacker.registeredActivities.get(8).tick();
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/UtopiaCore/Tester.java
         }
 
 

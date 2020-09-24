@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/Hospital.java
 public class Hospital implements Event {
     Citizen patient;
 
@@ -26,3 +27,11 @@ public class Hospital implements Event {
         return new Category[] {Category.Health};
     }
 }
+=======
+package Health;
+
+public class Hospital {
+    String name;
+    int test;
+}
+>>>>>>> 1d5401338bc8f9ca851e1c8f21c63264ac811f7f:src/Health/Hospital.java
