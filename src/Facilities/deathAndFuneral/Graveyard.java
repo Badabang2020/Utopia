@@ -28,10 +28,10 @@ public class Graveyard implements Event {
     @Override
     public void tick() {
         ticksSinceLastBurial++;
-        for (int i = 0; i < buried.size(); i++) {
-            Citizen current = (Citizen) buried.get(i);
-            current.getCitizenStatus().getMainStatus().setEvent("dead");
-        }
+
+        Citizen current = (Citizen) buried.get(buried.size() - 1); // newest buried citizens gets an Eventmessage
+        current.getCitizenStatus().getMainStatus().setEvent("dead");
+
         //funerals can occur if there are dead citizens who haven't had a funeral and enough time since the last funeral has passed.
         //funerals affect all citizens who are currently at the graveyard
         if (Death.notBuried.size() > 0 && ticksSinceLastBurial > 7) {
