@@ -65,7 +65,7 @@ public class Cinema implements Event {
         if (movie.love > 0) gains.add(movie.love + " love"); else if (movie.love < 0) decreases.add(movie.love + " love");
         if (movie.fear > 0) gains.add(movie.fear + " fear"); else if (movie.fear < 0) decreases.add(movie.fear + " fear");
         if (movie.sadness > 0) gains.add(movie.sadness + " sadness"); else if (movie.sadness < 0) decreases.add(movie.sadness + " sadness");
-        if (movie.anger > 0) gains.add(movie.anger + "anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
+        if (movie.anger > 0) gains.add(movie.anger + " anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
 
         String text = citizen.getFirstName() + " watched " + movie.name;
 
@@ -127,7 +127,6 @@ public class Cinema implements Event {
 //        for (Movie movie : movieList) { clonedMovieList.add(movie); }
         clonedMovieList.addAll(movieList);
 
-        // To-Do -> sorting doesn't work
         // sort movies descending from the emotion what has priority
         ArrayList<Movie> sortedMovies = new ArrayList<>();
         int[] emotionsMovie = new int[5]; // [happiness, love, fear, sadness, anger]
