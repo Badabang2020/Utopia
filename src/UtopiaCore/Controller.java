@@ -1,7 +1,10 @@
-import java.util.ArrayList;
+package UtopiaCore;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import Citizen.*;
 
 
 public class Controller {
@@ -37,7 +40,7 @@ public class Controller {
         if (this.lastUpdateAtSecond==5) GlobalStacker.stopUtopia();
 
         // let's tick every citizen - must be implementet in citizen
-//        for (Citizen citizen: GlobalStacker.registredCitizens) {
+//        for (Citizen.Citizen citizen: UtopiaCore.GlobalStacker.registredCitizens) {
 //            citizen.ontick();
 //        }
 
@@ -67,15 +70,15 @@ public class Controller {
     } // end of cycle()
 
     //every activity that is created must be registered here to be able to make an offer to the citizen.
-    public Integer registerActivity(Event activity) { // the activity will be stored in GlobalStacker \\
+    public Integer registerActivity(Event activity) { // the activity will be stored in UtopiaCore.GlobalStacker \\
         GlobalStacker.registeredActivities.add( activity);
         return GlobalStacker.numberOfRegisteredActivities;
     }
 
-    // call this method to register a citizen (add it to ArrayList GlobalStacker.registredCitizens )
+    // call this method to register a citizen (add it to ArrayList UtopiaCore.GlobalStacker.registredCitizens )
     public void registerCitizen(Citizen citizen) {
         GlobalStacker.registredCitizens.add(citizen);
-        System.out.println("The Citizen " + citizen.toString() + " was registered.");
+        System.out.println("The Citizen.Citizen " + citizen.toString() + " was registered.");
     }
 
    public void doActivity(Citizen citizen, Event activity){

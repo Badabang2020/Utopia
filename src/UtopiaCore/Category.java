@@ -1,3 +1,5 @@
+package UtopiaCore;
+
 public enum Category {
     Sleep,
     Food,
