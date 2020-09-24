@@ -71,8 +71,12 @@ public class Cinema implements Event {
 
         // adds the gains to the text
         for (int i = 0; i < gains.size(); i++) {
-            if (i != 0) {
+            if (i != 0 && i != gains.size() - 1) {
                 text += ", " + gains.get(i);
+            }
+            // last emotion
+            else if (i == gains.size() - 1 && i != 0) {
+                text += " and " + gains.get(i);
             }
             // adds gains after watched movie and the text only by the first emotion
             else {
@@ -84,6 +88,10 @@ public class Cinema implements Event {
         for (int i = 0; i < decreases.size(); i++) {
             if (i != 0) {
                 text += ", " + decreases.get(i);
+            }
+            // last emotion
+            else if (i == decreases.size() - 1 && i != 0) {
+                text += " and " + decreases.get(i);
             }
             // adds decreases after watched movie/gains and the text only by the first emotion
             else {
@@ -98,8 +106,13 @@ public class Cinema implements Event {
     @Override
     public void happens(Citizen citizen) {
         Movie bestMovie = getBestMovie(citizen);
+        // found movie
         if (bestMovie != null) {
             changeStatusOfCitizen(citizen, bestMovie);
+        }
+        // couldn't find a movie to watch
+        else {
+            citizen.getCitizenStatus().getMainStatus().setEvent(citizen.getFirstName() + " couldn't find a movie to watch.");
         }
     }
 
@@ -172,10 +185,10 @@ public class Cinema implements Event {
             if (emotionsMovie[index] + emotionsCitizen[index] <= 100 && money >= movie.cost) {
                 // check if no other values go to 0 or lower
                 if (emotionsCitizen[0] + movie.happiness > 0 && emotionsCitizen[0] + movie.happiness <= 100 &&
-                        emotionsCitizen[1] + movie.love > 0 && emotionsCitizen[0] + movie.love <= 100 &&
-                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[0] + movie.fear <= 100 &&
-                        emotionsCitizen[3] + movie.sadness > 0 && emotionsCitizen[0] + movie.sadness <= 100 &&
-                        emotionsCitizen[4] + movie.anger > 0 && emotionsCitizen[0] + movie.anger <= 100) {
+                        emotionsCitizen[1] + movie.love > 0 && emotionsCitizen[1] + movie.love <= 100 &&
+                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[2] + movie.fear <= 100 &&
+                        emotionsCitizen[3] + movie.sadness > 0 && emotionsCitizen[3] + movie.sadness <= 100 &&
+                        emotionsCitizen[4] + movie.anger > 0 && emotionsCitizen[4] + movie.anger <= 100) {
                     return movie;
                 }
             }
