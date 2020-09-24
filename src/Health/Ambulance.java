@@ -1,4 +1,10 @@
-public class Ambulance implements Event{
+package Health;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
+public class Ambulance implements Event {
 
     public void happens(Citizen citizen){
         int health = citizen.getCitizenStatus().getMainStatus().getHealthbar();

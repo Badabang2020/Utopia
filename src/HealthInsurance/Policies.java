@@ -1,3 +1,5 @@
+package HealthInsurance;
+
 public class Policies {
     String socialSecurityNumber;
     String contractType;

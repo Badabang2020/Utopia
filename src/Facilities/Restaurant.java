@@ -1,10 +1,16 @@
+package Facilities;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
 import java.util.ArrayList;
 
 public class Restaurant implements Event {
     ArrayList<MenuItem> menuItems;
 
     //Adds the menues to an arraylist, sorted from big to small
-    Restaurant() {
+    public Restaurant() {
         menuItems = new ArrayList<MenuItem>();
         menuItems.add(new MenuItem("Large Menu", 10, 50, 30, 10));
         menuItems.add(new MenuItem("Medium Menu", 5, 30 , 15, 5));

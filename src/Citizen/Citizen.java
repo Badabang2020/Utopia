@@ -1,4 +1,7 @@
-import java.util.Date;
+package Citizen;
+
+import UtopiaCore.Event;
+import HealthInsurance.*;
 
 public class Citizen {
     private String firstName;
@@ -11,7 +14,7 @@ public class Citizen {
     private Boolean isMarried;
     private CitizenStatus citizenStatus;
 
-    Citizen(String firstName, String lastName, String socialSecurityNumber,
+    public Citizen(String firstName, String lastName, String socialSecurityNumber,
             char gender, int age, Address address, HealthInsurance healthInsurance,
             Boolean isMarried, CitizenStatus citizenStatus) {
         this.firstName = firstName;
@@ -102,7 +105,7 @@ public class Citizen {
                 citizenStatus.getMainStatus().toString() + "\n" + 
                 citizenStatus.getNeeds().toString() + "\n" +
                 citizenStatus.getEmotions().toString() + "\n" +
-                " Event: " + citizenStatus.getMainStatus().getEvent() + " Eventtime: " + citizenStatus.getMainStatus().getEventTime();
+                " UtopiaCore.Event: " + citizenStatus.getMainStatus().getEvent() + " Eventtime: " + citizenStatus.getMainStatus().getEventTime();
     }
     public void doEvent(Event event){
         event.happens(this);
