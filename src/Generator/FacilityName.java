@@ -1,5 +1,6 @@
 package Generator;
 
+import UtopiaCore.Category;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -76,19 +77,44 @@ public class FacilityName {
     private static ArrayList fillLastSyl() {
         lastSyl = new ArrayList<>();
         lastSyl.add(" Fabrik");
-        lastSyl.add("'s Praxis");
         lastSyl.add("'s Laden");
         lastSyl.add(" Bedarf");
-        lastSyl.add("");
         return lastSyl;
     }
 
-    public static String generate(int lenght) {
+    public static String generate(int length) {
         String name = "";
-        for (int i = 0; i < lenght; i++) {
+        for (int i = 0; i < length; i++) {
             name += nameSyl.get(rnd.nextInt(nameSyl.size()));
         }
             name += lastSyl.get(rnd.nextInt(lastSyl.size()));
+        String generatedName = name.substring(0,1).toUpperCase() + name.substring(1);
+        return generatedName;
+    }
+
+    public static String generate(int length, Category category) {
+        String name = "";
+        for (int i = 0; i < length; i++) {
+            name += nameSyl.get(rnd.nextInt(nameSyl.size()));
+        }
+        switch (category) {
+            case Health -> {
+                name += "'s Praxis";
+            }
+            case Money -> {
+                name += " Bank";
+            }
+            case Food -> {
+                String[] ending = {" Restaurant", " Burgers"};
+                name += ending[rnd.nextInt(ending.length)];
+            }
+            case Sleep -> {
+                name += " Hotel";
+            }
+            default -> {
+                name += lastSyl.get(rnd.nextInt(lastSyl.size()));
+            }
+        }
         String generatedName = name.substring(0,1).toUpperCase() + name.substring(1);
         return generatedName;
     }
