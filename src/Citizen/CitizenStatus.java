@@ -1,3 +1,5 @@
+package Citizen;
+
 import java.util.Random;
 
 public class CitizenStatus {
