@@ -19,6 +19,7 @@ public class Tester {
     Event home = new Home();
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
+    Event hospital = new Hospital();
 
     Random rand = new Random();
 
@@ -41,6 +42,8 @@ public class Tester {
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
+            UtopiaMain.myController.registerActivity(hospital);
+
             for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
@@ -52,12 +55,10 @@ public class Tester {
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
-                    citizen.doEvent(bank);
+                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30 && citizen.getCitizenStatus().getMainStatus().getEventTime() == 0){
+                    citizen.doEvent(ambulance);
                 }
-                else{
-                    citizen.doEvent(lottery);
-                }
+
             }
             else{
                 citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);
@@ -69,11 +70,6 @@ public class Tester {
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
             GlobalStacker.registeredActivities.get(i).tick();
         }
-
-
-
-
-
 
 
         System.out.println("------------------------------------------------------------------");
