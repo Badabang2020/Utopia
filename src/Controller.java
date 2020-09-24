@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
@@ -159,13 +157,21 @@ public class Controller {
 
     public Event getBestOfferForCitizen(Citizen citizen){
 
+        // this will be the list of available Categories .... Sleep,Food,Money,Toilet,Health,Fun
         Category[] myCategListe = Category.values();
-        for (Category myEnumElement :myCategListe ) {
-            System.out.println(myEnumElement.toString());
+
+        // We make an Hashmap where we store Enum Element from Category and an ArrayList with the corresponding Events that offer this Category
+        HashMap<Category,ArrayList<Event>> myChoosenEvents = new HashMap<Category,ArrayList<Event>>();
+
+        for (Category myEnumElement :myCategListe ) { // cycle throw all the available categories ....
+            myChoosenEvents.put(myEnumElement, this.getEventsListForCategory(myEnumElement));
+
         }
-        System.out.println("EnumListe:"+ Arrays.toString(myCategListe));
+        System.out.println("This is my hashmap :"+myChoosenEvents.toString());
 
         // we build now a "table" of Arraylist<MyClass>
+
+
 
         class MyClass {
           Category category;
@@ -180,6 +186,29 @@ public class Controller {
         return  null;
     }
 
+
+    public ArrayList<Event> getEventArrayList(){ // will be used in getEventsListForCategory() - next method ...
+        return (ArrayList) GlobalStacker.registeredActivities.clone();
+    }
+
+    public ArrayList<Event> getEventsListForCategory(Category category){
+
+        ArrayList<Event> returnArrayList = new ArrayList<Event>();
+
+        // first we need to build an array of categories to use this to check with event has it and witch not....
+        Category[] myCategListe = Category.values(); // make an array of Category elements
+        for (Category myEnumElement :myCategListe ) {
+            // let's scan all Event objects to see if it offers "myEnumElement"
+            for (Event currentEvent : UtopiaMain.myController.getEventArrayList())
+                for (Category currentEventCategories : currentEvent.getCategory())
+                    if (currentEventCategories == myEnumElement) {
+                        returnArrayList.add(currentEvent);
+                        System.out.println("Searching for Categorie " + myEnumElement + " ..... Found event : " + currentEvent.getClass().getCanonicalName() + " that will ofer you " + currentEventCategories);
+                    }
+        }
+
+        return returnArrayList;
+    }
 
 
 

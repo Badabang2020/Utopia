@@ -60,6 +60,10 @@ public class Tester {
         System.out.println("TESTER - > FIRST TICK ------------------------------------------");
         // if you need to run some code on the first tick, use this method. For initialisations, use "beforeFirstTick()"
 
+        UtopiaMain.myController.getEventsListForCategory(Category.Fun);
+
+        UtopiaMain.myController.getBestOfferForCitizen(UtopiaMain.myController.getRandomCitizen()); // call for test the best offer 4 citizen method.
+
     } // end of first Tick
 
 
