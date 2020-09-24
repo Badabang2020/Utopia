@@ -12,13 +12,13 @@ public class Cinema implements Event {
 
     public Cinema() {
         movieList = new ArrayList<>();
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2))); // gives happiness
-        movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 2))); // gives love
-        movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,2));       // gives fear
-        movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,2));      // gives sadness
-        movieList.add(new Movie("Rambo",10,10,0,0,0,20,2));            // gives anger
-        movieList.add(new Movie("The Godfather",15,0,10,10,10,10,2));
-        movieList.add(new Movie("The Dark Knight",15,10,5,5,0,5,2));
+        movieList.add(new Movie("The Godfather",15,0,10,10,10,10,8));
+        movieList.add(new Movie("The Dark Knight",15,10,5,5,0,5,8));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 8))); // gives happiness
+        movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 8))); // gives love
+        movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,8));       // gives fear
+        movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,8));      // gives sadness
+        movieList.add(new Movie("Rambo",10,10,0,0,0,20,8));            // gives anger
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
@@ -34,7 +34,7 @@ public class Cinema implements Event {
         public int fear;
         public int sadness;
         public int anger;
-        public int duration; // in hours
+        public int duration; // 1unit = 15min
 
         Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration) {
             this.name = name;
