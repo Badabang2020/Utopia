@@ -1,6 +1,12 @@
+package Facilities;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
+
 import java.util.Random;
 
-public class Lottery implements Event{
+public class Lottery implements Event {
 
     public void happens(Citizen citizen) {
         int chance = 75; // 0 = 0% Win || 100 = 100% Win \\
@@ -24,7 +30,7 @@ public class Lottery implements Event{
                 costs = rnm.nextInt(10) +1;
             }
             money = money - costs;
-            citizen.getCitizenStatus().getMainStatus().setEvent(costs + " UT$ paid for the Lottery! Current win chance: " +chance+ " %");
+            citizen.getCitizenStatus().getMainStatus().setEvent(costs + " UT$ paid for the Facilities.Lottery! Current win chance: " +chance+ " %");
 
             // Check if Won or Lost \\
             if (random < chance) {
