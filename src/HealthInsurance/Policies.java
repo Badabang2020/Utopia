@@ -1,3 +1,5 @@
+package Policies;
+
 public class Policies {
     String socialSecurityNumber;
     String contractType;
