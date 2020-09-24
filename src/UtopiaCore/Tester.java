@@ -20,8 +20,6 @@ public class Tester {
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
 
-    Random rand = new Random();
-
     public void runDeveloperTest(){ // this method will run on each tick.
         System.out.println("---------------------  Hello from tester. -----------------------");
 
