@@ -12,13 +12,29 @@ public class Cinema implements Event {
 
     public Cinema() {
         movieList = new ArrayList<>();
-        movieList.add(new Movie("The Godfather",15,0,10,10,10,10,8));
-        movieList.add(new Movie("The Dark Knight",15,10,5,5,0,5,8));
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 8))); // gives happiness
-        movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 8))); // gives love
-        movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,8));       // gives fear
-        movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,8));      // gives sadness
-        movieList.add(new Movie("Rambo",10,10,0,0,0,20,8));            // gives anger
+        // jack of all trades
+        movieList.add(new Movie("The Godfather",15,10,10,10,10,10,8));
+        movieList.add(new Movie("The Dark Knight",15,5,5,5,5,5,8));
+
+        // happiness
+        movieList.add(new Movie("Raiders of the Lost Ark",10,30,0,0,0,0,8));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 8)));
+        // love
+        movieList.add(new Movie("La Dolce Vita",10,0,30,0,-20,0,8));
+        movieList.add((new Movie("Titanic", 10, 0, 15, 0,-10, 0, 8)));
+        movieList.add(new Movie("In the Mood for Love",10,0,0,0,10,0,8));
+        // fear
+        movieList.add(new Movie("Toy Story",10,20,0,40,0,0,8));
+        movieList.add(new Movie("The Jugnle Book",10,10,0,0,25,0,8));
+        movieList.add(new Movie("Winni Pooh",10,5,0,10,0,10,8));
+        // sadness
+        movieList.add(new Movie("Citizen Kane",10,10,0,0,30,0,8));
+        movieList.add(new Movie("Singin' in the Rain",10,7,0,0,20,0,8));
+        movieList.add(new Movie("Forest Gump",10,5,0,0,10,0,8));
+        // anger
+        movieList.add(new Movie("Seven Samurai",10,5,0,0,0,30,8));
+        movieList.add(new Movie("Terminator",10,0,0,0,0,20,8));
+        movieList.add(new Movie("Rambo",10,10,0,0,0,10,8));
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
