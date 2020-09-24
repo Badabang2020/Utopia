@@ -1,3 +1,8 @@
+package Facilities;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
 import java.util.ArrayList;
 import java.util.Random;
 
