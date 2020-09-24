@@ -52,12 +52,12 @@ public class Tester {
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30 && citizen.getCitizenStatus().getMainStatus().getEventTime() == 0){
-                    citizen.doEvent(ambulance);
+                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
+                    citizen.doEvent(bank);
                 }
-                //else{
-                 //   citizen.doEvent(UtopiaCore.GlobalStacker.registeredActivities.get(rand.nextInt(UtopiaCore.GlobalStacker.registeredActivities.size())));
-                //}
+                else{
+                    citizen.doEvent(lottery);
+                }
             }
             else{
                 citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);
@@ -67,7 +67,7 @@ public class Tester {
 
         }
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
-            GlobalStacker.registeredActivities.get(8).tick();
+            GlobalStacker.registeredActivities.get(i).tick();
         }
 
 

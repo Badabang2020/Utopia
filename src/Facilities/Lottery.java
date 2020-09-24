@@ -10,10 +10,11 @@ public class Lottery implements Event {
 
     public void happens(Citizen citizen) {
         int chance = 75; // 0 = 0% Win || 100 = 100% Win \\
-        int multiplier = 10; // Multiplication = x10 \\
-        int costs;  // Random Cousts \\
-        int happywin;  // Gain Happyness with costs * 5 \\
-        int angry;  // Gain Anger \\
+        int multiplier = 10; // Multiplication \\
+        int costs;  // Random Costs \\
+        int happywin;  // Gain Lose Happyness \\
+        int angry;  // Gain Lose Anger \\
+        int random;  // Random Number \\
 
         int money = citizen.getCitizenStatus().getMainStatus().getWallet();
         int happy = citizen.getCitizenStatus().getEmotions().getHappiness();
@@ -23,14 +24,13 @@ public class Lottery implements Event {
 
         Random rnm = new Random();
         costs = rnm.nextInt(10) +1;
-        int random = rnm.nextInt(100) +1;
+        random = rnm.nextInt(100) +1;
 
         if (money > 0) {
             while (costs > money) {
                 costs = rnm.nextInt(10) +1;
             }
             money = money - costs;
-            citizen.getCitizenStatus().getMainStatus().setEvent(costs + " UT$ paid for the Facilities.Lottery! Current win chance: " +chance+ " %");
 
             // Check if Won or Lost \\
             if (random < chance) {
@@ -56,7 +56,7 @@ public class Lottery implements Event {
                 }
             // Lost \\
             } else {
-                citizen.getCitizenStatus().getMainStatus().setEvent("Lost!");
+                citizen.getCitizenStatus().getMainStatus().setEvent(costs + "UT$ Lost!");
                 happywin = costs * 2;
                 angry = costs * 5;
                 // Reduce Happiness if Lose \\
@@ -78,7 +78,7 @@ public class Lottery implements Event {
             }
             citizen.getCitizenStatus().getMainStatus().setWallet(money);
         } else {
-            citizen.getCitizenStatus().getMainStatus().setEvent("Not enough money!");
+            citizen.getCitizenStatus().getMainStatus().setEvent("You need at least 1 UT$");
         }
 
 

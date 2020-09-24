@@ -5,3 +5,5 @@ out/
 Utopia-team.iml
 src/TestMain.java
 src/Tester.java
+
+src/UtopiaCore/Tester.java
