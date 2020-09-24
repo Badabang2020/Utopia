@@ -5,6 +5,7 @@ import Facilities.*;
 import Health.*;
 import Citizen.*;
 import HealthInsurance.*;
+import Generator.*;
 
 import java.util.Random;
 
@@ -45,31 +46,12 @@ public class Tester {
             UtopiaMain.myController.registerActivity(hospital);
 
             for (int i = 0; i < 1; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
-            }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
-
-        }
-
-
-
-        for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
-            Citizen citizen = GlobalStacker.registredCitizens.get(i);
-            if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30 && citizen.getCitizenStatus().getMainStatus().getEventTime() == 0){
-                    citizen.doEvent(ambulance);
-                }
-
+                UtopiaMain.myController.registerCitizen(new Citizen(CitizenName.generate(3), CitizenName.generate(2), "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }
-            else{
-                citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);
-            }
-            System.out.println(citizen);
-            System.out.println("");
+        }
+        System.out.println(StreetName.generate(3));
+        System.out.println(FacilityName.generate(3));
 
-        }
-        for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
-            GlobalStacker.registeredActivities.get(i).tick();
-        }
 
 
         System.out.println("------------------------------------------------------------------");
