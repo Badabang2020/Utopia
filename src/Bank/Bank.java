@@ -1,15 +1,21 @@
+package Bank;
+
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
+
+import Citizen.Citizen;
+import UtopiaCore.Category;
+import UtopiaCore.Event;
 
 public class Bank implements Event {
 
     private long bankTresor = 1000000;
     private int startCredit;
-    static int time = 0; // Event time for ticks of the day
-    private HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank accounts List <SocialSecurityNumber, new Account>
+    static int time = 0; // UtopiaCore.Event time for ticks of the day
+    private HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank.Bank accounts List <SocialSecurityNumber, new Bank.Account>
 
-    public boolean registerBankAccount(String ssn, int age) { //register a new Bank Account
+    public boolean registerBankAccount(String ssn, int age) { //register a new Bank.Bank Bank.Account
         if (!bankAccounts.containsKey(ssn)) {
             if (age < 18) {
                 startCredit = 500;
@@ -30,12 +36,12 @@ public class Bank implements Event {
     }
 
     public void depositMoney(String ssn, int value) { // citizen can deposit their money
-        Account account = bankAccounts.get(ssn); // get Account
+        Account account = bankAccounts.get(ssn); // get Bank.Account
         account.depositMoney(value);
     }
 
     public int checkAccount(String ssn) { // citizen can check how much money they have
-        Account account = bankAccounts.get(ssn); // get Account
+        Account account = bankAccounts.get(ssn); // get Bank.Account
         return account.getBalance();
     }
 
@@ -53,7 +59,7 @@ public class Bank implements Event {
     @Override
     public void happens(Citizen citizen) {
         boolean newAccount = registerBankAccount(citizen.getSocialSecurityNumber(), citizen.getAge()); // checks if the citizen has a account every time (s)he goes to bank
-        String msg = (newAccount ? "Register an Account and ": ""); //String for creating new Account
+        String msg = (newAccount ? "Register an Bank.Account and ": ""); //String for creating new Bank.Account
         int wallet = citizen.getCitizenStatus().getMainStatus().getWallet(); // get citizens wallet
         if (wallet < 20) { // if wallet int is smaller than 20, citizen takes money(random value between 50 and 149)
             int money = takeMoney(citizen.getSocialSecurityNumber());
@@ -63,7 +69,7 @@ public class Bank implements Event {
                         ((citizen.getGender() == 'm') ? "his" : "her") + " bank account.");
             }
             else {
-                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank Account.");
+                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank Bank.Account.");
             }
         }
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
