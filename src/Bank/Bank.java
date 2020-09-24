@@ -1,12 +1,12 @@
 package Bank;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import Citizen.Citizen;
 import UtopiaCore.Category;
+import UtopiaCore.Controller;
 import UtopiaCore.Event;
+import UtopiaCore.UtopiaMain;
 
 public class Bank implements Event {
 
@@ -78,8 +78,7 @@ public class Bank implements Event {
             }
             else {
                 citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank account.");
-            }
-        }
+            } }
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
             int money = wallet - 100;
             depositMoney(citizen.getSocialSecurityNumber(), money);
@@ -96,9 +95,9 @@ public class Bank implements Event {
 
     @Override
     public void tick() {
-        time++;
-        if (time / 24 == 1) {
-            time = 0;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(UtopiaMain.myController.getUtopiaTime());
+        if (cal.get(Calendar.HOUR_OF_DAY) == 0) {
             Set<String> keys = bankAccounts.keySet();
             for (String key : keys) {
                 Account account = bankAccounts.get(key);
