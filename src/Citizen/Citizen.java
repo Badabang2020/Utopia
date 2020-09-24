@@ -1,5 +1,6 @@
 package Citizen;
 
+import UtopiaCore.Address;
 import UtopiaCore.Event;
 import HealthInsurance.*;
 
