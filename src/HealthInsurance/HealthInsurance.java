@@ -1,5 +1,7 @@
 package HealthInsurance;
 
+import Citizen.Citizen;
+
 public interface HealthInsurance {
 
     public int demandPremiumMonthly (Citizen citizen);

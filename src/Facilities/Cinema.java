@@ -1,8 +1,8 @@
 package Facilities;
 
-import Citizen.Citizen;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
+import Citizen.*;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class Cinema implements Event {
         movieList.add(new Movie("The Jugnle Book",10,10,0,0,25,0,8));
         movieList.add(new Movie("Winni Pooh",10,5,0,10,0,10,8));
         // sadness
-        movieList.add(new Movie("Citizen Kane",10,10,0,0,30,0,8));
+        movieList.add(new Movie("Citizen.Citizen Kane",10,10,0,0,30,0,8));
         movieList.add(new Movie("Singin' in the Rain",10,7,0,0,20,0,8));
         movieList.add(new Movie("Forest Gump",10,5,0,0,10,0,8));
         // anger

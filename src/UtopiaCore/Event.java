@@ -1,4 +1,5 @@
 package UtopiaCore;
+
 import Citizen.Citizen;
 
 public interface Event {

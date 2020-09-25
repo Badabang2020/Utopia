@@ -1,7 +1,8 @@
 package HealthInsurance;
-import Health.Doctor;
 import UtopiaCore.Event;
+import UtopiaCore.Category;
 import Citizen.Citizen;
+import Health.Doctor;
 
 import java.util.HashMap;
 
@@ -87,7 +88,7 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
     @Override
         public void happens(Citizen citizen) {
         boolean newGKKMember = registerHealthInscuranceGKKMember(citizen, citizen.getCitizenStatus().getMainStatus().getIncome()); // checks if the citizen is Member of HealthInsurance.HealthInsuranceGKK
-        String msg = (newGKKMember ? "Register new HealthInscuranceGKKMember with policy number " : "Citizen is already a Member of HealthInsurance.HealthInsuranceGKK"); //+ citizen.getHealthInsurancePolicies().getPolicyNumber()
+        String msg = (newGKKMember ? "Register new HealthInscuranceGKKMember with policy number " : "Citizen.Citizen is already a Member of HealthInsurance.HealthInsuranceGKK"); //+ citizen.getHealthInsurancePolicies().getPolicyNumber()
         citizen.getCitizenStatus().getMainStatus().setEvent("Register new HealthInscuranceGKKMember with policy number " + healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber());//String for creating new Member
         payForMember(citizen);
 
