@@ -1,22 +1,30 @@
 package Bank;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import Citizen.Citizen;
 import UtopiaCore.Category;
+import UtopiaCore.Controller;
 import UtopiaCore.Event;
+import UtopiaCore.UtopiaMain;
 
 public class Bank implements Event {
 
-    private long bankTresor = 1000000;
+    private long bankTresor;
     private int startCredit;
     static int time = 0; // UtopiaCore.Event time for ticks of the day
-    private HashMap<String, Account> bankAccounts = new HashMap<String, Account>(); //Bank.Bank accounts List <SocialSecurityNumber, new Bank.Account>
+    private HashMap<String, Account> bankAccounts; //Bank.Bank accounts List <SocialSecurityNumber, new Bank.Account>
+
+    // Constructor start
+    public Bank() {
+        bankTresor = 1000000; //bank gets 1 mio for start
+        time = 0; //bank time starts at 0
+        bankAccounts = new HashMap<String, Account>(); //register library for Accounts
+    }
+    // Constructor end
 
     public boolean registerBankAccount(String ssn, int age) { //register a new Bank.Bank Bank.Account
-        if (!bankAccounts.containsKey(ssn)) {
+        if (!bankAccounts.containsKey(ssn)) { //ONLY if the Account not exists
             if (age < 18) {
                 startCredit = 500;
                 bankAccounts.put(ssn, new ChildAccount(startCredit)); // create a child account for the citizen
@@ -30,9 +38,9 @@ public class Bank implements Event {
                 bankAccounts.put(ssn, new SeniorAccount(startCredit)); // create a senior account for the citizen
                 bankTresor -= startCredit;
             }
-            return true;
+            return true;  //Account created
         }
-        return false;
+        return false; //no Account created
     }
 
     public void depositMoney(String ssn, int value) { // citizen can deposit their money
@@ -59,7 +67,7 @@ public class Bank implements Event {
     @Override
     public void happens(Citizen citizen) {
         boolean newAccount = registerBankAccount(citizen.getSocialSecurityNumber(), citizen.getAge()); // checks if the citizen has a account every time (s)he goes to bank
-        String msg = (newAccount ? "Register an Bank.Account and ": ""); //String for creating new Bank.Account
+        String msg = (newAccount ? "Register an account and ": ""); //String for creating new Bank.Account
         int wallet = citizen.getCitizenStatus().getMainStatus().getWallet(); // get citizens wallet
         if (wallet < 20) { // if wallet int is smaller than 20, citizen takes money(random value between 50 and 149)
             int money = takeMoney(citizen.getSocialSecurityNumber());
@@ -69,12 +77,11 @@ public class Bank implements Event {
                         ((citizen.getGender() == 'm') ? "his" : "her") + " bank account.");
             }
             else {
-                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank Bank.Account.");
-            }
-        }
+                citizen.getCitizenStatus().getMainStatus().setEvent("don't have money on " +((citizen.getGender() == 'm') ? "his" : "her")+ " bank account.");
+            } }
         else if (wallet > 100) { // if wallet int is larger than 100, citizen deposit all money above 100
             int money = wallet - 100;
-            depositMoney(citizen.getSocialSecurityNumber(), money); //
+            depositMoney(citizen.getSocialSecurityNumber(), money);
             citizen.getCitizenStatus().getMainStatus().setWallet(100);
             citizen.getCitizenStatus().getMainStatus().setEvent(msg + "puts " + money + "UT$ on " +
                     ((citizen.getGender() == 'm')? "his":"her") + " bank account.");
@@ -88,9 +95,9 @@ public class Bank implements Event {
 
     @Override
     public void tick() {
-        time++;
-        if (time / 24 == 1) {
-            time = 0;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(UtopiaMain.myController.getUtopiaTime());
+        if (cal.get(Calendar.HOUR_OF_DAY) == 0) {
             Set<String> keys = bankAccounts.keySet();
             for (String key : keys) {
                 Account account = bankAccounts.get(key);

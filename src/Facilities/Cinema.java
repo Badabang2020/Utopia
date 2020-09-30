@@ -12,11 +12,29 @@ public class Cinema implements Event {
 
     public Cinema() {
         movieList = new ArrayList<>();
-        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 2))); // gives happiness
-        movieList.add((new Movie("Titanic", 10, 0, 20, 0,-20, 0, 2))); // gives love
-        movieList.add(new Movie("Winni Pooh",10,5,0,20,0,10,2));       // gives fear
-        movieList.add(new Movie("Forest Gump",10,15,0,0,20,0,2));      // gives sadness
-        movieList.add(new Movie("Rambo",10,10,0,0,0,20,2));            // gives anger
+        // jack of all trades
+        movieList.add(new Movie("The Godfather",15,10,10,10,10,10,8));
+        movieList.add(new Movie("The Dark Knight",15,5,5,5,5,5,8));
+
+        // happiness
+        movieList.add(new Movie("Raiders of the Lost Ark",10,30,0,0,0,0,8));
+        movieList.add((new Movie("Star Wars", 10, 20, 0, 0,0, 0, 8)));
+        // love
+        movieList.add(new Movie("La Dolce Vita",10,0,30,0,-20,0,8));
+        movieList.add((new Movie("Titanic", 10, 0, 15, 0,-10, 0, 8)));
+        movieList.add(new Movie("In the Mood for Love",10,0,0,0,10,0,8));
+        // fear
+        movieList.add(new Movie("Toy Story",10,20,0,40,0,0,8));
+        movieList.add(new Movie("The Jugnle Book",10,10,0,0,25,0,8));
+        movieList.add(new Movie("Winni Pooh",10,5,0,10,0,10,8));
+        // sadness
+        movieList.add(new Movie("Citizen Kane",10,10,0,0,30,0,8));
+        movieList.add(new Movie("Singin' in the Rain",10,7,0,0,20,0,8));
+        movieList.add(new Movie("Forest Gump",10,5,0,0,10,0,8));
+        // anger
+        movieList.add(new Movie("Seven Samurai",10,5,0,0,0,30,8));
+        movieList.add(new Movie("Terminator",10,0,0,0,0,20,8));
+        movieList.add(new Movie("Rambo",10,10,0,0,0,10,8));
 
         snackList = new ArrayList<>();
         snackList.add(new Snack("Large Popcorn", 15, 40, 30, 10));
@@ -32,7 +50,7 @@ public class Cinema implements Event {
         public int fear;
         public int sadness;
         public int anger;
-        public int duration; // in hours
+        public int duration; // 1unit = 15min
 
         Movie(String name, int cost, int happiness, int love, int fear, int sadness, int anger, int duration) {
             this.name = name;
@@ -71,14 +89,18 @@ public class Cinema implements Event {
         if (movie.love > 0) gains.add(movie.love + " love"); else if (movie.love < 0) decreases.add(movie.love + " love");
         if (movie.fear > 0) gains.add(movie.fear + " fear"); else if (movie.fear < 0) decreases.add(movie.fear + " fear");
         if (movie.sadness > 0) gains.add(movie.sadness + " sadness"); else if (movie.sadness < 0) decreases.add(movie.sadness + " sadness");
-        if (movie.anger > 0) gains.add(movie.anger + "anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
+        if (movie.anger > 0) gains.add(movie.anger + " anger"); else if (movie.anger < 0) decreases.add(movie.anger + " anger");
 
         String text = citizen.getFirstName() + " watched " + movie.name;
 
         // adds the gains to the text
         for (int i = 0; i < gains.size(); i++) {
-            if (i != 0) {
+            if (i != 0 && i != gains.size() - 1) {
                 text += ", " + gains.get(i);
+            }
+            // last emotion
+            else if (i == gains.size() - 1 && i != 0) {
+                text += " and " + gains.get(i);
             }
             // adds gains after watched movie and the text only by the first emotion
             else {
@@ -90,6 +112,10 @@ public class Cinema implements Event {
         for (int i = 0; i < decreases.size(); i++) {
             if (i != 0) {
                 text += ", " + decreases.get(i);
+            }
+            // last emotion
+            else if (i == decreases.size() - 1 && i != 0) {
+                text += " and " + decreases.get(i);
             }
             // adds decreases after watched movie/gains and the text only by the first emotion
             else {
@@ -104,8 +130,13 @@ public class Cinema implements Event {
     @Override
     public void happens(Citizen citizen) {
         Movie bestMovie = getBestMovie(citizen);
+        // found movie
         if (bestMovie != null) {
             changeStatusOfCitizen(citizen, bestMovie);
+        }
+        // couldn't find a movie to watch
+        else {
+            citizen.getCitizenStatus().getMainStatus().setEvent(citizen.getFirstName() + " couldn't find a movie to watch.");
         }
     }
 
@@ -133,7 +164,6 @@ public class Cinema implements Event {
 //        for (Movie movie : movieList) { clonedMovieList.add(movie); }
         clonedMovieList.addAll(movieList);
 
-        // To-Do -> sorting doesn't work
         // sort movies descending from the emotion what has priority
         ArrayList<Movie> sortedMovies = new ArrayList<>();
         int[] emotionsMovie = new int[5]; // [happiness, love, fear, sadness, anger]
@@ -179,10 +209,10 @@ public class Cinema implements Event {
             if (emotionsMovie[index] + emotionsCitizen[index] <= 100 && money >= movie.cost) {
                 // check if no other values go to 0 or lower
                 if (emotionsCitizen[0] + movie.happiness > 0 && emotionsCitizen[0] + movie.happiness <= 100 &&
-                        emotionsCitizen[1] + movie.love > 0 && emotionsCitizen[0] + movie.love <= 100 &&
-                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[0] + movie.fear <= 100 &&
-                        emotionsCitizen[3] + movie.sadness > 0 && emotionsCitizen[0] + movie.sadness <= 100 &&
-                        emotionsCitizen[4] + movie.anger > 0 && emotionsCitizen[0] + movie.anger <= 100) {
+                        emotionsCitizen[1] + movie.love > 0 && emotionsCitizen[1] + movie.love <= 100 &&
+                        emotionsCitizen[2] + movie.fear > 0 && emotionsCitizen[2] + movie.fear <= 100 &&
+                        emotionsCitizen[3] + movie.sadness > 0 && emotionsCitizen[3] + movie.sadness <= 100 &&
+                        emotionsCitizen[4] + movie.anger > 0 && emotionsCitizen[4] + movie.anger <= 100) {
                     return movie;
                 }
             }

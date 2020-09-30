@@ -2,6 +2,7 @@ package UtopiaCore;
 
 import Bank.Bank;
 import Facilities.*;
+
 import Health.*;
 import Citizen.*;
 import HealthInsurance.*;
@@ -19,6 +20,10 @@ public class Tester {
     Event home = new Home();
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
+    Event hospital = new Hospital();
+    Event death = new Death();
+    Event graveyard = new Graveyard();
+
 
     Random rand = new Random();
 
@@ -41,22 +46,23 @@ public class Tester {
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
-            for (int i = 0; i < 1; i++) {
+            UtopiaMain.myController.registerActivity(hospital);
+            UtopiaMain.myController.registerActivity(graveyard);
+            UtopiaMain.myController.registerActivity(death);
+
+            for (int i = 0; i < 5; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
-            }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
-
+            }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(-5);
+            GlobalStacker.registredCitizens.get(1).getCitizenStatus().getMainStatus().setHealthbar(-5);
         }
-
-
 
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
-                    citizen.doEvent(bank);
-                }
-                else{
-                    citizen.doEvent(lottery);
+                if (citizen.getCitizenStatus().getMainStatus().getHealthbar()<0){
+                    citizen.doEvent(death);
+                }else{
+                    citizen.doEvent(graveyard);
                 }
             }
             else{
@@ -69,11 +75,6 @@ public class Tester {
         for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
             GlobalStacker.registeredActivities.get(i).tick();
         }
-
-
-
-
-
 
 
         System.out.println("------------------------------------------------------------------");
