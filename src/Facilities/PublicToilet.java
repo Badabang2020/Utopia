@@ -15,6 +15,8 @@ public class PublicToilet implements Event {
         toilet = citizen.getCitizenStatus().getNeeds().getToilet();
         happy = citizen.getCitizenStatus().getEmotions().getHappiness();
 
+        toilet = citizen.getCitizenStatus().getNeeds().getToilet();
+
         if (toilet > 95) {
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             toilet = 0;
