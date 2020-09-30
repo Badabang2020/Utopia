@@ -1,9 +1,6 @@
 package UtopiaCore;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import Citizen.*;
@@ -166,21 +163,85 @@ public class Controller {
         // this will be the list of available Categories .... Sleep,Food,Money,Toilet,Health,Fun
         Category[] myCategListe = Category.values();
 
-        // We make an Hashmap where we store Enum Element from Category and an ArrayList with the corresponding Events that offer this Category
-        HashMap<Category, ArrayList<Event>> myChoosenEvents = new HashMap<Category,ArrayList<Event>>();
+        // here we gonna store the table : Category.value , CitizenStatus.value, Event[], percent for one citizen.
 
+        class MyTable{
+            Category category;
+            Integer citizenHasSoMuchFromThisCategory;
+            Integer citizenMaximumPossibleFromThisCategory;
+            ArrayList<Event> eventList;
+            Integer percentUtilityValueForCitizen;
+
+            public MyTable(Category category, Integer citizenHasSoMuchFromThisCategory, Integer citizenMaximumPossibleFromThisCategory, ArrayList<Event> eventList, Integer procentUtilityValueForCitizen) {
+                this.category = category;
+                this.citizenHasSoMuchFromThisCategory = citizenHasSoMuchFromThisCategory;
+                this.citizenMaximumPossibleFromThisCategory = citizenMaximumPossibleFromThisCategory;
+                this.eventList = eventList;
+                this.percentUtilityValueForCitizen = procentUtilityValueForCitizen;
+            }
+        }
+        // this is the variable where we store the "table"
+        ArrayList<MyTable> myChoosenEvents;
+
+
+
+        // We make an Hashmap where we store one element from Category ( ex FOOD ... ) and an ArrayList with the corresponding Events that offer this Category
+        //myChoosenEvents = new HashMap<Category,ArrayList<Event>>();
+
+        Integer citizenHasSoMuchFromThisCategory;
+        Integer citizenMaximumPossibleFromThisCategory;
+        // we create now the "table" as described in class MyTable
         for (Category myEnumElement :myCategListe ) { // cycle throw all the available categories ....
-            System.out.println("For the Category "+myEnumElement+" habe ich die liste erstellt"+this.getEventsListForCategory(myEnumElement));
-            System.out.println();
+            citizenHasSoMuchFromThisCategory = 0;
+            citizenMaximumPossibleFromThisCategory = 0;
+            switch (myEnumElement){
+                case Food:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getNeeds().getHunger();
+                    citizenMaximumPossibleFromThisCategory = 100;
+                    break;
+                case Sleep:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getNeeds().getSleep();
+                    citizenMaximumPossibleFromThisCategory = 100;
+                    break;
+                case Money:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getNeeds().getSleep();
+                    citizenMaximumPossibleFromThisCategory = 100; // nicht unbedingt €100 wäre maximum ... aber habe jetzt keine bessere Idee
+                    break;
+                case Toilet:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getNeeds().getToilet();
+                    citizenMaximumPossibleFromThisCategory = 100;
+                    break;
+                case Health:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getMainStatus().getHealthbar();
+                    citizenMaximumPossibleFromThisCategory = 100;
+                    break;
+                case Fun:
+                    citizenHasSoMuchFromThisCategory = citizen.getCitizenStatus().getEmotions().getHappiness();
+                    citizenMaximumPossibleFromThisCategory = 100;
+                    break;
+                default:
+                    break;
+            }
+            // after the switch we filled the values for:  citizenHasSoMuchFromThisCategory citizenMaximumPossibleFromThisCategory
 
-            myChoosenEvents.put(myEnumElement, this.getEventsListForCategory(myEnumElement));
 
-            System.out.println("**Found an Event list that will be aded: "+myChoosenEvents.get(myEnumElement));
+
+
+
+
+            
 
         }
-        System.out.println("This is my hashmap :"+myChoosenEvents.toString());
 
-        // we build now a "table" of Arraylist<MyClass>
+        for ( Map.Entry<Category, ArrayList<Event>> myEvents:myChoosenEvents.entrySet()) {
+            System.out.println("KEY:"+myEvents.getKey());
+            System.out.println("Values:"+myEvents.getValue().toString());
+        }
+
+
+
+
+
 
 
 
@@ -199,31 +260,21 @@ public class Controller {
 
 
     public ArrayList<Event> getEventArrayList(){ // will be used in getEventsListForCategory() - next method ...
-        return (ArrayList) GlobalStacker.registeredActivities.clone();
+        return (ArrayList<Event>) GlobalStacker.registeredActivities.clone();
     }
 
 
-
+    // you send the category and the method returns a list of Events that offers that category.
     public ArrayList<Event> getEventsListForCategory(Category category){
-
         ArrayList<Event> returnArrayList = new ArrayList<Event>();
-
-        // first we need to build an array of categories to use this to check with event has it and witch not....
-        Category[] myCategListe = Category.values(); // make an array of Category elements
-        for (Category myEnumElement :myCategListe ) {
-            // let's scan all Event objects to see if it offers "myEnumElement"
             for (Event currentEvent : UtopiaMain.myController.getEventArrayList())
                 for (Category currentEventCategories : currentEvent.getCategory())
-                    if (currentEventCategories == myEnumElement) {
+                    if (currentEventCategories == category) {
                         returnArrayList.add(currentEvent);
-                        System.out.println("Searching for Categorie " + myEnumElement + " ..... Found event : " + currentEvent.getClass().getCanonicalName() + " that will ofer you " + currentEventCategories);
+                        System.out.println("Running getEventsListForCategory(Category category) . Found event : " + currentEvent.getClass().getCanonicalName() + " that will ofer you " + currentEventCategories);
                     }
-        }
-
         return returnArrayList;
-    }
+    } // end getEventsListForCategory()
 
 
-
-
-}
+} //end class Controller

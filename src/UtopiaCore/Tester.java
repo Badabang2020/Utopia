@@ -50,8 +50,9 @@ public class Tester {
         UtopiaMain.myController.registerActivity(cinema);
 
         Random rdm = new Random();
+        int amountOfCitizens = 5;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < amountOfCitizens ; i++) {
             UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
         }
 
@@ -65,8 +66,10 @@ public class Tester {
         System.out.println("TESTER - > FIRST TICK ------------------------------------------");
         // if you need to run some code on the first tick, use this method. For initialisations, use "beforeFirstTick()"
 
+        System.out.println("getEventsListForCategory(Category.Fun) returns : ");
         UtopiaMain.myController.getEventsListForCategory(Category.Fun);
 
+        System.out.println("getBestOfferForCitizen for random citizen: ");
         UtopiaMain.myController.getBestOfferForCitizen(UtopiaMain.myController.getRandomCitizen()); // call for test the best offer 4 citizen method.
 
     } // end of first Tick
