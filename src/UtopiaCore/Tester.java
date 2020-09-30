@@ -2,8 +2,8 @@ package UtopiaCore;
 
 import Bank.Bank;
 import Facilities.*;
-import Facilities.deathAndFuneral.Death;
-import Facilities.deathAndFuneral.Graveyard;
+
+import Facilities.deathAndFuneral.*;
 import Health.*;
 import Citizen.*;
 import HealthInsurance.*;
