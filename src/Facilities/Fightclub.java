@@ -75,6 +75,6 @@ public class Fightclub implements Event{
 
     @Override
     public Category[] getCategory() {
-        return new Category[] {Category.Fun};
+        return new Category[] {Category.Anger};
     }
 }
