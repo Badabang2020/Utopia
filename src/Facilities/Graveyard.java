@@ -60,6 +60,6 @@ public class Graveyard implements Event {
     }
     @Override
     public Category[] getCategory() {
-        return new Category[]{};
+        return new Category[]{Category.Sad};
     }
 }
