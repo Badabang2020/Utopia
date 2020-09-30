@@ -35,8 +35,8 @@ public class Address {
         this.streetNo = streetNo;
     }
 
-    public String toString() {
-        return getDistrict() + " " + getStreet() + " " + getStreetNo();
+    public  String toString() {
+        return getDistrict() + ". District | " + getStreet() + " " + getStreetNo();
     }
 
 

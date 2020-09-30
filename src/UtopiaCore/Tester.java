@@ -45,7 +45,7 @@ public class Tester {
             UtopiaMain.myController.registerActivity(hospital);
 
             for (int i = 0; i < 1; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
+                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(1, "Prinz-Eugen-Straße", 5), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(5);
 
         }

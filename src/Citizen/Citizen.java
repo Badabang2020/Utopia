@@ -103,6 +103,7 @@ public class Citizen {
 
     public String toString() {
         return getFirstName() + " " + getLastName() + getAge() + "\n" +
+                address.toString() + "\n" +
                 citizenStatus.getMainStatus().toString() + "\n" + 
                 citizenStatus.getNeeds().toString() + "\n" +
                 citizenStatus.getEmotions().toString() + "\n" +
