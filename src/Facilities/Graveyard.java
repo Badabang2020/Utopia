@@ -1,14 +1,11 @@
-package Facilities.deathAndFuneral;
+package Facilities;
 
 
 import Citizen.Citizen;
-import Facilities.Facilities;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
-import UtopiaCore.GlobalStacker;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Graveyard implements Event {
 
@@ -59,11 +56,8 @@ public class Graveyard implements Event {
                     i--;
                 }
             }
-
         }
-
     }
-
     @Override
     public Category[] getCategory() {
         return new Category[]{};

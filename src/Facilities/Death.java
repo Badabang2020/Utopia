@@ -1,4 +1,4 @@
-package Facilities.deathAndFuneral;
+package Facilities;
 
 import Citizen.Citizen;
 import Facilities.Facilities;
