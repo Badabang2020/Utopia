@@ -10,10 +10,15 @@ public class PublicToilet implements Event {
     public void happens(Citizen citizen) {
 
         int toilet;
+<<<<<<< HEAD
         int happy;
 
         toilet = citizen.getCitizenStatus().getNeeds().getToilet();
         happy = citizen.getCitizenStatus().getEmotions().getHappiness();
+=======
+
+        toilet = citizen.getCitizenStatus().getNeeds().getToilet();
+>>>>>>> PublicToilet
 
         if (toilet > 95) {
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
