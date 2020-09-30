@@ -4,7 +4,7 @@ import Citizen.Citizen;
 
 public interface HealthInsurance {
 
-    public int demandPremiumMonthly (Citizen citizen);
+    public void demandPremiumMonthly (Citizen citizen);
 
-    public long payForMember(Citizen citizen);
+    public void payForMember(Citizen citizen);
 }

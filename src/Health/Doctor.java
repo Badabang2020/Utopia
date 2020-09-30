@@ -1,13 +1,18 @@
 package Health;
 
 import Citizen.Citizen;
+import HealthInsurance.HealthInsurance;
+import HealthInsurance.HealthInsuranceGKK;
 import UtopiaCore.Event;
 import UtopiaCore.Category;
+import UtopiaCore.GlobalStacker;
 
 public class Doctor implements Event{
 
     protected String praxisName = "Health.Doctor Best";
     private int chargeDoctor = 20; /////////////////// new from Rapha
+    private boolean inTreatment = false;
+    private HealthInsurance healthInsurance;
 
     private void healthCheck(Citizen citizen) {
         citizen.getCitizenStatus().getMainStatus().setEvent("has a health check at" + praxisName + "'s Praxis...");
@@ -23,23 +28,29 @@ public class Doctor implements Event{
 
         /////////////////// new from Rapha
         if (checkPolicy.charAt(0) == 'G') {
-            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
+            inTreatment = true;
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
-            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying everything, depending on your GoldPolicy.");
+            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
+            healthInsurance.payForMember(citizen);
+
         } else if (wallet < retentionOfCitizen) {
             citizen.getCitizenStatus().getMainStatus().setEvent("don't have enough money.");
-        } else if (wallet > retentionOfCitizen && checkPolicy.charAt(0) != 'G'){
+        } else if (wallet > retentionOfCitizen && (checkPolicy.charAt(0) == 'S' || checkPolicy.charAt(0) == 'B')){
+            inTreatment = true;
             wallet -= retentionOfCitizen;
-            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet);
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
-            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying the rest of figure, depending on your " + ((citizen.getHealthInsurancePolicies().getPolicyNumber().charAt(0) == 'S') ? "Silver" : "Bronze") + " Policy.");
+            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
+            healthInsurance.payForMember(citizen);
         } else {
             wallet -= chargeDoctor;
-            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet);
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
-            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Citizen paid by himself because "  +
+                    ((citizen.getGender() == 'm') ? "his" : "her") + " has no Insurance");
+            citizen.getCitizenStatus().getMainStatus().setEventTime(2);
         }
         ///////////////////
     }
@@ -52,9 +63,19 @@ public class Doctor implements Event{
         this.chargeDoctor = chargeDoctor;
     }
 
+    public boolean isInTreatment() {
+        return inTreatment;
+    }
+
+    public void setInTreatment(boolean inTreatment) {
+        this.inTreatment = inTreatment;
+    }
+
     @Override
     public void happens(Citizen citizen) {
+        healthInsurance = (HealthInsuranceGKK)GlobalStacker.registeredActivities.get(2); //////// ATTENTION: HARDCODING INDEX 2 ////////////////////
         healthCheck(citizen);
+
     }
 
     @Override
