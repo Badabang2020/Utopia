@@ -21,6 +21,7 @@ public class Tester {
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
     Event hospital = new Hospital();
+    Event publictoilet = new PublicToilet();
     Event death = new Death();
     Event graveyard = new Graveyard();
 
@@ -47,6 +48,7 @@ public class Tester {
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
             UtopiaMain.myController.registerActivity(hospital);
+            UtopiaMain.myController.registerActivity(publictoilet);
             UtopiaMain.myController.registerActivity(graveyard);
             UtopiaMain.myController.registerActivity(death);
 
