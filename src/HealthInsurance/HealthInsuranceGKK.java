@@ -21,17 +21,17 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
         if (!healthInsuranceGKKMembers.containsKey(citizen.getSocialSecurityNumber())) {
             HealthInsurancePolicies citizenPolicy;
             if (income <= bronzePolicyLimit) {
-                citizenPolicy = new HealthInsuranceGKKPolicyBronze();                               // create a bronze Policy
+                citizenPolicy = new HealthInsuranceGKKPolicyBronze(citizen);                               // create a bronze Policy
                 healthInsuranceGKKMembers.put(citizen.getSocialSecurityNumber(), citizenPolicy);    // create new Member with policyNumber
                 citizen.setHealthInsurancePolicies(citizenPolicy);                                  // set created policyNumber into citizens HealthInsurancePolicies
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);
             } else if (income < silverPolicyLimit) {
-                citizenPolicy = new HealthInsuranceGKKPolicySilver();                               // create a silver Policy
+                citizenPolicy = new HealthInsuranceGKKPolicySilver(citizen);                               // create a silver Policy
                 healthInsuranceGKKMembers.put(citizen.getSocialSecurityNumber(), citizenPolicy);    // create new Member with policyNumber
                 citizen.setHealthInsurancePolicies(citizenPolicy);                                  // set created policyNumber into citizens HealthInsurancePolicies
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);
             } else if (income > goldPolicyLimit){
-                citizenPolicy = new HealthInsuranceGKKPolicyGold();                                 // create a gold Policy for the citizen
+                citizenPolicy = new HealthInsuranceGKKPolicyGold(citizen);                                 // create a gold Policy for the citizen
                 healthInsuranceGKKMembers.put(citizen.getSocialSecurityNumber(), citizenPolicy);    // create new Member with policyNumber
                 citizen.setHealthInsurancePolicies(citizenPolicy);                                  // set created policyNumber into citizens HealthInsurancePolicies
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);

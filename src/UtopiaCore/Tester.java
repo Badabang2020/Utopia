@@ -44,7 +44,7 @@ public class Tester {
 //            UtopiaMain.myController.registerActivity(lottery);
 //            UtopiaMain.myController.registerActivity(ambulance);
 //            UtopiaMain.myController.registerActivity(cinema);
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 1; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, "" + i + "!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), null, false, new CitizenStatus()));
             }
         }
@@ -56,9 +56,14 @@ public class Tester {
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30 && citizen.getCitizenStatus().getMainStatus().getIncome()>500 && citizen.getCitizenStatus().getMainStatus().getHealthbar()<30){
-                    citizen.doEvent(healthInsuranceGKK);
+                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
+
                     citizen.doEvent(bank);
+
+                } else if (citizen.getCitizenStatus().getMainStatus().getIncome()>500){
+                    citizen.doEvent(healthInsuranceGKK);
+                    citizen.getCitizenStatus().getMainStatus().setIncome(0);
+                } else if (citizen.getCitizenStatus().getMainStatus().getHealthbar()<30) {
                     citizen.doEvent(doctor);
                 }
                 else{

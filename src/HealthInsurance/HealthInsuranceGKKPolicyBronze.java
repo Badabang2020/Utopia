@@ -1,6 +1,7 @@
 package HealthInsurance;
 
 import java.util.ArrayList;
+import Citizen.Citizen;
 
 public class HealthInsuranceGKKPolicyBronze extends HealthInsurancePolicies {
 
@@ -8,13 +9,13 @@ public class HealthInsuranceGKKPolicyBronze extends HealthInsurancePolicies {
     private static int counterBronze = 0;
 
     // initializing parameters
-    HealthInsuranceGKKPolicyBronze(){
+    HealthInsuranceGKKPolicyBronze(Citizen citizen){
         super(5,5);
         ArrayList<String> bronzeBenefits = new ArrayList<String>();
         bronzeBenefits.add("doctor");
         setBenefits(bronzeBenefits);
         counterBronze++;
-        policyNumber = String.format("B- " + "%07d", counterBronze);
+        policyNumber = String.format("B- " + citizen.getSocialSecurityNumber(), counterBronze);
     }
 
     @Override
