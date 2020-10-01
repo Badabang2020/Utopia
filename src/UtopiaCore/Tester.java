@@ -52,7 +52,7 @@ public class Tester {
             UtopiaMain.myController.registerActivity(graveyard);
             UtopiaMain.myController.registerActivity(death);
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 20; i++) {
                 UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
             }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(-5);
             GlobalStacker.registredCitizens.get(1).getCitizenStatus().getMainStatus().setHealthbar(-5);
@@ -61,11 +61,8 @@ public class Tester {
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if (citizen.getCitizenStatus().getMainStatus().getHealthbar()<0){
-                    citizen.doEvent(death);
-                }else{
-                    citizen.doEvent(graveyard);
-                }
+                citizen.doEvent(bank);
+                citizen.doEvent(publictoilet);
             }
             else{
                 citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);
