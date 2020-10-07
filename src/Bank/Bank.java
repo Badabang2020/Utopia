@@ -1,10 +1,8 @@
 package Bank;
 
 import java.util.*;
-
-import Citizen.Citizen;
+import Citizen.*;
 import UtopiaCore.Category;
-import UtopiaCore.Controller;
 import UtopiaCore.Event;
 import UtopiaCore.UtopiaMain;
 

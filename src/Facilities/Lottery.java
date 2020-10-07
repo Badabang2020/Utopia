@@ -1,8 +1,8 @@
 package Facilities;
 
-import Citizen.Citizen;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
+import Citizen.*;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class Lottery implements Event {
             // Check if Won or Lost \\
             if (random < chance) {
                 money = money + (costs * multiplier);
-                citizen.getCitizenStatus().getMainStatus().setEvent(costs * multiplier + " UT$ Won!");
+                citizen.getCitizenStatus().getMainStatus().setEvent("<|Lottery|> " + costs * multiplier + " UT$ Won!");
                 happywin = costs * 5;
                 angry = costs * 2;
                 // Add Happiness if Win \\
@@ -56,7 +56,7 @@ public class Lottery implements Event {
                 }
             // Lost \\
             } else {
-                citizen.getCitizenStatus().getMainStatus().setEvent(costs + "UT$ Lost!");
+                citizen.getCitizenStatus().getMainStatus().setEvent("<|Lottery|> " + costs + "UT$ Lost!");
                 happywin = costs * 2;
                 angry = costs * 5;
                 // Reduce Happiness if Lose \\
@@ -78,7 +78,7 @@ public class Lottery implements Event {
             }
             citizen.getCitizenStatus().getMainStatus().setWallet(money);
         } else {
-            citizen.getCitizenStatus().getMainStatus().setEvent("You need at least 1 UT$");
+            citizen.getCitizenStatus().getMainStatus().setEvent("<|Lottery|> You need at least 1 UT$");
         }
 
 

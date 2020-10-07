@@ -18,7 +18,7 @@ public class Themepark implements Event {
     @Override
     public void happens(Citizen citizen) {
         citizen.getCitizenStatus().getMainStatus().setEventTime(-1);
-        citizen.getCitizenStatus().getMainStatus().setEvent("goes to Facilities.Themepark");
+        citizen.getCitizenStatus().getMainStatus().setEvent("goes to Themepark");
         guests.add(citizen);
     }
 
@@ -30,7 +30,7 @@ public class Themepark implements Event {
             current = guests.get(i);
             if (current.getCitizenStatus().getMainStatus().getWallet() <= 10 || current.getCitizenStatus().getMainStatus().getEventTime() < -30) {
                 current.getCitizenStatus().getMainStatus().setEventTime(1);
-                current.getCitizenStatus().getMainStatus().setEvent("leaves the Facilities.Themepark");
+                current.getCitizenStatus().getMainStatus().setEvent("leaves the Themepark");
                 guests.remove(i);
 
             } else if (current.getCitizenStatus().getEmotions().getFear() > 80) {
@@ -88,7 +88,7 @@ public class Themepark implements Event {
                 }
                 while (guests.size() > 0) {
                     Citizen guest = (Citizen) guests.get(0);
-                    guest.getCitizenStatus().getMainStatus().setEvent(msg + "leaves the Facilities.Themepark in Terror!");
+                    guest.getCitizenStatus().getMainStatus().setEvent(msg + "leaves the Themepark in Terror!");
                     guest.getCitizenStatus().getEmotions().setFear(95);
                     guest.getCitizenStatus().getMainStatus().setEventTime(1);
                     guests.remove(0);
