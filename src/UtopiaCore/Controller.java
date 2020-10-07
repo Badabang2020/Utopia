@@ -47,6 +47,8 @@ public class Controller {
     // ----------------------------------|  T h e   T I C K |---------------------------------------\\
     public void tick() {
 
+        if (this.lastUpdateAtSecond==25) GlobalStacker.stopUtopia();
+
         // we check if ever ticked, if that's the case, run the initialisations.
         if (currentTickType == TickType.UNDEFINED){
             currentTickType = TickType.FIRSTTICK;
