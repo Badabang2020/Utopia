@@ -11,12 +11,12 @@ public class Citizen {
     private char gender;
     private int age;
     private Address address;
-    private HealthInsurance healthInsurance;
+    private HealthInsurancePolicies healthInsurancePolicies;
     private Boolean isMarried;
     private CitizenStatus citizenStatus;
 
     public Citizen(String firstName, String lastName, String socialSecurityNumber,
-            char gender, int age, Address address, HealthInsurance healthInsurance,
+            char gender, int age, Address address, HealthInsurancePolicies healthInsurancePolicies,
             Boolean isMarried, CitizenStatus citizenStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,7 +24,7 @@ public class Citizen {
         this.gender = gender;
         this.age = age;
         this.address = address;
-        this.healthInsurance = healthInsurance;
+        this.healthInsurancePolicies = healthInsurancePolicies;
         this.isMarried = isMarried;
         this.citizenStatus = citizenStatus;
     }
@@ -77,12 +77,12 @@ public class Citizen {
         this.address = address;
     }
 
-    public HealthInsurance getHealthInsurance() {
-        return healthInsurance;
+    public HealthInsurancePolicies getHealthInsurancePolicies() {
+        return healthInsurancePolicies;
     }
 
-    public void setHealthInsurance(GKK healthInsurance) {
-        this.healthInsurance = healthInsurance;
+    public void setHealthInsurancePolicies (HealthInsurancePolicies healthInsurancePolicies) {
+        this.healthInsurancePolicies = healthInsurancePolicies;
     }
 
     public Boolean getMarried() {
