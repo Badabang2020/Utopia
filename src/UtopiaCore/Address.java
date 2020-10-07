@@ -4,11 +4,14 @@ public class Address {
     private int district;
     private String street;
     private int streetNo;
+    private int doorNo;
 
-    public Address(int district, String street, int streetNo) {
+
+    public Address(int district, String street, int streetNo, int doorNo) {
         this.district = district;
         this.street = street;
         this.streetNo = streetNo;
+        this.doorNo = doorNo;
     }
 
     public int getDistrict() {
@@ -35,7 +38,15 @@ public class Address {
         this.streetNo = streetNo;
     }
 
-    public  String toString() {
+    public int getDoorNo() {
+        return doorNo;
+    }
+
+    public void setDoorNo(int doorNo) {
+        this.doorNo = doorNo;
+    }
+
+    public String toString() {
         return getDistrict() + ". District | " + getStreet() + " " + getStreetNo();
     }
 
