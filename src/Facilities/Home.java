@@ -1,8 +1,8 @@
 package Facilities;
 
-import Citizen.Citizen;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
+import Citizen.*;
 
 public class Home implements Event {
     @Override

@@ -1,18 +1,21 @@
 package UtopiaCore;
 
 import Bank.Bank;
+import Citizen.*;
+import Health.*;
 import Facilities.*;
 
 import Health.*;
 import Citizen.*;
 import HealthInsurance.*;
+import Work.*;
 
 import java.util.Random;
 
 public class Tester {
 
     static Integer runTheTestOnEveryThisNumberOfTicks = 1; // Change this value to set tick sequence that will run the following method
-    Event restaurant = new Restaurant();
+
     Event doctor = new Doctor();
     Event bank = new Bank();
     Event themepark = new Themepark();
@@ -40,8 +43,6 @@ public class Tester {
 
         if (GlobalStacker.registredCitizens.size() == 0 && GlobalStacker.registeredActivities.size() == 0) {
             UtopiaMain.myController.registerActivity(bank);
-            UtopiaMain.myController.registerActivity(themepark);
-            UtopiaMain.myController.registerActivity(restaurant);
             UtopiaMain.myController.registerActivity(doctor);
             UtopiaMain.myController.registerActivity(home);
             UtopiaMain.myController.registerActivity(lottery);
@@ -69,11 +70,13 @@ public class Tester {
             }
             System.out.println(citizen);
             System.out.println("");
+        }
 
-        }
-        for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
-            GlobalStacker.registeredActivities.get(i).tick();
-        }
+
+
+
+
+
 
 
         System.out.println("------------------------------------------------------------------");

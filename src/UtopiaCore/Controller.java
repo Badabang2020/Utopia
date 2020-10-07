@@ -41,7 +41,7 @@ public class Controller {
         if (this.lastUpdateAtSecond==25) GlobalStacker.stopUtopia();
 
         // let's tick every citizen - must be implementet in citizen
-//        for (Citizen.Citizen citizen: UtopiaCore.GlobalStacker.registredCitizens) {
+//        for (Citizen.Citizen.Citizen.Citizen citizen: UtopiaCore.GlobalStacker.registredCitizens) {
 //            citizen.ontick();
 //        }
 
@@ -79,7 +79,7 @@ public class Controller {
     // call this method to register a citizen (add it to ArrayList UtopiaCore.GlobalStacker.registredCitizens )
     public void registerCitizen(Citizen citizen) {
         GlobalStacker.registredCitizens.add(citizen);
-        System.out.println("The Citizen.Citizen " + citizen.toString() + " was registered.");
+        System.out.println("The Citizen.Citizen.Citizen.Citizen " + citizen.toString() + " was registered.");
     }
 
    public void doActivity(Citizen citizen, Event activity){

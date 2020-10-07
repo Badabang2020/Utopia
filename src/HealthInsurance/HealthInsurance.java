@@ -1,9 +1,10 @@
 package HealthInsurance;
 
-import java.util.ArrayList;
+import Citizen.Citizen;
 
 public interface HealthInsurance {
-    public Double getInsurancePremium(String socialSecurityNumber); // Monthly premium for health insurance
-    public ArrayList<String> getBenefits(String socialSecurityNumber);
-    public String getInsuranceName();
+
+    public void demandPremiumMonthly (Citizen citizen);
+
+    public void payForMember(Citizen citizen);
 }

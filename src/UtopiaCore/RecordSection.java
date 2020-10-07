@@ -1,8 +1,7 @@
 package UtopiaCore;
 
-import Citizen.Citizen;
-
 import java.util.HashMap;
+import Citizen.*;
 
 public class RecordSection {
     HashMap <String, Citizen> citizenRegister;

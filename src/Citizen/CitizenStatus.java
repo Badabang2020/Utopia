@@ -14,7 +14,8 @@ public class CitizenStatus {
 
     public class MainStatus {
         private int wallet = 0;
-        private int healthbar = 100;
+        private int income = rdm.nextInt(2100 + 1 - 500) + 500;
+        private int healthbar = 20;
         private String event = "free";
         private int eventTime = 0;
 
@@ -24,6 +25,14 @@ public class CitizenStatus {
 
         public void setWallet(int wallet) {
             this.wallet = wallet;
+        }
+
+        public int getIncome() {
+            return income;
+        }
+
+        public void setIncome(int income) {
+            this.income = income;
         }
 
         public int getHealthbar() {
@@ -51,7 +60,7 @@ public class CitizenStatus {
         }
 
         public String toString(){
-            return "Wallet: " + getWallet() + " Health: " + getHealthbar();
+            return "Wallet: " + getWallet() + " Health: " + getHealthbar() + " Income: " + getIncome();
         }
     }
 
