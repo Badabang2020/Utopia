@@ -4,6 +4,9 @@ import Bank.Bank;
 import Citizen.*;
 import Health.*;
 import Facilities.*;
+
+import Health.*;
+import Citizen.*;
 import HealthInsurance.*;
 import Work.*;
 
@@ -15,12 +18,16 @@ public class Tester {
 
     Event doctor = new Doctor();
     Event bank = new Bank();
-//    Event themepark = new Themepark();
-//    Event lottery = new Lottery();
-//    Event home = new Home();
-//    Event ambulance = new Ambulance();
-//    Event cinema = new Cinema();
-    Event healthInsuranceGKK = new HealthInsuranceGKK();
+    Event themepark = new Themepark();
+    Event lottery = new Lottery();
+    Event home = new Home();
+    Event ambulance = new Ambulance();
+    Event cinema = new Cinema();
+    Event hospital = new Hospital();
+    Event publictoilet = new PublicToilet();
+    Event death = new Death();
+    Event graveyard = new Graveyard();
+
 
     Random rand = new Random();
 
@@ -37,38 +44,26 @@ public class Tester {
         if (GlobalStacker.registredCitizens.size() == 0 && GlobalStacker.registeredActivities.size() == 0) {
             UtopiaMain.myController.registerActivity(bank);
             UtopiaMain.myController.registerActivity(doctor);
-            UtopiaMain.myController.registerActivity(healthInsuranceGKK);
-//            UtopiaMain.myController.registerActivity(themepark);
-//            UtopiaMain.myController.registerActivity(restaurant);
-//            UtopiaMain.myController.registerActivity(home);
-//            UtopiaMain.myController.registerActivity(lottery);
-//            UtopiaMain.myController.registerActivity(ambulance);
-//            UtopiaMain.myController.registerActivity(cinema);
-            for (int i = 0; i < 1; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen("" + i, "" + i + "!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), null, false, new CitizenStatus()));
-            }
-        }
+            UtopiaMain.myController.registerActivity(home);
+            UtopiaMain.myController.registerActivity(lottery);
+            UtopiaMain.myController.registerActivity(ambulance);
+            UtopiaMain.myController.registerActivity(cinema);
+            UtopiaMain.myController.registerActivity(hospital);
+            UtopiaMain.myController.registerActivity(publictoilet);
+            UtopiaMain.myController.registerActivity(graveyard);
+            UtopiaMain.myController.registerActivity(death);
 
-        for (int i = 0; i < GlobalStacker.registeredActivities.size(); i++) {
-            GlobalStacker.registeredActivities.get(i).tick();
+            for (int i = 0; i < 20; i++) {
+                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
+            }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(-5);
+            GlobalStacker.registredCitizens.get(1).getCitizenStatus().getMainStatus().setHealthbar(-5);
         }
 
         for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
             Citizen citizen = GlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
-                if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
-
-                    citizen.doEvent(bank);
-
-                } else if (citizen.getCitizenStatus().getMainStatus().getIncome()>500){
-                    citizen.doEvent(healthInsuranceGKK);
-                    citizen.getCitizenStatus().getMainStatus().setIncome(0);
-                } else if (citizen.getCitizenStatus().getMainStatus().getHealthbar()<30) {
-                    citizen.doEvent(doctor);
-                }
-                else{
-                    citizen.doEvent(GlobalStacker.registeredActivities.get(rand.nextInt(GlobalStacker.registeredActivities.size())));
-                }
+                citizen.doEvent(bank);
+                citizen.doEvent(publictoilet);
             }
             else{
                 citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);

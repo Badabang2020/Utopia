@@ -40,7 +40,7 @@ public class CitizenStatus {
         }
 
         public void setHealthbar(int healthbar) {
-            this.healthbar = healthbar;
+            this.healthbar = checkMinMax(healthbar);
         }
 
         public String getEvent() {
@@ -64,6 +64,18 @@ public class CitizenStatus {
         }
     }
 
+    //checks if the int is <0 or >100, returns a legal number between 0 and 100 for changing the citizens stat.
+    private static int checkMinMax(int stat){
+        if(stat>100){
+            stat = 100;
+        }
+
+        else if(stat<0){
+            stat = 0;
+        }
+        return stat;
+    }
+
     public class Emotions {
         // setting random numbers for Emotions when creating new citizen
         private int happiness = rdm.nextInt(100) + 1;
@@ -77,7 +89,7 @@ public class CitizenStatus {
         }
 
         public void setHappiness(int happiness) {
-            this.happiness = happiness;
+            this.happiness = checkMinMax(happiness);
         }
 
         public int getLove() {
@@ -85,7 +97,7 @@ public class CitizenStatus {
         }
 
         public void setLove(int love) {
-            this.love = love;
+            this.love = checkMinMax(love);
         }
 
         public int getFear() {
@@ -93,7 +105,7 @@ public class CitizenStatus {
         }
 
         public void setFear(int fear) {
-            this.fear = fear;
+            this.fear = checkMinMax(fear);
         }
 
         public int getSadness() {
@@ -101,7 +113,7 @@ public class CitizenStatus {
         }
 
         public void setSadness(int sadness) {
-            this.sadness = sadness;
+            this.sadness = checkMinMax(sadness);
         }
 
         public int getAnger() {
@@ -109,7 +121,7 @@ public class CitizenStatus {
         }
 
         public void setAnger(int anger) {
-            this.anger = anger;
+            this.anger = checkMinMax(anger);
         }
 
         public String toString(){
@@ -129,7 +141,8 @@ public class CitizenStatus {
         }
 
         public void setSleep(int sleep) {
-            this.sleep = sleep;
+
+            this.sleep = checkMinMax(sleep);
         }
 
         public int getThirst() {
@@ -137,7 +150,8 @@ public class CitizenStatus {
         }
 
         public void setThirst(int thirst) {
-            this.thirst = thirst;
+
+            this.thirst = checkMinMax(thirst);
         }
 
         public int getHunger() {
@@ -145,7 +159,8 @@ public class CitizenStatus {
         }
 
         public void setHunger(int hunger) {
-            this.hunger = hunger;
+
+            this.hunger = checkMinMax(hunger);
         }
 
         public int getToilet() {
@@ -153,7 +168,8 @@ public class CitizenStatus {
         }
 
         public void setToilet(int toilet) {
-            this.toilet = toilet;
+
+            this.toilet = checkMinMax(toilet);
         }
 
         public String toString(){
