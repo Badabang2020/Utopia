@@ -23,25 +23,25 @@ public class Doctor implements Event{
 
     private void treatment (Citizen citizen) {
         int wallet = citizen.getCitizenStatus().getMainStatus().getWallet();
-        String checkPolicy = citizen.getHealthInsurancePolicies().getPolicyNumber();
+        char checkPolicyType = citizen.getHealthInsurancePolicies().getPolicyType();
         int retentionOfCitizen = citizen.getHealthInsurancePolicies().getRetention();
 
         /////////////////// new from Rapha
-        if (checkPolicy.charAt(0) == 'G') {
+        if (checkPolicyType == 'G') {
             inTreatment = true;
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
-            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying everything, depending on your GoldPolicy.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying everything, depending on your Gold Policy.");
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             healthInsurance.payForMember(citizen);
 
         } else if (wallet < retentionOfCitizen) {
             citizen.getCitizenStatus().getMainStatus().setEvent("don't have enough money.");
-        } else if (wallet > retentionOfCitizen && (checkPolicy.charAt(0) == 'S' || checkPolicy.charAt(0) == 'B')){
+        } else if (wallet > retentionOfCitizen && (checkPolicyType == 'S' || checkPolicyType == 'B')){
             inTreatment = true;
             wallet -= retentionOfCitizen;
             citizen.getCitizenStatus().getMainStatus().setWallet(wallet);
             citizen.getCitizenStatus().getMainStatus().setHealthbar(100);
-            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying the rest of figure, depending on your " + ((citizen.getHealthInsurancePolicies().getPolicyNumber().charAt(0) == 'S') ? "Silver" : "Bronze") + " Policy.");
+            citizen.getCitizenStatus().getMainStatus().setEvent("is in a treatment. Health Insurance is paying the rest of figure, depending on your " + ((citizen.getHealthInsurancePolicies().getPolicyType() == 'S') ? "Silver" : "Bronze") + " Policy.");
             citizen.getCitizenStatus().getMainStatus().setEventTime(2);
             healthInsurance.payForMember(citizen);
         } else {

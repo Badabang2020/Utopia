@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public abstract class HealthInsurancePolicies {
 
     // creating template with variables we need fo each policiy (bronze-silver-gold)
-    protected String policyNumber;  // e.g. B-00000001 - B for Bronze and serial number
+    protected String policyNumber;  // Policynumber will be SSN
+    protected char policyType;      // policytype is G/S/B
     public int premium;
     public int retention;
     public ArrayList<String> benefits;
@@ -30,6 +31,14 @@ public abstract class HealthInsurancePolicies {
 
     public void setPolicyNumber(String policyNumber) {
         this.policyNumber = policyNumber;
+    }
+
+    public char getPolicyType() {
+        return policyType;
+    }
+
+    public void setPolicyType(char policyType) {
+        this.policyType = policyType;
     }
 
     public int getPremium() {

@@ -47,17 +47,17 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
         //initialize retention of citizen's policy
         int retentionOfCitizen = healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getRetention();
         // initialize the checkPolicy with getter
-        String checkPolicy = healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber();
+        char checkPolicyType = healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyType();
         // check if Policy starts with G-S-B and demand the premium form citizens wallet
-        if (checkPolicy.charAt(0) == 'G'){
+        if (checkPolicyType == 'G'){
             walletOfCitizen -= retentionOfCitizen;
             insuranceCash += retentionOfCitizen;
 
-        } else if (checkPolicy.charAt(0) == 'S'){
+        } else if (checkPolicyType == 'S'){
             walletOfCitizen -= retentionOfCitizen;
             insuranceCash += retentionOfCitizen;
 
-        } else if (checkPolicy.charAt(0) == 'B'){
+        } else if (checkPolicyType == 'B'){
             walletOfCitizen -= retentionOfCitizen;
             insuranceCash += retentionOfCitizen;
         }
@@ -69,20 +69,20 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
         // getting the charge of the doctor and safe it into chargeOfDoctor
         int chargeOfDoctor = doctor.getChargeDoctor();
         // getting citizens policyNumber and safe it into checkPolicy
-        String checkPolicy = healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber();
+        char checkPolicyType = healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyType();
         // amount to pay for HealthInsurance
         int toPay = (chargeOfDoctor - citizen.getHealthInsurancePolicies().getRetention());
             //check which policy the citizen has
-            if (checkPolicy.charAt(0) == 'G') {
+            if (checkPolicyType == 'G') {
                 insuranceCash -= chargeOfDoctor;
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);
 
-            } else if (checkPolicy.charAt(0) == 'S'){
+            } else if (checkPolicyType == 'S'){
                 insuranceCash -= toPay;
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);
 
             }
-            else if (checkPolicy.charAt(0) == 'B'){
+            else if (checkPolicyType == 'B'){
                 insuranceCash -= toPay;
                 citizen.getCitizenStatus().getMainStatus().setEventTime(0);
 
@@ -100,8 +100,8 @@ public class HealthInsuranceGKK implements Event, HealthInsurance{
     @Override
         public void happens(Citizen citizen) {
         boolean newGKKMember = registerHealthInscuranceGKKMember(citizen, citizen.getCitizenStatus().getMainStatus().getIncome());                              // checks if the citizen is Member of HealthInsuranceGKK
-        String msg = (newGKKMember ? "Register new HealthInsuranceGKKMember with policy number " : "Citizen is already a Member of HealthInsuranceGKK ");
-        citizen.getCitizenStatus().getMainStatus().setEvent(msg + healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber());          //String for creating new Member
+        String msg = (newGKKMember ? "Register new HealthInsuranceGKKMember with policy number: " : "Citizen is already a Member of HealthInsuranceGKK with policy: ");
+        citizen.getCitizenStatus().getMainStatus().setEvent(msg + citizen.getHealthInsurancePolicies().getPolicyType() + "-" + healthInsuranceGKKMembers.get(citizen.getSocialSecurityNumber()).getPolicyNumber());          //String for creating new Member
 
     }
 

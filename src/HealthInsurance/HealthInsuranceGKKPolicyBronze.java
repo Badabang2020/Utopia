@@ -15,17 +15,18 @@ public class HealthInsuranceGKKPolicyBronze extends HealthInsurancePolicies {
         bronzeBenefits.add("doctor");
         setBenefits(bronzeBenefits);
         counterBronze++;
-        policyNumber = String.format("B- " + citizen.getSocialSecurityNumber(), counterBronze);
-    }
-
-    @Override
-    public void setPolicyNumber(String policyNumber) {
-        this.policyNumber = policyNumber;
+        policyNumber = String.format(citizen.getSocialSecurityNumber());
+        policyType = 'B';
     }
 
     @Override
     public String getPolicyNumber() {
         return super.getPolicyNumber();
+    }
+
+    @Override
+    public char getPolicyType() {
+        return super.getPolicyType();
     }
 
     @Override

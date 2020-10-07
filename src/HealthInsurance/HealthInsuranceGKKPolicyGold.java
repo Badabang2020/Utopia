@@ -14,11 +14,17 @@ public class HealthInsuranceGKKPolicyGold extends HealthInsurancePolicies{
         goldBenefits.add("ambulance");
         setBenefits(goldBenefits);
         counterGold++;
-        policyNumber = String.format("G- " + citizen.getSocialSecurityNumber(), counterGold);
+        policyNumber = String.format(citizen.getSocialSecurityNumber());
+        policyType = 'G';
     }
     @Override
     public String getPolicyNumber() {
         return super.getPolicyNumber();
+    }
+
+    @Override
+    public char getPolicyType() {
+        return super.getPolicyType();
     }
 
     @Override
