@@ -31,15 +31,15 @@ public class PublicToilet implements Event {
         if (cleaning) {
             citizen.getCitizenStatus().getMainStatus().setEvent("<|PublicToilet|> " + "Toilet is cleaning! SORRY!");
         } else {
-            if (money >= 1 && toilet >= 50) {
-                if (toilet >= 90) {
+            if (money >= 2 && toilet <= 50) {
+                if (toilet <= 10) {
                     citizen.getCitizenStatus().getMainStatus().setEventTime(2);
-                    toilet = 0;
+                    toilet = 100;
                     citizen.getCitizenStatus().getMainStatus().setEvent("<│PublicToilet│> " + "Was poop!");
                     dirty += rnm.nextInt(10) +5;;
                 } else {
                     citizen.getCitizenStatus().getMainStatus().setEventTime(1);
-                    toilet = 0;
+                    toilet = 100;
                     citizen.getCitizenStatus().getMainStatus().setEvent("<│PublicToilet│> " + "Was pee!");
                     dirty += rnm.nextInt(5) +1;;
                 }
@@ -73,7 +73,7 @@ public class PublicToilet implements Event {
                 citizen.getCitizenStatus().getMainStatus().setHealthbar(health);
 
             } else if (money <= 0){
-                citizen.getCitizenStatus().getMainStatus().setEvent("<│PublicToilet│> " + "You need at least 1 UT$");
+                citizen.getCitizenStatus().getMainStatus().setEvent("<│PublicToilet│> " + "You need at least 2 UT$");
             }
         }
     }
