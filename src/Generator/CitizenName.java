@@ -31,6 +31,7 @@ public class CitizenName {
         nameSyl.add("en");
         ////// F //////
         nameSyl.add("fa");
+        nameSyl.add("fri");
         ////// G //////
         nameSyl.add("go");
         ////// H //////
@@ -58,12 +59,15 @@ public class CitizenName {
         ////// Q //////
         ////// R //////
         nameSyl.add("ra");
+        nameSyl.add("ri");
         ////// S //////
         nameSyl.add("se");
         ////// T //////
         nameSyl.add("ti");
         nameSyl.add("to");
+        nameSyl.add("tz");
         ////// U //////
+        nameSyl.add("ul");
         ////// V //////
         ////// W //////
         ////// X //////
@@ -86,13 +90,57 @@ public class CitizenName {
         return lastSyl;
     }
 
-    public static String generate(int lenght) {
+    /**
+     * Default name generator for citizens generates a first- or lastname with 2 syllables.
+     * @return String citizen_name
+     */
+    public static String generate() {
+        int length = 2;
         String name = "";
-        for (int i = 0; i < lenght; i++) {
+        for (int i = 0; i < length; i++) {
             name += nameSyl.get(rnd.nextInt(nameSyl.size()));
         }
-        if (lenght < 3) {
+        if (length < 3) {
             name += lastSyl.get(rnd.nextInt(lastSyl.size()));
+        }
+        String generatedName = name.substring(0,1).toUpperCase() + name.substring(1);
+        return generatedName;
+    }
+
+    /**
+     * Generates a citizen name with a specific length.
+     * @param length
+     * @return String citizen_name
+     */
+    public static String generate(int length) {
+        String name = "";
+        for (int i = 0; i < length; i++) {
+            name += nameSyl.get(rnd.nextInt(nameSyl.size()));
+        }
+        if (length < 3) {
+            name += lastSyl.get(rnd.nextInt(lastSyl.size()));
+        }
+        String generatedName = name.substring(0,1).toUpperCase() + name.substring(1);
+        return generatedName;
+    }
+
+    /**
+     * Generates a citizen name with a specific length and gender ('m' for male)
+     * @param length
+     * @param gender
+     * @return String citizen_name
+     */
+    public static String generate(int length, char gender) {
+        String name = "";
+        for (int i = 0; i < length; i++) {
+            name += nameSyl.get(rnd.nextInt(nameSyl.size()));
+        }
+        if (gender == 'm') {
+            if (length < 3) {
+                name += lastSyl.get(rnd.nextInt(lastSyl.size()));
+            }
+        } else {
+            name += 'a';
         }
         String generatedName = name.substring(0,1).toUpperCase() + name.substring(1);
         return generatedName;

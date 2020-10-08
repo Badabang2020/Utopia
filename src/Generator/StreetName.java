@@ -33,6 +33,7 @@ public class StreetName {
         nameSyl.add("fa");
         ////// G //////
         nameSyl.add("go");
+        nameSyl.add("ge");
         ////// H //////
         nameSyl.add("ho");
         ////// I //////
@@ -43,6 +44,7 @@ public class StreetName {
         ////// L //////
         nameSyl.add("lo");
         nameSyl.add("lu");
+        nameSyl.add("lan");
         ////// M //////
         nameSyl.add("mi");
         nameSyl.add("min");
