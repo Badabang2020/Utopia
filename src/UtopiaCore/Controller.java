@@ -15,9 +15,11 @@ public class Controller {
 
     private  Date startedAT; // used to store the date-time when program  was started ( Date format ). Init in constructor ! :-))
 
+    private Integer tickCountSinceStartup = -1; // will start with -1 and will increment it before the first tick....
+
     private TickType currentTickType = TickType.UNDEFINED; // will start ticking undefined and change it as the ticks progresses...
 
-    public Tester tester; // here can the developer test the code. Init in constructor ....
+    public Tester tester; // here can the developer test the code. Will be initialized in UtopiaMain
 
     private Date utopiaTime; // used to store the date-time on Utopia. The world there starts at 01.01.2100 00:00
 
@@ -29,25 +31,20 @@ public class Controller {
     } // not really used
 
 
-    private long lastUpdateAtMilliSecond = 0; // only to see if a second is passed or not since last tick. Only on second change will be a tick on utopia generated
     Calendar calendar = Calendar.getInstance(); // will also be used to store the time when utopia was started. Search for other posibilities
 
-    Controller() { // CONSTRUCTOR
+    public void  start(){
+        this.tester= new Tester(); // create an object for the Tester.
+    }
+    public Controller() { // CONSTRUCTOR
         this.startedAT = new Date();
         calendar.set(2100, Calendar.JANUARY, 1, 0, 0, 0);
         this.utopiaTime = calendar.getTime();
-
-        tester=new Tester(); // create an object for the Tester.
     }
-
-    Controller(Date startDateTime) { // CONSTRUCTOR
-
-    } // end of constructor
 
     // ----------------------------------|  T h e   T I C K |---------------------------------------\\
     public void tick() {
 
-        if (this.lastUpdateAtSecond==25) GlobalStacker.stopUtopia();
 
         // we check if ever ticked, if that's the case, run the initialisations.
         if (currentTickType == TickType.UNDEFINED){
@@ -55,18 +52,17 @@ public class Controller {
             tester.firstTick(); // run the init procedure in Tester.
             currentTickType = TickType.NORMALTICK;
             this.tickAllActivities();
-            tester.middleTick();
+            tester.mainTick();
         }
         else if (currentTickType == TickType.NORMALTICK){ // after the init method, we run the normal tick
             this.tickAllActivities();
-            tester.middleTick(); // run the middleTick method in tester
-            if (this.lastUpdateAtMilliSecond >= GlobalStacker.stopUtopiaAfterSoManyMilliseconds) this.stopUtopia(); // utopia will end on next tick()
+            tester.mainTick(); // run the middleTick method in tester
         }
         else if (currentTickType == TickType.LASTTICK){ // after the init method, we run the normal tick
             this.tickAllActivities();
-            tester.middleTick(); // run the middleTick method in tester
+            tester.mainTick(); // run the middleTick method in tester
             tester.lastTick();
-            GlobalStacker.utopiaIsRunning = false; // this will cause the cycle method of this class to return false to main() and end the program
+            UtopiaMain.myGlobalStacker.utopiaIsRunning = false; // this will cause the cycle method of this class to return false to main() and end the program
         }
 
     } //  end of tick()
@@ -74,28 +70,28 @@ public class Controller {
 
 
 
-    public boolean cycle() {
+    public boolean cycle() throws InterruptedException {
 
-        // here we call the before first tick method in Tester.
-        if (this.lastUpdateAtMilliSecond == 0)  tester.beforeFirstTick();
+        // increment tick count
+        this.tickCountSinceStartup++;
 
+        // calculate the utopia Time with the current tick time.
+        calendar.set(2100, Calendar.JANUARY, 1, 0, 0, 0);
+        calendar.add(Calendar.SECOND, this.tickCountSinceStartup * UtopiaMain.myGlobalStacker.oneTickIsSoManySecondsOnUtopia);
+        this.utopiaTime = calendar.getTime();
 
-        // we read the system clock here. If it passed more then this.utopiaTime since the last tick, we gonna do a new tick.
+        System.out.println("\r\n * * * Calling Tick Nr:" + this.tickCountSinceStartup + ". Time on Utopia is now:" + this.utopiaTime.toString());
+        // here happens everything.
+        this.tick();
 
-        long diffInMillies = Math.abs(new Date().getTime() - startedAT.getTime()); // new Date().getTime() will return current date&time.
-        long diff = TimeUnit.MILLISECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS); // represents the milliseconds between start of the program and now.
+        // check if we should stop utopia
+        if (UtopiaMain.myGlobalStacker.stopUtopiaAfterSoManyTicks == (this.tickCountSinceStartup+1)) this.stopUtopia(); // after stop will run 1 supplementary tick
 
-        if (  (diff > this.lastUpdateAtMilliSecond + GlobalStacker.doATickEverySoManyMilliseconds) || this.lastUpdateAtMilliSecond==0  ){ // will be executed if this.utopiaTime passed since the last tick()
-            this.lastUpdateAtMilliSecond = diff;
-            int diffInMillisecondsSinceUtopiaRunsInEarthMillisecondsIs = (int)((new Date()).getTime()- this.startedAT.getTime());
-            calendar.set(2100, Calendar.JANUARY, 1, 0, 0, 0);
-            calendar.add(Calendar.MILLISECOND, diffInMillisecondsSinceUtopiaRunsInEarthMillisecondsIs * GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia);
-            this.utopiaTime = calendar.getTime();
-            System.out.println("\r\nCalling a new tick! Utopia is running since:" + diff + " earth milliseconds. Time on Utopia is now:" + this.utopiaTime.toString());
-            this.tick(); // here happens everything.
-        }
-        return GlobalStacker.utopiaIsRunning;
+        // wait between ticks ....
+        Thread.sleep(UtopiaMain.myGlobalStacker.waitSoManyMillisecondsBetweenTicks);
 
+        // return false if utopia should stop
+        return UtopiaMain.myGlobalStacker.utopiaIsRunning;
     } // end of cycle()
 
     public void stopUtopia(){
@@ -107,13 +103,13 @@ public class Controller {
 
     //every activity that is created must be registered here to be able to make an offer to the citizen.
     public Integer registerActivity(Event activity) { // the activity will be stored in GlobalStacker \\
-        GlobalStacker.registeredActivities.add( activity);
-        return GlobalStacker.numberOfRegisteredActivities;
+        UtopiaMain.myGlobalStacker.registeredActivities.add( activity);
+        return UtopiaMain.myGlobalStacker.numberOfRegisteredActivities;
     }
 
-    // call this method to register a citizen (add it to ArrayList GlobalStacker.registredCitizens )
+    // call this method to register a citizen (add it to ArrayList UtopiaMain.myGlobalStacker.registredCitizens )
     public void registerCitizen(Citizen citizen) {
-        GlobalStacker.registredCitizens.add(citizen);
+        UtopiaMain.myGlobalStacker.registredCitizens.add(citizen);
         System.out.println("The Citizen " + citizen.toString() + " was registered.");
     }
 
@@ -127,15 +123,15 @@ public class Controller {
 
 
     public Citizen getRandomCitizen(){
-        if (GlobalStacker.registredCitizens.size()>0)
-            return GlobalStacker.registredCitizens.get(GlobalStacker.generateRandomInteger(0, GlobalStacker.registredCitizens.size()-1));
+        if (UtopiaMain.myGlobalStacker.registredCitizens.size()>0)
+            return UtopiaMain.myGlobalStacker.registredCitizens.get(UtopiaMain.myGlobalStacker.generateRandomInteger(0, UtopiaMain.myGlobalStacker.registredCitizens.size()-1));
         return null;
     }
 
     public Event getRandomActivity(){
-        if (GlobalStacker.registeredActivities.size()>0) {
-            Integer randmomIndex = GlobalStacker.generateRandomInteger(0, GlobalStacker.registeredActivities.size() - 1);
-            return GlobalStacker.registeredActivities.get(GlobalStacker.generateRandomInteger(0, GlobalStacker.registeredActivities.size()-1));
+        if (UtopiaMain.myGlobalStacker.registeredActivities.size()>0) {
+            Integer randmomIndex = UtopiaMain.myGlobalStacker.generateRandomInteger(0, UtopiaMain.myGlobalStacker.registeredActivities.size() - 1);
+            return UtopiaMain.myGlobalStacker.registeredActivities.get(UtopiaMain.myGlobalStacker.generateRandomInteger(0, UtopiaMain.myGlobalStacker.registeredActivities.size()-1));
         }
 
         return null; // if the size of ArrayList activities is zero
@@ -143,7 +139,7 @@ public class Controller {
 
     public Event getMyEvent(String filter){
         Event myReturnEvent = null ;
-        for(Event s: GlobalStacker.registeredActivities){
+        for(Event s: UtopiaMain.myGlobalStacker.registeredActivities){
             if (s.getClass().getSimpleName().toLowerCase().startsWith(filter))
                 myReturnEvent =  s;
         }
@@ -154,10 +150,13 @@ public class Controller {
 
     // it can be used to tick all Events. It is used in controller tick.
     public void tickAllActivities(){
-        for (Event activity: GlobalStacker.registeredActivities) activity.tick();
+        for (Event activity: UtopiaMain.myGlobalStacker.registeredActivities) activity.tick();
     }
 
-
+    // use this method if you want to find out the number of seconds
+    public Integer getTickCountSinceStartup() {
+        return this.tickCountSinceStartup;
+    }
 
 
     public Event getBestOfferForCitizen(Citizen citizen){
@@ -235,10 +234,10 @@ public class Controller {
 
         }
 
-        for ( Map.Entry<Category, ArrayList<Event>> myEvents:myChoosenEvents.entrySet()) {
-            System.out.println("KEY:"+myEvents.getKey());
-            System.out.println("Values:"+myEvents.getValue().toString());
-        }
+//        for ( Map.Entry<Category, ArrayList<Event>> myEvents:myChoosenEvents.entrySet()) {
+//            System.out.println("KEY:"+myEvents.getKey());
+//            System.out.println("Values:"+myEvents.getValue().toString());
+//        }
 
 
 
@@ -262,7 +261,7 @@ public class Controller {
 
 
     public ArrayList<Event> getEventArrayList(){ // will be used in getEventsListForCategory() - next method ...
-        return (ArrayList<Event>) GlobalStacker.registeredActivities.clone();
+        return (ArrayList<Event>) UtopiaMain.myGlobalStacker.registeredActivities.clone();
     }
 
 

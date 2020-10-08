@@ -11,21 +11,17 @@ import java.util.Random;
 
 public class Tester {
 
-    public void runDeveloperTest(){ // this method is not used anymore.
-        // please move your code in middleTick().
-    }
+    // constructor. put your initialisation code here
+    public Tester() {
 
-
-    // this will be executed before first tick
-    public void beforeFirstTick(){
         System.out.println(" Starting beforeFirstTick() method in Tester : -------------------------------");
 
         // Here you can speed up and slow down Utopia. See adjustments and variable names for more info.
         // If you delete this , the default values in GlobalStacker will be used.
-        GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia = 3600; // One second on earth = 3600 seconds ( 1 Hour ) on Utopia.
-        GlobalStacker.doATickEverySoManyMilliseconds = 1000; // If you want 5 ticks in one second put here 200.
-        GlobalStacker.stopUtopiaAfterSoManyMilliseconds = 5000; // this are 5 seconds.
-        System.out.printf("| Tester is setting a custom Utopia time: 1sec = %s Utopia seconds. | Frequency of ticks: every %s milliseconds | Utopia will run for %s milliseconds.\r\n",  GlobalStacker.oneSecondOnEarthEqualsThisManySecondsOnUtopia, GlobalStacker.doATickEverySoManyMilliseconds, GlobalStacker.stopUtopiaAfterSoManyMilliseconds  );
+        UtopiaMain.myGlobalStacker.oneTickIsSoManySecondsOnUtopia = 900; // One tick = 900 seconds ( 15 min ) on Utopia.
+        UtopiaMain.myGlobalStacker.waitSoManyMillisecondsBetweenTicks = 0; // will wait so many seconds between the ticks.
+        UtopiaMain.myGlobalStacker.stopUtopiaAfterSoManyTicks = 10; // this are 5 seconds.
+        System.out.printf("| Utopia time Schema: 1tick = %s Utopia seconds. | Wait between ticks: every %s milliseconds | Utopia will run for %s ticks.\r\n",  UtopiaMain.myGlobalStacker.oneTickIsSoManySecondsOnUtopia, UtopiaMain.myGlobalStacker.waitSoManyMillisecondsBetweenTicks, UtopiaMain.myGlobalStacker.stopUtopiaAfterSoManyTicks);
         // ---------------------------------------------------------------------------------------------
 
 
@@ -47,17 +43,23 @@ public class Tester {
         UtopiaMain.myController.registerActivity(doctor);
         UtopiaMain.myController.registerActivity(home);
         UtopiaMain.myController.registerActivity(lottery);
-        UtopiaMain.myController.registerActivity(ambulance);
+        //UtopiaMain.myController.registerActivity(ambulance); // here is an error in ambulance. can't use it.
         UtopiaMain.myController.registerActivity(cinema);
 
         Random rdm = new Random();
         int amountOfCitizens = 5;
 
         for (int i = 0; i < amountOfCitizens ; i++) {
+            System.out.println("Registering a new citizen : ");
             UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
         }
 
 
+
+    }
+
+    public void runDeveloperTest(){ // this method is not used anymore.
+        // please move your code in mainTick().
     }
 
 
@@ -70,8 +72,6 @@ public class Tester {
         System.out.println("getEventsListForCategory(Category.Fun) returns : ");
         UtopiaMain.myController.getEventsListForCategory(Category.Fun);
 
-        System.out.println("getBestOfferForCitizen for random citizen: ");
-        UtopiaMain.myController.getBestOfferForCitizen(UtopiaMain.myController.getRandomCitizen()); // call for test the best offer 4 citizen method.
 
     } // end of first Tick
 
@@ -80,8 +80,8 @@ public class Tester {
 
     // will be executed repeatedly on each tick. ---- M I D D L E   T I C K  -----
     // ! it will be executed also on the first tick, right after   "firstTick()" and before "lastTick()"
-    public void middleTick(){
-        System.out.println("TESTER - > MIDDLE TICK  -----------------------------------------");
+    public void mainTick(){
+        System.out.println("TESTER - > MAIN TICK  -----------------------------------------");
         // put your "tick" code here
 
         // I make variable myController with a reference ( not a new object ) to the existing UtopiaMain.myController object, for easier code reading ....
@@ -112,8 +112,8 @@ public class Tester {
 
 
         // some sample code from you ... , but it's old ....
-        for (int i = 0; i < GlobalStacker.registredCitizens.size(); i++) {
-            Citizen citizen = GlobalStacker.registredCitizens.get(i);
+        for (int i = 0; i < UtopiaMain.myGlobalStacker.registredCitizens.size(); i++) {
+            Citizen citizen = UtopiaMain.myGlobalStacker.registredCitizens.get(i);
             if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
                 if(citizen.getCitizenStatus().getMainStatus().getWallet()<30){
                     citizen.doEvent( myController.getMyEvent("bank") );
