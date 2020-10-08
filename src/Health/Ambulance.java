@@ -1,9 +1,9 @@
 package Health;
 
-import Citizen.Citizen;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
 import UtopiaCore.GlobalStacker;
+import Citizen.*;
 
 public class Ambulance implements Event {
 

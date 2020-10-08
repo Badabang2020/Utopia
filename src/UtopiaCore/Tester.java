@@ -1,18 +1,21 @@
 package UtopiaCore;
 
 import Bank.Bank;
+import Citizen.*;
+import Health.*;
 import Facilities.*;
+
 import Health.*;
 import Citizen.*;
 import HealthInsurance.*;
-import Generator.*;
+import Work.*;
 
 import java.util.Random;
 
 public class Tester {
 
     static Integer runTheTestOnEveryThisNumberOfTicks = 1; // Change this value to set tick sequence that will run the following method
-    Event restaurant = new Restaurant();
+
     Event doctor = new Doctor();
     Event bank = new Bank();
     Event themepark = new Themepark();
@@ -21,6 +24,10 @@ public class Tester {
     Event ambulance = new Ambulance();
     Event cinema = new Cinema();
     Event hospital = new Hospital();
+    Event publictoilet = new PublicToilet();
+    Event death = new Death();
+    Event graveyard = new Graveyard();
+
 
     Random rand = new Random();
 
@@ -36,21 +43,39 @@ public class Tester {
 
         if (GlobalStacker.registredCitizens.size() == 0 && GlobalStacker.registeredActivities.size() == 0) {
             UtopiaMain.myController.registerActivity(bank);
-            UtopiaMain.myController.registerActivity(themepark);
-            UtopiaMain.myController.registerActivity(restaurant);
             UtopiaMain.myController.registerActivity(doctor);
             UtopiaMain.myController.registerActivity(home);
             UtopiaMain.myController.registerActivity(lottery);
             UtopiaMain.myController.registerActivity(ambulance);
             UtopiaMain.myController.registerActivity(cinema);
             UtopiaMain.myController.registerActivity(hospital);
+            UtopiaMain.myController.registerActivity(publictoilet);
+            UtopiaMain.myController.registerActivity(graveyard);
+            UtopiaMain.myController.registerActivity(death);
 
-            for (int i = 0; i < 1; i++) {
-                UtopiaMain.myController.registerCitizen(new Citizen(CitizenName.generate(3), CitizenName.generate(2), "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
-            }
+            for (int i = 0; i < 20; i++) {
+                UtopiaMain.myController.registerCitizen(new Citizen("" + i, ""+i+"!", "" + rdm.nextInt(1000000000), 'm', rdm.nextInt(100), new Address(), new GKK(), false, new CitizenStatus()));
+            }        GlobalStacker.registredCitizens.get(0).getCitizenStatus().getMainStatus().setHealthbar(-5);
+            GlobalStacker.registredCitizens.get(1).getCitizenStatus().getMainStatus().setHealthbar(-5);
         }
-        System.out.println(StreetName.generate(3));
-        System.out.println(FacilityName.generate(3));
+
+        for (int i = 0 ; i < GlobalStacker.registredCitizens.size(); i++) {
+            Citizen citizen = GlobalStacker.registredCitizens.get(i);
+            if(citizen.getCitizenStatus().getMainStatus().getEventTime()==0){
+                citizen.doEvent(bank);
+                citizen.doEvent(publictoilet);
+            }
+            else{
+                citizen.getCitizenStatus().getMainStatus().setEventTime(citizen.getCitizenStatus().getMainStatus().getEventTime()-1);
+            }
+            System.out.println(citizen);
+            System.out.println("");
+        }
+
+
+
+
+
 
 
 

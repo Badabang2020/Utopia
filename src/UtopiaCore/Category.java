@@ -6,5 +6,7 @@ public enum Category {
     Money,
     Toilet,
     Health,
-    Fun
+    Fun,
+    Anger,
+    Sad
 }

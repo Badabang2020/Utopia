@@ -1,9 +1,9 @@
 
 package Health;
 
-import Citizen.Citizen;
 import UtopiaCore.Category;
 import UtopiaCore.Event;
+import Citizen.*;
 
 
 public class Hospital implements Event {
